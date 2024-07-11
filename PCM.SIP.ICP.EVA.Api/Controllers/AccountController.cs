@@ -6,7 +6,6 @@ using PCM.SIP.ICP.EVA.Transversal.Common.Generics;
 using PCM.SIP.ICP.EVA.Transversal.Common;
 using System.Net;
 using PCM.SIP.ICP.EVA.Aplicacion.Dto;
-using PCM.SIP.ICP.EVA.Transversal.Contracts.Seguridad.Account;
 
 namespace PCM.SIP.ICP.EVA.Api.Controllers
 {

@@ -3,7 +3,6 @@ using PCM.SIP.ICP.EVA.Aplicacion.Interface.Infraestructure;
 using PCM.SIP.ICP.EVA.Transversal.Contracts.Seguridad.Account;
 using System.Text.Json;
 using System.Text;
-using System.Text.Json.Serialization;
 
 namespace PCM.SIP.ICP.EVA.Infraestructure.Services.Account
 {
