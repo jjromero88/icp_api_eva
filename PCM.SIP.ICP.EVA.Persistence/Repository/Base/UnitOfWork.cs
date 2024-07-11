@@ -1,6 +1,8 @@
-﻿namespace PCM.SIP.ICP.EVA.Persistence.Repository.Base
+﻿using PCM.SIP.ICP.EVA.Aplicacion.Interface;
+
+namespace PCM.SIP.ICP.EVA.Persistence.Repository.Base
 {
-    public class UnitOfWork
+    public class UnitOfWork: IUnitOfWork
     {
         public UnitOfWork() { }
 

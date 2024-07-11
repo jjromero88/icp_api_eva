@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using PCM.SIP.ICP.EVA.Aplicacion.Interface;
 using PCM.SIP.ICP.EVA.Persistence.Context;
+using PCM.SIP.ICP.EVA.Persistence.Repository.Base;
 
 namespace PCM.SIP.ICP.EVA.Persistence
 {
@@ -8,6 +10,7 @@ namespace PCM.SIP.ICP.EVA.Persistence
         public static IServiceCollection AddPersistenceServices(this IServiceCollection services)
         {
             services.AddSingleton<DapperContext>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }
