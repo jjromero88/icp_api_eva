@@ -65,9 +65,35 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
 
         }
 
-        public Task<PcmResponse> Authorize(Request<AuthorizeRequestDto> request)
+        public async Task<PcmResponse> Authorize(Request<AuthorizeRequestDto> request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //ejecutamos las validaciones
+                var validation = _accountValidationManager.Validate(request.entidad);
+
+                //verificamos si ocurrio un error de validacion
+                if (!validation.IsValid)
+                {
+                    _logger.LogError(Validation.InvalidMessage);
+                    return ResponseUtil.BadRequest(validation.Errors != null ? validation.Errors : null, Validation.InvalidMessage);
+                }
+
+                // mapeamos la clase dto al tipo request
+                var requestAuthorize = _mapper.Map<AuthorizeRequest>(request.entidad);
+
+                // consumimos el servicio de seguridad para el authorize
+                var response = await _accountService.AuthorizeAsync(requestAuthorize);
+
+                return response != null ? ResponseUtil.Ok(
+                   _mapper.Map<AuthorizeResponseDto>(response), AuthenticateMessage.AuthenticateSuccess
+                  ) : ResponseUtil.Unauthorized();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return ResponseUtil.InternalError(message: ex.Message);
+            }
         }
     }
 }

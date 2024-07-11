@@ -21,6 +21,18 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
             CreateMap<AuthenticatePerfil, AuthenticatePerfilDto>().ReverseMap()
            .ForMember(destination => destination.codigo, source => source.MapFrom(src => src.codigo))
            .ForMember(destination => destination.descripcion, source => source.MapFrom(src => src.descripcion));
+
+            CreateMap<AuthorizeRequest, AuthorizeRequestDto>().ReverseMap()
+           .ForMember(destination => destination.idsession, source => source.MapFrom(src => src.idsession))
+           .ForMember(destination => destination.codigo_perfil, source => source.MapFrom(src => src.codigo_perfil));
+
+            CreateMap<AuthorizeResponse, AuthorizeResponseDto>().ReverseMap()
+           .ForMember(destination => destination.token, source => source.MapFrom(src => src.token))
+           .ForMember(destination => destination.nombrecompleto, source => source.MapFrom(src => src.nombrecompleto))
+           .ForMember(destination => destination.username, source => source.MapFrom(src => src.username))
+           .ForMember(destination => destination.perfil, source => source.MapFrom(src => src.perfil))
+           .ForMember(destination => destination.numdocumento, source => source.MapFrom(src => src.numdocumento));
+
         }
     }
 }

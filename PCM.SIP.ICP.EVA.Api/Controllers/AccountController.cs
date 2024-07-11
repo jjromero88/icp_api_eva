@@ -6,6 +6,7 @@ using PCM.SIP.ICP.EVA.Transversal.Common.Generics;
 using PCM.SIP.ICP.EVA.Transversal.Common;
 using System.Net;
 using PCM.SIP.ICP.EVA.Aplicacion.Dto;
+using PCM.SIP.ICP.EVA.Transversal.Contracts.Seguridad.Account;
 
 namespace PCM.SIP.ICP.EVA.Api.Controllers
 {
@@ -32,6 +33,17 @@ namespace PCM.SIP.ICP.EVA.Api.Controllers
                 return BadRequest();
 
             return await _accountApplication.Authenticate(new Request<AuthenticateRequestDto>() { entidad = request });
+        }
+
+        [AllowAnonymous]
+        [HttpPost("Authorize")]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PcmResponse))]
+        public async Task<ActionResult<PcmResponse>> Authorize([FromBody] AuthorizeRequestDto request)
+        {
+            if (request == null)
+                return BadRequest();
+
+            return await _accountApplication.Authorize(new Request<AuthorizeRequestDto>() { entidad = request });
         }
 
     }

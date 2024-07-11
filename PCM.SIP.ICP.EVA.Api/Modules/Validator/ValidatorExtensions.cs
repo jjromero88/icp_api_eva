@@ -9,6 +9,7 @@ namespace PCM.SIP.ICP.EVA.Api.Modules.Validator
         public static IServiceCollection AddValidator(this IServiceCollection services)
         {
             services.AddTransient<IValidator<AuthenticateRequestDto>, AuthenticateRequestValidator>();
+            services.AddTransient<IValidator<AuthorizeRequestDto>, AuthorizeRequestValidator>();
             services.AddTransient<AccountValidationManager>();
 
             return services;

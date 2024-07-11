@@ -82,11 +82,11 @@ namespace PCM.SIP.ICP.EVA.Infraestructure.Services.Account
 
                         var result = JsonSerializer.Deserialize<AccountResponse<AuthorizeResponse>>(responseContent);
 
-                        if (result == null || result.Payload == null)
-                            throw new HttpRequestException($"Error en endpoint Authenticate, no se obtuvieron resultados");
+                        if (result == null)
+                            throw new HttpRequestException($"Error en endpoint AuthorizeAsync, no se obtuvieron resultados");
 
                         if (result.Error)
-                            throw new ArgumentException($"ArgumentException: {result.Message ?? "Ocurió un error en la petición"}");
+                            throw new ArgumentException($"{result.Message ?? "Ocurió un error en la petición"}");
 
                         return result.Payload ?? new AuthorizeResponse();
                     }
