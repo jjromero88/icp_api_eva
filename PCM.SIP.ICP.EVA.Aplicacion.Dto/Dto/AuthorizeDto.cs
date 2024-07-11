@@ -19,5 +19,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
         public string? username { get; set; }
         public string? perfil { get; set; }
         public string? numdocumento { get; set; }
+        public string? entidad_acronimo { get; set; }
+        public string? entidad_nombre { get; set; }
     }
 }
