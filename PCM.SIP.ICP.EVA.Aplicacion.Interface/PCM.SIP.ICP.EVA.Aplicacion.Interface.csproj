@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PCM.SIP.ICP.EVA.Aplicacion.Dto\PCM.SIP.ICP.EVA.Aplicacion.Dto.csproj" />
+    <ProjectReference Include="..\PCM.SIP.ICP.EVA.Transversal.Common\PCM.SIP.ICP.EVA.Transversal.Common.csproj" />
+    <ProjectReference Include="..\PCM.SIP.ICP.EVA.Transversal.Contracts\PCM.SIP.ICP.EVA.Transversal.Contracts.csproj" />
+  </ItemGroup>
+
 </Project>

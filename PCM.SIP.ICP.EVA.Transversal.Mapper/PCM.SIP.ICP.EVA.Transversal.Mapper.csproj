@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PCM.SIP.ICP.EVA.Aplicacion.Dto\PCM.SIP.ICP.EVA.Aplicacion.Dto.csproj" />
+    <ProjectReference Include="..\PCM.SIP.ICP.EVA.Domain\PCM.SIP.ICP.EVA.Domain.csproj" />
+    <ProjectReference Include="..\PCM.SIP.ICP.EVA.Transversal.Contracts\PCM.SIP.ICP.EVA.Transversal.Contracts.csproj" />
+  </ItemGroup>
+
 </Project>

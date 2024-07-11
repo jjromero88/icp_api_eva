@@ -7,8 +7,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.18" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PCM.SIP.ICP.EVA.Aplicacion.Dto\PCM.SIP.ICP.EVA.Aplicacion.Dto.csproj" />
+    <ProjectReference Include="..\PCM.SIP.ICP.EVA.Aplicacion.Features\PCM.SIP.ICP.EVA.Aplicacion.Features.csproj" />
+    <ProjectReference Include="..\PCM.SIP.ICP.EVA.Aplicacion.Interface\PCM.SIP.ICP.EVA.Aplicacion.Interface.csproj" />
+    <ProjectReference Include="..\PCM.SIP.ICP.EVA.Aplicacion.Validator\PCM.SIP.ICP.EVA.Aplicacion.Validator.csproj" />
+    <ProjectReference Include="..\PCM.SIP.ICP.EVA.Domain\PCM.SIP.ICP.EVA.Domain.csproj" />
+    <ProjectReference Include="..\PCM.SIP.ICP.EVA.Infraestructure\PCM.SIP.ICP.EVA.Infraestructure.csproj" />
+    <ProjectReference Include="..\PCM.SIP.ICP.EVA.Persistence\PCM.SIP.ICP.EVA.Persistence.csproj" />
+    <ProjectReference Include="..\PCM.SIP.ICP.EVA.Transversal.Common\PCM.SIP.ICP.EVA.Transversal.Common.csproj" />
+    <ProjectReference Include="..\PCM.SIP.ICP.EVA.Transversal.Logging\PCM.SIP.ICP.EVA.Transversal.Logging.csproj" />
+    <ProjectReference Include="..\PCM.SIP.ICP.EVA.Transversal.Mapper\PCM.SIP.ICP.EVA.Transversal.Mapper.csproj" />
+    <ProjectReference Include="..\PCM.SIP.ICP.EVA.Transversal.Util\PCM.SIP.ICP.EVA.Transversal.Util.csproj" />
   </ItemGroup>
 
 </Project>
