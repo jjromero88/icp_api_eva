@@ -38,7 +38,7 @@ namespace PCM.SIP.ICP.EVA.Infraestructure.Services.Account
                     {
                         string responseContent = await httpResponse.Content.ReadAsStringAsync();
 
-                        var result = JsonSerializer.Deserialize<AccountResponse<AuthenticateResponse>>(responseContent);
+                        var result = JsonSerializer.Deserialize<IcpSegResponse<AuthenticateResponse>>(responseContent);
 
                         if (result == null)
                             throw new HttpRequestException($"Error en endpoint Authenticate, no se obtuvieron resultados");
@@ -80,7 +80,7 @@ namespace PCM.SIP.ICP.EVA.Infraestructure.Services.Account
                     {
                         string responseContent = await httpResponse.Content.ReadAsStringAsync();
 
-                        var result = JsonSerializer.Deserialize<AccountResponse<AuthorizeResponse>>(responseContent);
+                        var result = JsonSerializer.Deserialize<IcpSegResponse<AuthorizeResponse>>(responseContent);
 
                         if (result == null)
                             throw new HttpRequestException($"Error en endpoint AuthorizeAsync, no se obtuvieron resultados");
@@ -101,19 +101,6 @@ namespace PCM.SIP.ICP.EVA.Infraestructure.Services.Account
                 throw new HttpRequestException($"HttpRequestException: {ex.Message}", ex);
             }
         }
-        private class AccountResponse<T>
-        {
-            [JsonPropertyName("code")]
-            public int Code { get; set; }
-
-            [JsonPropertyName("message")]
-            public string? Message { get; set; }
-
-            [JsonPropertyName("error")]
-            public bool Error { get; set; }
-
-            [JsonPropertyName("payload")]
-            public T? Payload { get; set; }
-        }
+         
     }
 }
