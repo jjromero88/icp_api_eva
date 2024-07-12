@@ -44,6 +44,11 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
             .ForMember(destination => destination.num_orden, source => source.MapFrom(src => src.num_orden))
             .ForMember(destination => destination.listaAccesos, source => source.MapFrom(src => src.listaAccesos));
 
+            CreateMap<UsuarioPermisosrequest, UsuarioPermisosrequestDto>().ReverseMap()
+            .ForMember(destination => destination.url, source => source.MapFrom(src => src.url));
+
+            CreateMap<UsuarioPermisosResponse, UsuarioPermisosResponseDto>().ReverseMap()
+            .ForMember(destination => destination.permisos, source => source.MapFrom(src => src.permisos));
         }
     }
 }

@@ -7,6 +7,6 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Interface.Infraestructure
         Task<AuthenticateResponse> AuthenticateAsync(AuthenticateRequest request);
         Task<AuthorizeResponse> AuthorizeAsync(AuthorizeRequest request);
         Task<List<UsuarioAccesosResponse>> UsuarioAccesosAsync(string? token);
-
+        Task<UsuarioPermisosResponse> UsuarioPermisosAsync(UsuarioPermisosrequest request, string? token);
     }
 }

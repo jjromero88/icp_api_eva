@@ -145,5 +145,53 @@ namespace PCM.SIP.ICP.EVA.Infraestructure.Services.Account
                 throw new HttpRequestException($"HttpRequestException: {ex.Message}", ex);
             }
         }
+
+        public async Task<UsuarioPermisosResponse> UsuarioPermisosAsync(UsuarioPermisosrequest request, string? token)
+        {
+            try
+            {
+                string url = String.Format("{0}{1}",
+                _configuration["Microservices:IcpSeg:UrlBase"],
+              _configuration["Microservices:IcpSeg:Endpoints:Account:GetPermisos"]);
+
+                string jsonRequest = JsonSerializer.Serialize(request);
+
+                var queryParams = String.Format("{0}?url={1}", new Uri(url), request.url);
+
+                using (var httpClient = new HttpClient())
+                {
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    if (!string.IsNullOrEmpty(token))
+                        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                    var httpResponse = await httpClient.GetAsync(String.Format(queryParams));
+
+                    if (httpResponse.IsSuccessStatusCode)
+                    {
+                        var responseContent = await httpResponse.Content.ReadAsStringAsync();
+
+                        var result = JsonSerializer.Deserialize<IcpSegResponse<UsuarioPermisosResponse>>(responseContent);
+
+                        if (result == null)
+                            throw new HttpRequestException($"Error en endpoint UsuarioAccesos, no se obtuvieron resultados");
+
+                        if (result.Error)
+                            throw new ArgumentException($"{result.Message ?? "Ocurió un error en la petición"}"); ;
+
+                        return result.Payload ?? new UsuarioPermisosResponse();
+                    }
+                    else
+                    {
+                        throw new HttpRequestException($"Error al obtener la lista de usuarios");
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new HttpRequestException($"HttpRequestException: {ex.Message}", ex);
+            }
+        }
     }
 }

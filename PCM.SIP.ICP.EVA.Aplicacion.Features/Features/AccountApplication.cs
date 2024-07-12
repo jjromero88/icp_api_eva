@@ -119,5 +119,40 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                 return ResponseUtil.InternalError(message: ex.Message);
             }
         }
+
+        public async Task<PcmResponse> UsuarioPermisos(Request<UsuarioPermisosrequestDto> request)
+        {
+            try
+            {
+                //ejecutamos las validaciones
+                var validation = _accountValidationManager.Validate(request.entidad);
+
+                //verificamos si ocurrio un error de validacion
+                if (!validation.IsValid)
+                {
+                    _logger.LogError(Validation.InvalidMessage);
+                    return ResponseUtil.BadRequest(validation.Errors != null ? validation.Errors : null, Validation.InvalidMessage);
+                }
+
+                // mapeamos la clase dto al tipo request
+                var requestPermisos = _mapper.Map<UsuarioPermisosrequest>(request.entidad);
+
+                // obtenemos el token de la sesion
+                string token = _userSessionService.GetToken();
+
+                // consumimos el servicio de seguridad para el authorize
+                var response = await _accountService.UsuarioPermisosAsync(requestPermisos, token);
+
+                return response != null ? ResponseUtil.Ok(
+                  _mapper.Map<UsuarioPermisosResponseDto>(response), TransactionMessage.QuerySuccess
+                 ) : ResponseUtil.Unauthorized();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return ResponseUtil.InternalError(message: ex.Message);
+            }
+        }
+
     }
 }

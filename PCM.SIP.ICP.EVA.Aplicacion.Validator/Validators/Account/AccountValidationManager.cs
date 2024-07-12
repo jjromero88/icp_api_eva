@@ -7,11 +7,13 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Validator
     {
         private readonly AuthenticateRequestValidator _authenticateRequestValidator;
         private readonly AuthorizeRequestValidator _authorizeRequestValidator;
+        private readonly UsuarioPermisosrequestValidator _usuarioPermisosrequestValidator;
 
         public AccountValidationManager()
         {
             _authenticateRequestValidator = new AuthenticateRequestValidator();
             _authorizeRequestValidator = new AuthorizeRequestValidator();
+            _usuarioPermisosrequestValidator = new UsuarioPermisosrequestValidator();
         }
 
         public ValidationResult Validate(AuthenticateRequestDto entidad)
@@ -21,6 +23,10 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Validator
         public ValidationResult Validate(AuthorizeRequestDto entidad)
         {
             return _authorizeRequestValidator.Validate(entidad);
+        }
+        public ValidationResult Validate(UsuarioPermisosrequestDto entidad)
+        {
+            return _usuarioPermisosrequestValidator.Validate(entidad);
         }
     }
 }

@@ -48,4 +48,17 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Validator
                .WithMessage("La abreviatura debe tener máximo 10 caracteres");
         }
     }
+    public class UsuarioPermisosrequestValidator : AbstractValidator<UsuarioPermisosrequestDto>
+    {
+        public UsuarioPermisosrequestValidator()
+        {
+            RuleFor(u => u.url)
+                .IsNullOrWhiteSpace()
+                .WithMessage("Debe ingresar la URL de la pagina");
+
+            RuleFor(x => x.url)
+                .MaximumLength(80)
+                .WithMessage("El url debe tener máximo 80 caracteres");
+        }
+    }
 }
