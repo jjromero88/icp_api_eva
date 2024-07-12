@@ -35,6 +35,15 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
            .ForMember(destination => destination.entidad_acronimo, source => source.MapFrom(src => src.entidad_acronimo))
            .ForMember(destination => destination.entidad_nombre, source => source.MapFrom(src => src.entidad_nombre));
 
+            CreateMap<UsuarioAccesosResponse, UsuarioAccesosResponseDto>().ReverseMap()
+            .ForMember(destination => destination.codigo, source => source.MapFrom(src => src.codigo))
+            .ForMember(destination => destination.descripcion, source => source.MapFrom(src => src.descripcion))
+            .ForMember(destination => destination.abreviatura, source => source.MapFrom(src => src.abreviatura))
+            .ForMember(destination => destination.url_opcion, source => source.MapFrom(src => src.url_opcion))
+            .ForMember(destination => destination.icono_opcion, source => source.MapFrom(src => src.icono_opcion))
+            .ForMember(destination => destination.num_orden, source => source.MapFrom(src => src.num_orden))
+            .ForMember(destination => destination.listaAccesos, source => source.MapFrom(src => src.listaAccesos));
+
         }
     }
 }

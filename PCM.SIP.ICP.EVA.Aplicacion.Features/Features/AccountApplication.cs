@@ -18,19 +18,22 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
         private readonly IAppLogger<AccountApplication> _logger;
         private readonly AccountValidationManager _accountValidationManager;
         private readonly IAccountService _accountService;
+        private readonly IUserSessionService _userSessionService;
 
         public AccountApplication(
             IUnitOfWork unitOfWork, 
             IMapper mapper, 
             IAppLogger<AccountApplication> logger, 
             AccountValidationManager accountValidationManager, 
-            IAccountService accountService)
+            IAccountService accountService,
+            IUserSessionService userSessionService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _logger = logger;
             _accountValidationManager = accountValidationManager;
             _accountService = accountService;
+            _userSessionService = userSessionService;
         }
 
         public async Task<PcmResponse> Authenticate(Request<AuthenticateRequestDto> request)
@@ -87,6 +90,27 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
 
                 return response != null ? ResponseUtil.Ok(
                    _mapper.Map<AuthorizeResponseDto>(response), AuthenticateMessage.AuthenticateSuccess
+                  ) : ResponseUtil.Unauthorized();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return ResponseUtil.InternalError(message: ex.Message);
+            }
+        }
+
+        public async Task<PcmResponse> UsuarioAccesos()
+        {
+            try
+            {
+                // obtenemos el token de la sesion
+                string token = _userSessionService.GetToken();
+
+                // consumimos el servicio de seguridad para el authorize
+                var response = await _accountService.UsuarioAccesosAsync(token);
+
+                return response != null ? ResponseUtil.Ok(
+                   _mapper.Map<List<UsuarioAccesosResponseDto>>(response), AuthenticateMessage.AuthenticateSuccess
                   ) : ResponseUtil.Unauthorized();
             }
             catch (Exception ex)

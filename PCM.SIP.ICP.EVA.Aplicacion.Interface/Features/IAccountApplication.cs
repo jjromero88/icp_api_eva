@@ -8,5 +8,6 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Interface.Features
     {
         Task<PcmResponse> Authenticate(Request<AuthenticateRequestDto> request);
         Task<PcmResponse> Authorize(Request<AuthorizeRequestDto> request);
+        Task<PcmResponse> UsuarioAccesos();
     }
 }
