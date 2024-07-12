@@ -12,6 +12,7 @@ namespace PCM.SIP.ICP.EVA.Transversal.Contracts.Seguridad
         public string? usuariokey { get; set; }
         public string? personakey { get; set; }
         public string? perfilkey { get; set; }
+        public string? entidadkey { get; set; }
         public string? username { get; set; }
         public string? perfil { get; set; }
         public string? numdocumento { get; set; }
