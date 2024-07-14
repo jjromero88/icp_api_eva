@@ -18,6 +18,7 @@ namespace PCM.SIP.ICP.EVA.Infraestructure
             services.AddSingleton<IDocumentoEstructuraService, DocumentoEstructuraService>();
             services.AddSingleton<IModalidadIntegridadService, ModalidadIntegridadService>();
             services.AddSingleton<IProfesionService, ProfesionService>();
+            services.AddSingleton<IModalidadContratoService, ModalidadContratoService>();
 
             return services;
         }

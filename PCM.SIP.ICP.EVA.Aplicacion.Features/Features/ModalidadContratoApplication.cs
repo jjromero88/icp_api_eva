@@ -8,35 +8,34 @@ using PCM.SIP.ICP.EVA.Transversal.Contracts.icp;
 
 namespace PCM.SIP.ICP.EVA.Aplicacion.Features
 {
-    public class ModalidadIntegridadApplication : IModalidadIntegridadApplication
+    public class ModalidadContratoApplication : IModalidadContratoApplication
     {
-        private readonly IModalidadIntegridadService _modalidadIntegridadService;
+        private readonly IModalidadContratoService _modalidadContratoService;
         private readonly IMapper _mapper;
-        private readonly IAppLogger<ModalidadIntegridadApplication> _logger;
+        private readonly IAppLogger<ModalidadContratoApplication> _logger;
         private readonly IUserSessionService _userSessionService;
 
-        public ModalidadIntegridadApplication(
-            IModalidadIntegridadService modalidadIntegridadService, 
+        public ModalidadContratoApplication(
+            IModalidadContratoService modalidadContratoService, 
             IMapper mapper, 
-            IAppLogger<ModalidadIntegridadApplication> logger, 
+            IAppLogger<ModalidadContratoApplication> logger, 
             IUserSessionService userSessionService)
         {
-            _modalidadIntegridadService = modalidadIntegridadService;
+            _modalidadContratoService = modalidadContratoService;
             _mapper = mapper;
             _logger = logger;
             _userSessionService = userSessionService;
         }
 
-        public async Task<PcmResponse> GetList(Request<ModalidadIntegridadFilterRequest> request)
+        public async Task<PcmResponse> GetList(Request<ModalidadContratoFilterRequest> request)
         {
             try
             {
                 // obtenemos el token de la sesion
                 string token = _userSessionService.GetToken();
 
-
                 // consumimos el servicio de seguridad para el authorize
-                var response = await _modalidadIntegridadService.GetList(request.entidad, token);
+                var response = await _modalidadContratoService.GetList(request.entidad, token);
 
                 return response != null ? ResponseUtil.Ok(response, TransactionMessage.QuerySuccess
                   ) : ResponseUtil.NoContent();
