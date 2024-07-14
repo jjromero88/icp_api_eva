@@ -13,6 +13,7 @@ namespace PCM.SIP.ICP.EVA.Infraestructure
             services.AddSingleton<IAccountService, AccountService>();
             services.AddSingleton<ISecurityService, SecurityService>();
             services.AddSingleton<IUserSessionService, UserSessionService>();
+            services.AddSingleton<IEntidadService, EntidadService>();
 
             return services;
         }

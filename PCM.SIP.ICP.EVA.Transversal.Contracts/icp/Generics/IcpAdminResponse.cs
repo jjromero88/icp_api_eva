@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace PCM.SIP.ICP.EVA.Infraestructure
+namespace PCM.SIP.ICP.EVA.Transversal.Contracts.icp.Generics
 {
     public class IcpAdminResponse<T>
     {
@@ -16,4 +16,6 @@ namespace PCM.SIP.ICP.EVA.Infraestructure
         [JsonPropertyName("payload")]
         public T? Payload { get; set; }
     }
+
+
 }

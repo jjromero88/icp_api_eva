@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using PCM.SIP.ICP.EVA.Aplicacion.Interface.Infraestructure;
+using PCM.SIP.ICP.EVA.Transversal.Contracts.icp.Generics;
 using PCM.SIP.ICP.EVA.Transversal.Contracts.Seguridad;
 using System.Net.Http.Headers;
 using System.Text.Json;

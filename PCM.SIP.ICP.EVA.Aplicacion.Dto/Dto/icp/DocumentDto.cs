@@ -14,32 +14,32 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
         public string? size { get; set; }
         public string? base64content { get; set; }
     }
-    public class DocumentResponse
+    public class DocumentResponseDto
     {
         public string? category { get; set; }
         public string? filename { get; set; }
         public string? extension { get; set; }
         public string? size { get; set; }
     }
-    public class UploadDocumentRequest
+    public class UploadDocumentRequestDto
     {
         public string? filename { get; set; }
         public string? base64content { get; set; }
         public string? category { get; set; }
     }
-    public class DocumentInsertRequest
+    public class DocumentInsertRequestDto
     {
         public string? filename { get; set; }
         public string? base64content { get; set; }
     }
-    public class DownloadDocumentRequest
+    public class DownloadDocumentRequestDto
     {
         public string? category { get; set; }
         public string? filename { get; set; }
         public string? extension { get; set; }
     }
 
-    public class DownloadDocumentResponse
+    public class DownloadDocumentResponseDto
     {
         public string? filename { get; set; }
         public string? extension { get; set; }

@@ -5,7 +5,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Interface.Features
 {
     public interface IDocumentService
     {
-        Task<PcmResponse> UploadDocumentAsync(UploadDocumentRequest request);
-        Task<PcmResponse> DownloadDocumentAsync(DownloadDocumentRequest request);
+        Task<PcmResponse> UploadDocumentAsync(UploadDocumentRequestDto request);
+        Task<PcmResponse> DownloadDocumentAsync(DownloadDocumentRequestDto request);
     }
 }
