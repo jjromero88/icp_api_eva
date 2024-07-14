@@ -12,6 +12,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
             services.AddScoped<IUbigeoApplication, UbigeoApplication>();
             services.AddScoped<IDocumentoEstructuraApplication, DocumentoEstructuraApplication>();
             services.AddScoped<IModalidadIntegridadApplication, ModalidadIntegridadApplication>();
+            services.AddScoped<IProfesionApplication, ProfesionApplication>();
 
             return services;
         }

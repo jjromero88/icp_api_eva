@@ -17,6 +17,7 @@ namespace PCM.SIP.ICP.EVA.Infraestructure
             services.AddSingleton<IUbigeoService, UbigeoService>();
             services.AddSingleton<IDocumentoEstructuraService, DocumentoEstructuraService>();
             services.AddSingleton<IModalidadIntegridadService, ModalidadIntegridadService>();
+            services.AddSingleton<IProfesionService, ProfesionService>();
 
             return services;
         }

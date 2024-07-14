@@ -13,14 +13,14 @@ namespace PCM.SIP.ICP.EVA.Api.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class ModalidadIntegridadController : Controller
+    public class ProfesionController : Controller
     {
-        private readonly IModalidadIntegridadApplication _modalidadIntegridadApplication;
+        private readonly IProfesionApplication _profesionApplication;
         private readonly IMapper _mapper;
 
-        public ModalidadIntegridadController(IModalidadIntegridadApplication modalidadIntegridadApplication, IMapper mapper)
+        public ProfesionController(IProfesionApplication profesionApplication, IMapper mapper)
         {
-            _modalidadIntegridadApplication = modalidadIntegridadApplication;
+            _profesionApplication = profesionApplication;
             _mapper = mapper;
         }
 
@@ -28,12 +28,12 @@ namespace PCM.SIP.ICP.EVA.Api.Controllers
         [ServiceFilter(typeof(ValidateTokenRequestAttribute))]
         [ServiceFilter(typeof(UpdateUserDataAttribute))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PcmResponse))]
-        public async Task<ActionResult<PcmResponse>> GetList([FromQuery] ModalidadIntegridadFilterRequest request)
+        public async Task<ActionResult<PcmResponse>> GetList([FromQuery] ProfesionFilterRequest request)
         {
             if (request == null)
                 return BadRequest();
 
-            return await _modalidadIntegridadApplication.GetList(new Request<ModalidadIntegridadFilterRequest>() { entidad = request });
+            return await _profesionApplication.GetList(new Request<ProfesionFilterRequest>() { entidad = request });
         }
     }
 }
