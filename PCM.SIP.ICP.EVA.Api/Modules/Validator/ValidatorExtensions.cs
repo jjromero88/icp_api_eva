@@ -12,6 +12,16 @@ namespace PCM.SIP.ICP.EVA.Api.Modules.Validator
             services.AddTransient<IValidator<AuthorizeRequestDto>, AuthorizeRequestValidator>();
             services.AddTransient<AccountValidationManager>();
 
+            services.AddTransient<IValidator<EntidadOficialIdRequestDto>, EntidadOficialIdRequestValidator>();
+            services.AddTransient<IValidator<EntidadOficialInsertRequestDto>, EntidadOficialInsertRequestValidator>();
+            services.AddTransient<IValidator<EntidadOficialUpdateRequestDto>, EntidadOficialUpdateRequestValidator>();
+            services.AddTransient<EntidadOficialValidationManager>();
+
+            services.AddTransient<IValidator<EntidadCoordinadorIdRequestDto>, EntidadCoordinadorIdRequestValidator>();
+            services.AddTransient<IValidator<EntidadCoordinadorInsertRequestDto>, EntidadCoordinadorInsertRequestValidator>();
+            services.AddTransient<IValidator<EntidadCoordinadorUpdateRequestDto>, EntidadCoordinadorUpdateRequestValidator>();
+            services.AddTransient<EntidadCoordinadorValidationManager>();
+
             services.AddTransient<IValidator<EntidadIdRequestDto>, EntidadIdRequestValidator>();
             services.AddTransient<EntidadValidationManager>();
 
