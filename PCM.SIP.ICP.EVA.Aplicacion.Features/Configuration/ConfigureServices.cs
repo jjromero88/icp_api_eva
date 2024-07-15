@@ -13,6 +13,8 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
             services.AddScoped<IDocumentoEstructuraApplication, DocumentoEstructuraApplication>();
             services.AddScoped<IModalidadIntegridadApplication, ModalidadIntegridadApplication>();
             services.AddScoped<IProfesionApplication, ProfesionApplication>();
+            services.AddScoped<IEntidadOficialApplication, EntidadOficialApplication>();
+            services.AddScoped<IEntidadCoordinadorApplication, EntidadCoordinadorApplication>();
 
             return services;
         }
