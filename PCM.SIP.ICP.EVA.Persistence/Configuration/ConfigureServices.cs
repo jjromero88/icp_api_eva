@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PCM.SIP.ICP.EVA.Aplicacion.Interface;
+using PCM.SIP.ICP.EVA.Aplicacion.Interface.Persistence;
 using PCM.SIP.ICP.EVA.Persistence.Context;
+using PCM.SIP.ICP.EVA.Persistence.Repository;
 using PCM.SIP.ICP.EVA.Persistence.Repository.Base;
 
 namespace PCM.SIP.ICP.EVA.Persistence
@@ -11,6 +13,7 @@ namespace PCM.SIP.ICP.EVA.Persistence
         {
             services.AddSingleton<DapperContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IEvaluacionRepository, EvaluacionRepository>();
 
             return services;
         }

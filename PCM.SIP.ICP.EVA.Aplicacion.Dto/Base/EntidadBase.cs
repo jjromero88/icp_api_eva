@@ -8,7 +8,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
 {
     public class EntidadBase
     {
-        public string? SerialKey { get; set; }
+        public string? serialKey { get; set; }
         public bool? estado { get; set; }
         public string? usuario_reg { get; set; }
         public DateTime? fecha_reg { get; set; }
