@@ -382,6 +382,98 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
 
             #endregion
 
+            #region Pregunta
+
+            CreateMap<Pregunta, PreguntaDto>().ReverseMap()
+           .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
+           .ForMember(destination => destination.componentekey, source => source.MapFrom(src => src.componentekey))
+           .ForMember(destination => destination.etapakey, source => source.MapFrom(src => src.etapakey))
+           .ForMember(destination => destination.evaluacionetapakey, source => source.MapFrom(src => src.evaluacionetapakey))
+           .ForMember(destination => destination.codigo, source => source.MapFrom(src => src.codigo))
+           .ForMember(destination => destination.numero, source => source.MapFrom(src => src.numero))
+           .ForMember(destination => destination.descripcion, source => source.MapFrom(src => src.descripcion))
+           .ForMember(destination => destination.calculo_icp, source => source.MapFrom(src => src.calculo_icp))
+           .ForMember(destination => destination.habilitado, source => source.MapFrom(src => src.habilitado))
+           .ForMember(destination => destination.etapa, source => source.MapFrom(src => src.etapa))
+           .ForMember(destination => destination.componente, source => source.MapFrom(src => src.componente))
+           .ForMember(destination => destination.lista_alternativas, source => source.MapFrom(src => src.lista_alternativas));
+
+            CreateMap<PreguntaDto, PreguntaFilterRequest>().ReverseMap()
+            .ForMember(destination => destination.evaluacionetapakey, source => source.MapFrom(src => src.evaluacionetapakey));
+
+            CreateMap<PreguntaDto, PreguntaResponse>().ReverseMap()
+            .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
+            .ForMember(destination => destination.etapakey, source => source.MapFrom(src => src.etapakey))
+            .ForMember(destination => destination.componentekey, source => source.MapFrom(src => src.componentekey))
+            .ForMember(destination => destination.codigo, source => source.MapFrom(src => src.codigo))
+            .ForMember(destination => destination.numero, source => source.MapFrom(src => src.numero))
+            .ForMember(destination => destination.descripcion, source => source.MapFrom(src => src.descripcion))
+            .ForMember(destination => destination.calculo_icp, source => source.MapFrom(src => src.calculo_icp))
+            .ForMember(destination => destination.habilitado, source => source.MapFrom(src => src.habilitado))
+            .ForMember(destination => destination.etapa, source => source.MapFrom(src => src.etapa))
+            .ForMember(destination => destination.componente, source => source.MapFrom(src => src.componente))
+            .ForMember(destination => destination.lista_alternativas, source => source.MapFrom(src => src.lista_alternativas));
+
+
+            #endregion
+
+            #region Etapa
+
+            CreateMap<Etapa, EtapaDto>().ReverseMap()
+            .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
+            .ForMember(destination => destination.codigo, source => source.MapFrom(src => src.codigo))
+            .ForMember(destination => destination.nombre, source => source.MapFrom(src => src.nombre))
+            .ForMember(destination => destination.abreviatura, source => source.MapFrom(src => src.abreviatura))
+            .ForMember(destination => destination.descripcion, source => source.MapFrom(src => src.descripcion));
+
+            CreateMap<EtapaDto, EtapaResponse>().ReverseMap()
+            .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
+            .ForMember(destination => destination.codigo, source => source.MapFrom(src => src.codigo))
+            .ForMember(destination => destination.nombre, source => source.MapFrom(src => src.nombre))
+            .ForMember(destination => destination.abreviatura, source => source.MapFrom(src => src.abreviatura))
+            .ForMember(destination => destination.descripcion, source => source.MapFrom(src => src.descripcion));
+
+            #endregion
+
+            #region Componente
+
+            CreateMap<Componente, ComponenteDto>().ReverseMap()
+           .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
+           .ForMember(destination => destination.codigo, source => source.MapFrom(src => src.codigo))
+           .ForMember(destination => destination.abreviatura, source => source.MapFrom(src => src.abreviatura))
+           .ForMember(destination => destination.descripcion, source => source.MapFrom(src => src.descripcion));
+
+            CreateMap<ComponenteDto, ComponenteResponse>().ReverseMap()
+            .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
+            .ForMember(destination => destination.codigo, source => source.MapFrom(src => src.codigo))
+            .ForMember(destination => destination.abreviatura, source => source.MapFrom(src => src.abreviatura))
+            .ForMember(destination => destination.descripcion, source => source.MapFrom(src => src.descripcion));
+
+
+            #endregion
+
+            #region Alternativa
+
+            CreateMap<Alternativa, AlternativaDto>().ReverseMap()
+            .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
+            .ForMember(destination => destination.preguntakey, source => source.MapFrom(src => src.preguntakey))
+            .ForMember(destination => destination.codigo, source => source.MapFrom(src => src.codigo))
+            .ForMember(destination => destination.alternativa, source => source.MapFrom(src => src.alternativa))
+            .ForMember(destination => destination.descripcion, source => source.MapFrom(src => src.descripcion))
+            .ForMember(destination => destination.valor, source => source.MapFrom(src => src.valor))
+            .ForMember(destination => destination.medio_verificacion, source => source.MapFrom(src => src.medio_verificacion))
+            .ForMember(destination => destination.numero_orden, source => source.MapFrom(src => src.numero_orden));
+
+            CreateMap<AlternativaDto, AlternativaResponse>().ReverseMap()
+            .ForMember(destination => destination.codigo, source => source.MapFrom(src => src.codigo))
+            .ForMember(destination => destination.alternativa, source => source.MapFrom(src => src.alternativa))
+            .ForMember(destination => destination.descripcion, source => source.MapFrom(src => src.descripcion))
+            .ForMember(destination => destination.valor, source => source.MapFrom(src => src.valor))
+            .ForMember(destination => destination.medio_verificacion, source => source.MapFrom(src => src.medio_verificacion))
+            .ForMember(destination => destination.numero_orden, source => source.MapFrom(src => src.numero_orden));
+
+            #endregion
+
         }
     }
 }
