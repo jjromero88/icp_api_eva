@@ -37,8 +37,12 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
             {
                 var entidad = _mapper.Map<Evaluacion>(request.entidad);
 
+                // obtenemos el id de la entidad de la sesión
+                string entidadkey =  _userSessionService.GetUser().entidadkey ?? string.Empty;
+                // desencriptamos los pk
                 entidad.evaluacion_id = string.IsNullOrEmpty(request.entidad.serialKey) ? 0 : Convert.ToInt32(CShrapEncryption.DecryptString(request.entidad.serialKey, _userSessionService.GetUser().authkey));
-
+                entidad.entidad_id = string.IsNullOrEmpty(entidadkey) ? null : Convert.ToInt32(CShrapEncryption.DecryptString(entidadkey, _userSessionService.GetUser().authkey));
+                
                 var result = _unitOfWork.Evaluacion.GetList(entidad);
 
                 if (result.Error)
@@ -63,6 +67,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                             descripcion = item.descripcion,
                             usuario_reg = item.usuario_reg,
                             fecha_reg = item.fecha_reg,
+                            vigente = item.vigente,
                             lista_etapas = DeserializeEtapas(item.lista_etapas)
                         });
                     }
@@ -98,6 +103,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                 fecha_fin = ee.fecha_fin,
                 comentarios = ee.comentarios,
                 habilitado = ee.habilitado,
+                vigente = ee.vigente,
                 etapa = new Etapa
                 {
                     serialKey = EncryptOrNull(ee.evaluacionetapa_id.ToString()),

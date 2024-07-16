@@ -9,7 +9,7 @@ namespace PCM.SIP.ICP.EVA.Domain.Entities
     public class Evaluacion : EntidadBase
     {
         public int evaluacion_id { get; set; }
-        public int entidad_id { get; set; }
+        public int? entidad_id { get; set; }
         public string? codigo { get; set; }
         public DateTime? fecha_inicio { get; set; }
         public DateTime? fecha_fin { get; set; }

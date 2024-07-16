@@ -15,6 +15,8 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
             services.AddScoped<IProfesionApplication, ProfesionApplication>();
             services.AddScoped<IEntidadOficialApplication, EntidadOficialApplication>();
             services.AddScoped<IEntidadCoordinadorApplication, EntidadCoordinadorApplication>();
+            services.AddScoped<IEvaluacionApplication, EvaluacionApplication>();
+            services.AddScoped<IPreguntaApplication, PreguntaApplication>();
 
             return services;
         }
