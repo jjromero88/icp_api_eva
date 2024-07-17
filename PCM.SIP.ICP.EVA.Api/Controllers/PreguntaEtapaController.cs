@@ -13,14 +13,14 @@ namespace PCM.SIP.ICP.EVA.Api.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class PreguntaController : Controller
+    public class PreguntaEtapaController : Controller
     {
-        private readonly IPreguntaApplication _preguntaApplication;
+        private readonly IPreguntaEtapaApplication _preguntaEtapaApplication;
         private readonly IMapper _mapper;
 
-        public PreguntaController(IPreguntaApplication preguntaApplication, IMapper mapper)
+        public PreguntaEtapaController(IPreguntaEtapaApplication preguntaEtapaApplication, IMapper mapper)
         {
-            _preguntaApplication = preguntaApplication;
+            _preguntaEtapaApplication = preguntaEtapaApplication;
             _mapper = mapper;
         }
 
@@ -28,12 +28,12 @@ namespace PCM.SIP.ICP.EVA.Api.Controllers
         [ServiceFilter(typeof(ValidateTokenRequestAttribute))]
         [ServiceFilter(typeof(UpdateUserDataAttribute))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PcmResponse))]
-        public async Task<ActionResult<PcmResponse>> GetList([FromQuery] PreguntaFilterRequest request)
+        public async Task<ActionResult<PcmResponse>> GetList([FromQuery] PreguntaEtapaFilterRequest request)
         {
             if (request == null)
                 return BadRequest();
 
-            return await _preguntaApplication.GetList(new Request<PreguntaDto>() { entidad = _mapper.Map<PreguntaDto>(request) });
+            return await _preguntaEtapaApplication.GetList(new Request<PreguntaEtapaDto>() { entidad = _mapper.Map<PreguntaEtapaDto>(request) });
         }
     }
 }

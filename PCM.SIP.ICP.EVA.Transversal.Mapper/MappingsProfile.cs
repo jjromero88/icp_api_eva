@@ -390,7 +390,6 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
            .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
            .ForMember(destination => destination.componentekey, source => source.MapFrom(src => src.componentekey))
            .ForMember(destination => destination.etapakey, source => source.MapFrom(src => src.etapakey))
-           .ForMember(destination => destination.evaluacionetapakey, source => source.MapFrom(src => src.evaluacionetapakey))
            .ForMember(destination => destination.codigo, source => source.MapFrom(src => src.codigo))
            .ForMember(destination => destination.numero, source => source.MapFrom(src => src.numero))
            .ForMember(destination => destination.descripcion, source => source.MapFrom(src => src.descripcion))
@@ -400,9 +399,7 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
            .ForMember(destination => destination.componente, source => source.MapFrom(src => src.componente))
            .ForMember(destination => destination.lista_alternativas, source => source.MapFrom(src => src.lista_alternativas));
 
-            CreateMap<PreguntaDto, PreguntaFilterRequest>().ReverseMap()
-            .ForMember(destination => destination.evaluacionetapakey, source => source.MapFrom(src => src.evaluacionetapakey));
-
+           
             CreateMap<PreguntaDto, PreguntaResponse>().ReverseMap()
             .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
             .ForMember(destination => destination.etapakey, source => source.MapFrom(src => src.etapakey))
@@ -464,9 +461,7 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
             .ForMember(destination => destination.descripcion, source => source.MapFrom(src => src.descripcion))
             .ForMember(destination => destination.valor, source => source.MapFrom(src => src.valor))
             .ForMember(destination => destination.medio_verificacion, source => source.MapFrom(src => src.medio_verificacion))
-            .ForMember(destination => destination.numero_orden, source => source.MapFrom(src => src.numero_orden))
-            .ForMember(destination => destination.alternativa_resultado, source => source.MapFrom(src => src.alternativa_resultado))
-            .ForMember(destination => destination.lista_mediosverificacion, source => source.MapFrom(src => src.lista_mediosverificacion));
+            .ForMember(destination => destination.numero_orden, source => source.MapFrom(src => src.numero_orden));
 
             CreateMap<AlternativaDto, AlternativaResponse>().ReverseMap()
             .ForMember(destination => destination.codigo, source => source.MapFrom(src => src.codigo))
@@ -474,9 +469,7 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
             .ForMember(destination => destination.descripcion, source => source.MapFrom(src => src.descripcion))
             .ForMember(destination => destination.valor, source => source.MapFrom(src => src.valor))
             .ForMember(destination => destination.medio_verificacion, source => source.MapFrom(src => src.medio_verificacion))
-            .ForMember(destination => destination.numero_orden, source => source.MapFrom(src => src.numero_orden))
-            .ForMember(destination => destination.alternativa_resultado, source => source.MapFrom(src => src.alternativa_resultado))
-            .ForMember(destination => destination.lista_mediosverificacion, source => source.MapFrom(src => src.lista_mediosverificacion));
+            .ForMember(destination => destination.numero_orden, source => source.MapFrom(src => src.numero_orden));
 
             #endregion
 
@@ -506,6 +499,25 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
             .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
             .ForMember(destination => destination.evaluacionetapakey, source => source.MapFrom(src => src.evaluacionetapakey))
             .ForMember(destination => destination.entidadkey, source => source.MapFrom(src => src.entidadkey));
+
+            #endregion
+
+            #region PreguntaEtapa
+
+            CreateMap<PreguntaEtapa, PreguntaEtapaDto>().ReverseMap()
+            .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
+            .ForMember(destination => destination.evaluacionetapakey, source => source.MapFrom(src => src.evaluacionetapakey))
+            .ForMember(destination => destination.preguntakey, source => source.MapFrom(src => src.preguntakey))
+            .ForMember(destination => destination.pregunta, source => source.MapFrom(src => src.pregunta));
+
+            CreateMap<PreguntaEtapaDto, PreguntaEtapaFilterRequest>().ReverseMap()
+           .ForMember(destination => destination.evaluacionetapakey, source => source.MapFrom(src => src.evaluacionetapakey));
+
+            CreateMap<PreguntaEtapaDto, PreguntaEtapaResponse>().ReverseMap()
+            .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
+            .ForMember(destination => destination.evaluacionetapakey, source => source.MapFrom(src => src.evaluacionetapakey))
+            .ForMember(destination => destination.preguntakey, source => source.MapFrom(src => src.preguntakey))
+            .ForMember(destination => destination.pregunta, source => source.MapFrom(src => src.pregunta));
 
             #endregion
 

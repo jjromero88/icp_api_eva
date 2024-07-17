@@ -7,13 +7,16 @@ namespace PCM.SIP.ICP.EVA.Persistence.Repository.Base
     {
         public IEvaluacionRepository Evaluacion { get; }
         public IPreguntaRepository Pregunta {  get; }
+        public IPreguntaEtapaRepository PreguntaEtapa { get; }
 
         public UnitOfWork(
             IEvaluacionRepository evaluacion,
-            IPreguntaRepository pregunta
+            IPreguntaRepository pregunta,
+            IPreguntaEtapaRepository preguntaEtapa
             ) {
             Evaluacion = evaluacion;
             Pregunta = pregunta;
+            PreguntaEtapa = preguntaEtapa;
         }
 
         public void Dispose()

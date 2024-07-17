@@ -17,7 +17,5 @@ namespace PCM.SIP.ICP.EVA.Domain.Entities
         public decimal? valor { get; set; }
         public bool? medio_verificacion { get; set; }
         public int? numero_orden { get; set; }
-        public bool? alternativa_resultado { get; set; }
-        public List<MedioVerificacion>? lista_mediosverificacion { get; set; }
     }
 }

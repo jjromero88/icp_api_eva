@@ -5,7 +5,6 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
     {
         public string? componentekey { get; set; }
         public string? etapakey { get; set; }
-        public string? evaluacionetapakey { get; set; }
         public string? codigo { get; set; }
         public int? numero { get; set; }
         public string? descripcion { get; set; }
@@ -15,10 +14,8 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
         public ComponenteDto? componente { get; set; }
         public List<AlternativaDto>? lista_alternativas { get; set; }
     }
-    public class PreguntaFilterRequest
-    {
-        public string? evaluacionetapakey { get; set; }
-    }
+    
+
     public class PreguntaResponse
     {
         public string? serialKey { get; set; }
