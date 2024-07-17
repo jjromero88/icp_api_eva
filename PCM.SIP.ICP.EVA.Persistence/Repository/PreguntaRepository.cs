@@ -49,6 +49,7 @@ namespace PCM.SIP.ICP.EVA.Persistence.Repository
                     var parameters = new DynamicParameters();
 
                     parameters.Add("evaluacionetapa_id", entidad.evaluacionetapa_id);
+                    parameters.Add("entidad_id", entidad.entidad_id);
                     parameters.Add("error", dbType: DbType.Boolean, direction: ParameterDirection.Output);
                     parameters.Add("message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
 

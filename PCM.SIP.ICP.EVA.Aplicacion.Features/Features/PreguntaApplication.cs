@@ -36,21 +36,25 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
             try
             {
                 var entidad = _mapper.Map<Pregunta>(request.entidad);
-
+                // obtenemos el id de la entidad
+                string entidadkey = _userSessionService.GetUser().entidadkey ?? string.Empty;
+                // deserializamos los id
                 entidad.evaluacionetapa_id = string.IsNullOrEmpty(request.entidad.evaluacionetapakey) ? null : Convert.ToInt32(CShrapEncryption.DecryptString(request.entidad.evaluacionetapakey, _userSessionService.GetUser().authkey));
-
+                entidad.entidad_id = string.IsNullOrEmpty(entidadkey) ? null : Convert.ToInt32(CShrapEncryption.DecryptString(entidadkey, _userSessionService.GetUser().authkey));
+                // ejecutamos la consulta en bd
                 var result = _unitOfWork.Pregunta.GetList(entidad);
-
+                // evaluamos si ocurrió un error
                 if (result.Error)
                 {
                     _logger.LogError(result.Message);
                     return ResponseUtil.BadRequest(result.Message);
                 }
-
+                // declaramos una lista
                 List<Pregunta> Lista = new List<Pregunta>();
-
+                // verificamos que la consulta haya obtenido resultados
                 if (result.Data != null)
                 {
+                    // poblamos la lista con la información obtenida
                     foreach (var item in result.Data)
                     {
                         var componentekey = string.IsNullOrEmpty(item.componente_id == null ? null : item.componente_id.ToString()) ? null : CShrapEncryption.EncryptString(item.componente_id.ToString(), _userSessionService.GetUser().authkey);
@@ -107,9 +111,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
             try
             {
                 if (string.IsNullOrEmpty(listaAlternativas))
-                {
                     return new List<Alternativa>();
-                }
 
                 var alternativas = JsonSerializer.Deserialize<List<Alternativa>>(listaAlternativas) ?? new List<Alternativa>();
                 return alternativas.Select(ee => new Alternativa
@@ -121,12 +123,34 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                     descripcion = ee.descripcion,
                     valor = ee.valor,
                     medio_verificacion = ee.medio_verificacion,
-                    numero_orden = ee.numero_orden                   
+                    numero_orden = ee.numero_orden,
+                    alternativa_resultado = ee.alternativa_resultado,
+                    lista_mediosverificacion = DeserializeMediosVerificacion(ee.lista_mediosverificacion)
                 }).ToList();
             }
             catch (Exception ex)
             {
                 throw new Exception($"Ocurrió un error en el método DeserializeAlternativas: {ex.Message}", ex);
+            }
+        }
+
+        private List<MedioVerificacion> DeserializeMediosVerificacion(List<MedioVerificacion>? listaMediosverificacion)
+        {
+            try
+            {
+                if (listaMediosverificacion == null)
+                    return new List<MedioVerificacion>();
+
+                return listaMediosverificacion.Select(ee => new MedioVerificacion
+                {
+                    serialKey = EncryptOrNull(ee.medioverificacion_id.ToString()),
+                    resultadokey = EncryptOrNull(ee.resultado_id.ToString()),
+                    verificacion_documento = string.IsNullOrEmpty(ee.verificacion_doc) ? null : JsonSerializer.Deserialize<Document>(ee.verificacion_doc)
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Ocurrió un error en el método DeserializeMediosVerificacion: {ex.Message}", ex);
             }
         }
 

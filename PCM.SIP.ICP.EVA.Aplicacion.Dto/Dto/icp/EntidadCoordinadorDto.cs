@@ -1,5 +1,4 @@
-﻿using PCM.SIP.ICP.EVA.Aplicacion.Dto.Dto.icp;
-
+﻿
 namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
 {
     public class EntidadCoordinadorIdRequestDto

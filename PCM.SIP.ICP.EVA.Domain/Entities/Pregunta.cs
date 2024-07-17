@@ -12,6 +12,7 @@ namespace PCM.SIP.ICP.EVA.Domain.Entities
         public int? componente_id { get; set; }
         public int? etapa_id { get; set; }
         public int? evaluacionetapa_id { get; set; }
+        public int? entidad_id { get; set; }
         public string? componentekey { get; set; }
         public string? etapakey { get; set; }
         public string? evaluacionetapakey { get; set; }

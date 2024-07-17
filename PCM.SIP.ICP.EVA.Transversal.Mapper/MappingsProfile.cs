@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using PCM.SIP.ICP.EVA.Aplicacion.Dto;
-using PCM.SIP.ICP.EVA.Aplicacion.Dto.Dto.icp;
 using PCM.SIP.ICP.EVA.Domain.Entities;
 using PCM.SIP.ICP.EVA.Transversal.Contracts.icp;
 using PCM.SIP.ICP.EVA.Transversal.Contracts.Seguridad.Account;
+
 namespace PCM.SIP.ICP.EVA.Transversal.Mapper
 {
     public class MappingsProfile : Profile
@@ -462,7 +462,9 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
             .ForMember(destination => destination.descripcion, source => source.MapFrom(src => src.descripcion))
             .ForMember(destination => destination.valor, source => source.MapFrom(src => src.valor))
             .ForMember(destination => destination.medio_verificacion, source => source.MapFrom(src => src.medio_verificacion))
-            .ForMember(destination => destination.numero_orden, source => source.MapFrom(src => src.numero_orden));
+            .ForMember(destination => destination.numero_orden, source => source.MapFrom(src => src.numero_orden))
+            .ForMember(destination => destination.alternativa_resultado, source => source.MapFrom(src => src.alternativa_resultado))
+            .ForMember(destination => destination.lista_mediosverificacion, source => source.MapFrom(src => src.lista_mediosverificacion));
 
             CreateMap<AlternativaDto, AlternativaResponse>().ReverseMap()
             .ForMember(destination => destination.codigo, source => source.MapFrom(src => src.codigo))
@@ -470,7 +472,24 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
             .ForMember(destination => destination.descripcion, source => source.MapFrom(src => src.descripcion))
             .ForMember(destination => destination.valor, source => source.MapFrom(src => src.valor))
             .ForMember(destination => destination.medio_verificacion, source => source.MapFrom(src => src.medio_verificacion))
-            .ForMember(destination => destination.numero_orden, source => source.MapFrom(src => src.numero_orden));
+            .ForMember(destination => destination.numero_orden, source => source.MapFrom(src => src.numero_orden))
+            .ForMember(destination => destination.alternativa_resultado, source => source.MapFrom(src => src.alternativa_resultado))
+            .ForMember(destination => destination.lista_mediosverificacion, source => source.MapFrom(src => src.lista_mediosverificacion));
+
+            #endregion
+
+            #region MedioVerificacion
+
+            CreateMap<MedioVerificacion, MedioVerificacionDto>().ReverseMap()
+            .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
+            .ForMember(destination => destination.resultadokey, source => source.MapFrom(src => src.resultadokey))
+            .ForMember(destination => destination.verificacion_doc, source => source.MapFrom(src => src.verificacion_doc))
+            .ForMember(destination => destination.verificacion_documento, source => source.MapFrom(src => src.verificacion_documento));
+
+            CreateMap<MedioVerificacionDto, MedioVerificacionResponse>().ReverseMap()
+            .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
+            .ForMember(destination => destination.resultadokey, source => source.MapFrom(src => src.resultadokey))
+            .ForMember(destination => destination.verificacion_documento, source => source.MapFrom(src => src.verificacion_documento));
 
             #endregion
 
