@@ -19,6 +19,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
         public bool? habilitado { get; set; }
         public bool? vigente { get; set; }
         public EtapaDto? etapa { get; set; }
+        public EntidadEtapaDto? entidadetapa { get; set; }
     }
 
     public class EvaluacionEtapaResponse
@@ -32,5 +33,6 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
         public bool? habilitado { get; set; }
         public bool? vigente { get; set; }
         public EtapaResponse? etapa { get; set; }
+        public EntidadEtapaResponse? entidadetapa { get; set; }
     }
 }

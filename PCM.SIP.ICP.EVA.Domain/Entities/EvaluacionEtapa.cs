@@ -19,5 +19,6 @@ namespace PCM.SIP.ICP.EVA.Domain.Entities
         public bool? habilitado { get; set; }
         public bool? vigente { get; set; }
         public Etapa? etapa { get; set; }
+        public EntidadEtapa? entidadetapa { get; set; }
     }
 }
