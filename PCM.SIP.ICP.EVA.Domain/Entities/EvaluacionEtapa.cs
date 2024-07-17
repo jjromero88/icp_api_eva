@@ -18,6 +18,7 @@ namespace PCM.SIP.ICP.EVA.Domain.Entities
         public string? comentarios { get; set; }
         public bool? habilitado { get; set; }
         public bool? vigente { get; set; }
+        public Evaluacion? evaluacion { get; set; }
         public Etapa? etapa { get; set; }
         public EntidadEtapa? entidadetapa { get; set; }
     }

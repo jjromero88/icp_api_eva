@@ -110,6 +110,15 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                     evaluacionetapakey = EncryptOrNull(ee.entidadetapa?.evaluacionetapa_id.ToString()),
                     entidadkey = EncryptOrNull(ee.entidadetapa?.entidad_id.ToString())
                 },
+                evaluacion = new Evaluacion
+                {
+                    serialKey = EncryptOrNull(ee.evaluacion?.evaluacion_id.ToString()),
+                    codigo = ee.evaluacion?.codigo,
+                    fecha_inicio = ee.evaluacion?.fecha_inicio,
+                    fecha_fin = ee.evaluacion?.fecha_fin,
+                    descripcion = ee.evaluacion?.descripcion,
+                    comentarios = ee.evaluacion?.comentarios
+                },
                 etapa = new Etapa
                 {
                     serialKey = EncryptOrNull(ee.evaluacionetapa_id.ToString()),

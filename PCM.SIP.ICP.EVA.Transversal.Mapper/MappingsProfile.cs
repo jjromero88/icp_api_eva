@@ -350,6 +350,7 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
             .ForMember(destination => destination.habilitado, source => source.MapFrom(src => src.habilitado))
             .ForMember(destination => destination.vigente, source => source.MapFrom(src => src.vigente))
             .ForMember(destination => destination.etapa, source => source.MapFrom(src => src.etapa))
+            .ForMember(destination => destination.evaluacion, source => source.MapFrom(src => src.evaluacion))
             .ForMember(destination => destination.entidadetapa, source => source.MapFrom(src => src.entidadetapa));
 
             CreateMap<EvaluacionEtapaDto, EvaluacionEtapaResponse>().ReverseMap()
@@ -362,6 +363,7 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
             .ForMember(destination => destination.habilitado, source => source.MapFrom(src => src.habilitado))
             .ForMember(destination => destination.vigente, source => source.MapFrom(src => src.vigente))
             .ForMember(destination => destination.etapa, source => source.MapFrom(src => src.etapa))
+            .ForMember(destination => destination.evaluacion, source => source.MapFrom(src => src.evaluacion))
             .ForMember(destination => destination.entidadetapa, source => source.MapFrom(src => src.entidadetapa));
 
             #endregion
