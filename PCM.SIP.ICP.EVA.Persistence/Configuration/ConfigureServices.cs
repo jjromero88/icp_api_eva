@@ -13,6 +13,7 @@ namespace PCM.SIP.ICP.EVA.Persistence
         {
             services.AddSingleton<DapperContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IDocumentRepository, DocumentRepository>();
             services.AddScoped<IEvaluacionRepository, EvaluacionRepository>();
             services.AddScoped<IPreguntaRepository, PreguntaRepository>();
             services.AddScoped<IPreguntaEtapaRepository, PreguntaEtapaRepository>();
