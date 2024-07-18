@@ -523,6 +523,46 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
 
             #endregion
 
+            #region Resultado
+
+            CreateMap<Resultado, ResultadoDto>().ReverseMap()
+            .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
+            .ForMember(destination => destination.preguntaetapakey, source => source.MapFrom(src => src.preguntaetapakey))
+            .ForMember(destination => destination.entidadetapakey, source => source.MapFrom(src => src.entidadetapakey))
+            .ForMember(destination => destination.alternativakey, source => source.MapFrom(src => src.alternativakey))
+            .ForMember(destination => destination.comentarios, source => source.MapFrom(src => src.comentarios))
+            .ForMember(destination => destination.etapa_nombre, source => source.MapFrom(src => src.etapa_nombre))
+            .ForMember(destination => destination.etapa_descripcion, source => source.MapFrom(src => src.etapa_descripcion))
+            .ForMember(destination => destination.pregunta_numero, source => source.MapFrom(src => src.pregunta_numero))
+            .ForMember(destination => destination.pregunta_descripcion, source => source.MapFrom(src => src.pregunta_descripcion))
+            .ForMember(destination => destination.alternativa_opcion, source => source.MapFrom(src => src.alternativa_opcion))
+            .ForMember(destination => destination.alternativa_descripcion, source => source.MapFrom(src => src.alternativa_descripcion))
+            .ForMember(destination => destination.medioverificacion, source => source.MapFrom(src => src.medioverificacion))
+            .ForMember(destination => destination.lista_medioverificacion, source => source.MapFrom(src => src.lista_medioverificacion));
+
+            CreateMap<ResultadoDto, ResultadoFilterRequest>().ReverseMap()
+            .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
+            .ForMember(destination => destination.preguntaetapakey, source => source.MapFrom(src => src.preguntaetapakey))
+            .ForMember(destination => destination.entidadetapakey, source => source.MapFrom(src => src.entidadetapakey))
+            .ForMember(destination => destination.alternativakey, source => source.MapFrom(src => src.alternativakey));
+
+            CreateMap<ResultadoDto, ResultadoResponse>().ReverseMap()
+            .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
+            .ForMember(destination => destination.preguntaetapakey, source => source.MapFrom(src => src.preguntaetapakey))
+            .ForMember(destination => destination.entidadetapakey, source => source.MapFrom(src => src.entidadetapakey))
+            .ForMember(destination => destination.alternativakey, source => source.MapFrom(src => src.alternativakey))
+            .ForMember(destination => destination.comentarios, source => source.MapFrom(src => src.comentarios))
+            .ForMember(destination => destination.etapa_nombre, source => source.MapFrom(src => src.etapa_nombre))
+            .ForMember(destination => destination.etapa_descripcion, source => source.MapFrom(src => src.etapa_descripcion))
+            .ForMember(destination => destination.pregunta_numero, source => source.MapFrom(src => src.pregunta_numero))
+            .ForMember(destination => destination.pregunta_descripcion, source => source.MapFrom(src => src.pregunta_descripcion))
+            .ForMember(destination => destination.alternativa_opcion, source => source.MapFrom(src => src.alternativa_opcion))
+            .ForMember(destination => destination.alternativa_descripcion, source => source.MapFrom(src => src.alternativa_descripcion))
+            .ForMember(destination => destination.medioverificacion, source => source.MapFrom(src => src.medioverificacion))
+            .ForMember(destination => destination.lista_medioverificacion, source => source.MapFrom(src => src.lista_medioverificacion));
+
+            #endregion
+
         }
     }
 }
