@@ -466,6 +466,7 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
             .ForMember(destination => destination.numero_orden, source => source.MapFrom(src => src.numero_orden));
 
             CreateMap<AlternativaDto, AlternativaResponse>().ReverseMap()
+            .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
             .ForMember(destination => destination.codigo, source => source.MapFrom(src => src.codigo))
             .ForMember(destination => destination.alternativa, source => source.MapFrom(src => src.alternativa))
             .ForMember(destination => destination.descripcion, source => source.MapFrom(src => src.descripcion))

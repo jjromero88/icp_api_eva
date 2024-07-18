@@ -13,6 +13,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
     }
     public class AlternativaResponse
     {
+        public string? serialKey { get; set; }
         public string? codigo { get; set; }
         public string? alternativa { get; set; }
         public string? descripcion { get; set; }
