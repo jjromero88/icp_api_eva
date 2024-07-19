@@ -21,6 +21,23 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
         public bool? medioverificacion { get; set; }
         public List<MedioVerificacionDto>? lista_medioverificacion { get; set; }
     }
+
+    public class ResultadoInsertRequest
+    {
+        public string? preguntaetapakey { get; set; }
+        public string? entidadetapakey { get; set; }
+        public string? alternativakey { get; set; }
+        public string? comentarios { get; set; }
+        public string? etapa_nombre { get; set; }
+        public string? etapa_descripcion { get; set; }
+        public int? pregunta_numero { get; set; }
+        public string? pregunta_descripcion { get; set; }
+        public string? alternativa_opcion { get; set; }
+        public string? alternativa_descripcion { get; set; }
+        public bool? medioverificacion { get; set; }
+        public List<MedioVerificacionInsertRequest>? lista_medioverificacion { get; set; }
+    }
+
     public class ResultadoFilterRequest
     {
         public string? serialKey { get; set; }

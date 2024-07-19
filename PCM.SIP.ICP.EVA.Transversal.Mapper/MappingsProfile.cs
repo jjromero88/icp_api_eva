@@ -115,6 +115,16 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
 
             #region Documento
 
+            CreateMap<Document, DocumentDto>().ReverseMap()
+            .ForMember(destination => destination.filename, source => source.MapFrom(src => src.filename))
+            .ForMember(destination => destination.category, source => source.MapFrom(src => src.category))
+            .ForMember(destination => destination.extension, source => source.MapFrom(src => src.extension))
+            .ForMember(destination => destination.size, source => source.MapFrom(src => src.size));
+
+            CreateMap<DocumentDto, DocumentInsertRequestDto>().ReverseMap()
+            .ForMember(destination => destination.filename, source => source.MapFrom(src => src.filename))
+            .ForMember(destination => destination.base64content, source => source.MapFrom(src => src.base64content));
+
             CreateMap<DocumentInsertRequest, DocumentInsertRequestDto>().ReverseMap()
             .ForMember(destination => destination.filename, source => source.MapFrom(src => src.filename))
             .ForMember(destination => destination.base64content, source => source.MapFrom(src => src.base64content));
@@ -484,6 +494,15 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
             .ForMember(destination => destination.verificacion_doc, source => source.MapFrom(src => src.verificacion_doc))
             .ForMember(destination => destination.verificacion_documento, source => source.MapFrom(src => src.verificacion_documento));
 
+            CreateMap<MedioVerificacion, TypeMedioVerificacion>().ReverseMap()
+            .ForMember(destination => destination.medioverificacion_id, source => source.MapFrom(src => src.medioverificacion_id))
+            .ForMember(destination => destination.resultado_id, source => source.MapFrom(src => src.resultado_id))
+            .ForMember(destination => destination.verificacion_doc, source => source.MapFrom(src => src.verificacion_doc));
+
+            CreateMap<MedioVerificacionDto, MedioVerificacionInsertRequest>().ReverseMap()
+            .ForMember(destination => destination.resultadokey, source => source.MapFrom(src => src.resultadokey))
+            .ForMember(destination => destination.verificacion_documento, source => source.MapFrom(src => src.verificacion_documento));
+
             CreateMap<MedioVerificacionDto, MedioVerificacionResponse>().ReverseMap()
             .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
             .ForMember(destination => destination.resultadokey, source => source.MapFrom(src => src.resultadokey))
@@ -540,6 +559,35 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
             .ForMember(destination => destination.alternativa_descripcion, source => source.MapFrom(src => src.alternativa_descripcion))
             .ForMember(destination => destination.medioverificacion, source => source.MapFrom(src => src.medioverificacion))
             .ForMember(destination => destination.lista_medioverificacion, source => source.MapFrom(src => src.lista_medioverificacion));
+
+            CreateMap<Resultado, TypeResultado>().ReverseMap()
+            .ForMember(destination => destination.resultado_id, source => source.MapFrom(src => src.resultado_id))
+            .ForMember(destination => destination.preguntaetapa_id, source => source.MapFrom(src => src.preguntaetapa_id))
+            .ForMember(destination => destination.entidadetapa_id, source => source.MapFrom(src => src.entidadetapa_id))
+            .ForMember(destination => destination.alternativa_id, source => source.MapFrom(src => src.alternativa_id))
+            .ForMember(destination => destination.comentarios, source => source.MapFrom(src => src.comentarios))
+            .ForMember(destination => destination.etapa_nombre, source => source.MapFrom(src => src.etapa_nombre))
+            .ForMember(destination => destination.etapa_descripcion, source => source.MapFrom(src => src.etapa_descripcion))
+            .ForMember(destination => destination.pregunta_numero, source => source.MapFrom(src => src.pregunta_numero))
+            .ForMember(destination => destination.pregunta_descripcion, source => source.MapFrom(src => src.pregunta_descripcion))
+            .ForMember(destination => destination.alternativa_opcion, source => source.MapFrom(src => src.alternativa_opcion))
+            .ForMember(destination => destination.alternativa_descripcion, source => source.MapFrom(src => src.alternativa_descripcion))
+            .ForMember(destination => destination.medioverificacion, source => source.MapFrom(src => src.medioverificacion));
+
+            CreateMap<ResultadoDto, ResultadoInsertRequest>().ReverseMap()
+            .ForMember(destination => destination.preguntaetapakey, source => source.MapFrom(src => src.preguntaetapakey))
+            .ForMember(destination => destination.entidadetapakey, source => source.MapFrom(src => src.entidadetapakey))
+            .ForMember(destination => destination.alternativakey, source => source.MapFrom(src => src.alternativakey))
+            .ForMember(destination => destination.comentarios, source => source.MapFrom(src => src.comentarios))
+            .ForMember(destination => destination.etapa_nombre, source => source.MapFrom(src => src.etapa_nombre))
+            .ForMember(destination => destination.etapa_descripcion, source => source.MapFrom(src => src.etapa_descripcion))
+            .ForMember(destination => destination.pregunta_numero, source => source.MapFrom(src => src.pregunta_numero))
+            .ForMember(destination => destination.pregunta_descripcion, source => source.MapFrom(src => src.pregunta_descripcion))
+            .ForMember(destination => destination.alternativa_opcion, source => source.MapFrom(src => src.alternativa_opcion))
+            .ForMember(destination => destination.alternativa_descripcion, source => source.MapFrom(src => src.alternativa_descripcion))
+            .ForMember(destination => destination.medioverificacion, source => source.MapFrom(src => src.medioverificacion))
+            .ForMember(destination => destination.lista_medioverificacion, source => source.MapFrom(src => src.lista_medioverificacion));
+
 
             CreateMap<ResultadoDto, ResultadoFilterRequest>().ReverseMap()
             .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))

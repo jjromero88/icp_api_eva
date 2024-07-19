@@ -1,15 +1,17 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace PCM.SIP.ICP.EVA.Domain.Entities
 {
-    public class Resultado : EntidadBase
+    public class TypeResultado
     {
         public int resultado_id { get; set; }
         public int? preguntaetapa_id { get; set; }
         public int? entidadetapa_id { get; set; }
         public int? alternativa_id { get; set; }
-        public string? preguntaetapakey { get; set; }
-        public string? entidadetapakey { get; set; }
-        public string? alternativakey { get; set; }
         public string? comentarios { get; set; }
         public string? etapa_nombre { get; set; }
         public string? etapa_descripcion { get; set; }
@@ -18,8 +20,5 @@ namespace PCM.SIP.ICP.EVA.Domain.Entities
         public string? alternativa_opcion { get; set; }
         public string? alternativa_descripcion { get; set; }
         public bool? medioverificacion { get; set; }
-        public List<TypeResultado>? resultados { get; set; }
-        public List<TypeMedioVerificacion>? mediosverificacion { get; set; }
-        public List<MedioVerificacion>? lista_medioverificacion { get; set; }
     }
 }

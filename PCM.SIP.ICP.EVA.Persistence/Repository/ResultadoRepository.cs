@@ -3,6 +3,7 @@ using PCM.SIP.ICP.EVA.Aplicacion.Interface.Persistence;
 using PCM.SIP.ICP.EVA.Domain.Entities;
 using PCM.SIP.ICP.EVA.Persistence.Context;
 using PCM.SIP.ICP.EVA.Transversal.Common;
+using PCM.SIP.ICP.EVA.Transversal.Common.Data;
 using System.Data;
 
 namespace PCM.SIP.ICP.EVA.Persistence.Repository
@@ -18,7 +19,38 @@ namespace PCM.SIP.ICP.EVA.Persistence.Repository
 
         public Response Insert(Resultado entidad)
         {
-            throw new NotImplementedException();
+            Response retorno = new Response();
+
+            try
+            {
+                using (var connection = _context.CreateConnection())
+                {
+                    var query = "dbo.USP_INS_RESULTADO";
+
+                    var parameters = new DynamicParameters();
+
+                    parameters.Add("usuario_reg", entidad.usuario_reg);
+                    parameters.Add("error", dbType: DbType.Boolean, direction: ParameterDirection.Output);
+                    parameters.Add("message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
+
+                    var resultadoTable = DataTableHelper.ConvertToDataTable(entidad.resultados ?? new List<TypeResultado>());
+                    var mediosverificacionTable = DataTableHelper.ConvertToDataTable(entidad.mediosverificacion ?? new List<TypeMedioVerificacion>());
+                    parameters.Add("RESULTADOS", resultadoTable.AsTableValuedParameter("UDT_RESULTADO"));
+                    parameters.Add("MEDIOSVERIFICACION", mediosverificacionTable.AsTableValuedParameter("UDT_MEDIOVERIFICACION"));
+
+                    var result = connection.Execute(query, param: parameters, commandType: CommandType.StoredProcedure);
+
+                    retorno.Error = parameters.Get<bool?>("error") ?? false;
+                    retorno.Message = parameters.Get<string>("message") ?? string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                retorno.Error = true;
+                retorno.Message = ex.Message;
+            }
+
+            return retorno;
         }
 
         public Response Update(Resultado entidad)

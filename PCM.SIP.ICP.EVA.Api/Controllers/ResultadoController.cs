@@ -7,6 +7,8 @@ using PCM.SIP.ICP.EVA.Aplicacion.Dto;
 using PCM.SIP.ICP.EVA.Aplicacion.Interface.Features;
 using PCM.SIP.ICP.EVA.Transversal.Common.Generics;
 using PCM.SIP.ICP.EVA.Transversal.Common;
+using PCM.SIP.ICP.EVA.Aplicacion.Features;
+using System.Collections.Generic;
 
 namespace PCM.SIP.ICP.EVA.Api.Controllers
 {
@@ -35,5 +37,18 @@ namespace PCM.SIP.ICP.EVA.Api.Controllers
 
             return await _resultadoApplication.GetList(new Request<ResultadoDto>() { entidad = _mapper.Map<ResultadoDto>(request) });
         }
+
+        [HttpPost("Insert")]
+        [ServiceFilter(typeof(ValidateTokenRequestAttribute))]
+        [ServiceFilter(typeof(UpdateUserDataAttribute))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PcmResponse))]
+        public async Task<ActionResult<PcmResponse>> Insert([FromBody] List<ResultadoInsertRequest> request)
+        {
+            if (request == null)
+                return BadRequest();
+
+            return await _resultadoApplication.Insert(new Request<List<ResultadoDto>>() { entidad = _mapper.Map<List<ResultadoDto>>(request) });
+        }
+
     }
 }

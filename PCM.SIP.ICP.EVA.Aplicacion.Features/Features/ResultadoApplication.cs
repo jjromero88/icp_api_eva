@@ -31,6 +31,98 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
             _userSessionService = userSessionService;
         }
 
+        public async Task<PcmResponse> Insert(Request<List<ResultadoDto>> request)
+        {
+            try 
+            {
+                // declaramos la lista de resultados
+                List<Resultado> listaResultados = new List<Resultado>();
+
+                // recorremos la lista de resultados
+                foreach(var itemRequest in request.entidad)
+                {
+                    // mapeamos al tipo resultado
+                    var entidad = _mapper.Map<Resultado>(itemRequest);
+
+                    // desencriptamos los id
+                    entidad.preguntaetapa_id = DencryptOrNull(itemRequest.preguntaetapakey);
+                    entidad.entidadetapa_id = DencryptOrNull(itemRequest.entidadetapakey);
+                    entidad.alternativa_id = DencryptOrNull(itemRequest.alternativakey);
+
+                    // validamos si tiene medios de verificacion
+                    if (itemRequest.lista_medioverificacion?.Count > 0)
+                    {
+                        List<MedioVerificacion> listaMedioVerificacion = new List<MedioVerificacion>();
+
+                        foreach(var medioRequest in itemRequest.lista_medioverificacion)
+                        {
+                            // mapeamos el medio de verificacion
+                            var entidadMedio = _mapper.Map<MedioVerificacion>(medioRequest);
+
+                            // deserializamos los id
+                            entidadMedio.resultado_id = DencryptOrNull(medioRequest.resultadokey);
+
+                            // obtenemos el elemento del documento
+                            var documento = medioRequest.verificacion_documento;
+
+                            // guardamos el documento del medio de verificacion y obtenemos las propiedades json
+                            entidadMedio.verificacion_doc = documento == null ? null : await _unitOfWork.Document.SaveDocumentAsync(documento.filename, documento.base64content, PathKey.DocMedioVerificacion);
+
+                            // agregamos el medio de verificacion
+                            listaMedioVerificacion.Add(entidadMedio);
+                        }
+
+                        // agregamos la lista de medios de verificacion al resultado
+                        entidad.lista_medioverificacion = listaMedioVerificacion;
+                    }
+
+                    // agregamos el resultado a la lista de resultados
+                    listaResultados.Add(entidad);
+                }
+
+                // mapeamos los types de resultados
+                var listaresultadosType = _mapper.Map<List<TypeResultado>>(listaResultados);
+
+                // declaramos la lista de type medios de verificacion
+                var listamediosType = new List<TypeMedioVerificacion>();
+
+                // mapeamos los types de medios de verificacion
+                foreach(var resultado in listaResultados)
+                {
+                    if (resultado.lista_medioverificacion != null && resultado.lista_medioverificacion.Count > 0)
+                    {
+                        foreach(var medio in resultado.lista_medioverificacion)
+                        {
+                            // agregamos el medio de verificamos a la lista
+                            listamediosType.Add(_mapper.Map<TypeMedioVerificacion>(medio));
+                        }
+                    }
+                }
+
+                // guardamos en base de datos
+                var result = _unitOfWork.Resultado.Insert(new Resultado { resultados = listaresultadosType , mediosverificacion  = listamediosType });
+
+                if (result.Error)
+                {
+                    _logger.LogError(result.Message);
+                    return ResponseUtil.BadRequest(result.Message);
+                }
+
+                _logger.LogInformation(result.Message ?? TransactionMessage.SaveSuccess);
+                return ResponseUtil.Created(message: TransactionMessage.SaveSuccess);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return ResponseUtil.InternalError(message: ex.Message);
+            }
+        }
+
+        public async Task<PcmResponse> Update(Request<List<ResultadoDto>> request)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<PcmResponse> GetList(Request<ResultadoDto> request)
         {
             try
@@ -89,7 +181,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                 _logger.LogError(ex.Message);
                 return ResponseUtil.InternalError(message: ex.Message);
             }
-        }
+        } 
 
         private List<MedioVerificacion> DeserializeMediosVerificacion(string listaMedioverificacion)
         {
@@ -115,6 +207,11 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
         private string EncryptOrNull(string value)
         {
             return string.IsNullOrEmpty(value) ? null : CShrapEncryption.EncryptString(value, _userSessionService.GetUser().authkey);
+        }
+
+        private int? DencryptOrNull(string? value)
+        {
+            return string.IsNullOrEmpty(value) ? null : Convert.ToInt32(CShrapEncryption.DecryptString(value, _userSessionService.GetUser().authkey));
         }
 
     }
