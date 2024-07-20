@@ -125,6 +125,12 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
             .ForMember(destination => destination.filename, source => source.MapFrom(src => src.filename))
             .ForMember(destination => destination.base64content, source => source.MapFrom(src => src.base64content));
 
+            CreateMap<DocumentDto, DocumentResponseDto>().ReverseMap()
+            .ForMember(destination => destination.category, source => source.MapFrom(src => src.category))
+            .ForMember(destination => destination.filename, source => source.MapFrom(src => src.filename))
+            .ForMember(destination => destination.extension, source => source.MapFrom(src => src.extension))
+            .ForMember(destination => destination.size, source => source.MapFrom(src => src.size));
+
             CreateMap<DocumentInsertRequest, DocumentInsertRequestDto>().ReverseMap()
             .ForMember(destination => destination.filename, source => source.MapFrom(src => src.filename))
             .ForMember(destination => destination.base64content, source => source.MapFrom(src => src.base64content));

@@ -176,7 +176,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                 {
                     serialKey = EncryptOrNull(item.medioverificacion_id.ToString()),
                     resultadokey = string.IsNullOrEmpty(item.resultado_id.ToString()) ? null : EncryptOrNull(item.resultado_id.ToString()),
-                    verificacion_documento = string.IsNullOrEmpty(item.verificacion_doc) ? null : JsonSerializer.Deserialize<Document>(item.verificacion_doc),
+                    verificacion_documento = item.verificacion_documento,
                 }).ToList();
             }
             catch (Exception ex)
