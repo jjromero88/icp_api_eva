@@ -63,7 +63,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                             var documento = medioRequest.verificacion_documento;
 
                             // guardamos el documento del medio de verificacion y obtenemos las propiedades json
-                            entidadMedio.verificacion_doc = documento == null ? null : await _unitOfWork.Document.SaveDocumentAsync(documento.filename, documento.base64content, PathKey.DocMedioVerificacion);
+                            entidadMedio.verificacion_doc = documento?.base64content == null ? null : await _unitOfWork.Document.SaveDocumentAsync(documento.filename, documento.base64content, PathKey.DocMedioVerificacion);
 
                             // agregamos el medio de verificacion
                             listaMedioVerificacion.Add(entidadMedio);
