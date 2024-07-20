@@ -78,7 +78,7 @@ namespace PCM.SIP.ICP.EVA.Persistence.Repository
 
                     var parameters = new DynamicParameters();
 
-                    parameters.Add("resultado_id", entidad.resultado_id.Equals(0) ? (int?)null : entidad.resultado_id);
+                    parameters.Add("resultado_id", entidad.resultado_id);
                     parameters.Add("preguntaetapa_id", entidad.preguntaetapa_id);
                     parameters.Add("entidadetapa_id", entidad.entidadetapa_id);
                     parameters.Add("alternativa_id", entidad.alternativa_id);

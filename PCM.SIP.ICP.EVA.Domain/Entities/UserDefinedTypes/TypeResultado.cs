@@ -8,7 +8,7 @@ namespace PCM.SIP.ICP.EVA.Domain.Entities
 {
     public class TypeResultado
     {
-        public int resultado_id { get; set; }
+        public int? resultado_id { get; set; }
         public int? preguntaetapa_id { get; set; }
         public int? entidadetapa_id { get; set; }
         public int? alternativa_id { get; set; }

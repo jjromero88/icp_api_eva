@@ -11,6 +11,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
 
     public class MedioVerificacionInsertRequest
     {
+        public string? serialKey { get; set; }
         public string? resultadokey { get; set; }
         public DocumentInsertRequestDto? verificacion_documento { get; set; }
     }

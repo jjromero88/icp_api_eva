@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System.Text.Json;
 using PCM.SIP.ICP.EVA.Aplicacion.Dto;
 using PCM.SIP.ICP.EVA.Aplicacion.Interface;
 using PCM.SIP.ICP.EVA.Aplicacion.Interface.Features;
@@ -8,7 +9,7 @@ using PCM.SIP.ICP.EVA.Transversal.Common;
 using PCM.SIP.ICP.EVA.Transversal.Common.Constants;
 using PCM.SIP.ICP.EVA.Transversal.Common.Generics;
 using PCM.SIP.ICP.EVA.Transversal.Util.Encryptions;
-using System.Text.Json;
+using Microsoft.IdentityModel.Tokens;
 
 namespace PCM.SIP.ICP.EVA.Aplicacion.Features
 {
@@ -45,6 +46,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                     var entidad = _mapper.Map<Resultado>(itemRequest);
 
                     // desencriptamos los id
+                    entidad.resultado_id = DencryptOrNull(itemRequest.serialKey);
                     entidad.preguntaetapa_id = DencryptOrNull(itemRequest.preguntaetapakey);
                     entidad.entidadetapa_id = DencryptOrNull(itemRequest.entidadetapakey);
                     entidad.alternativa_id = DencryptOrNull(itemRequest.alternativakey);
@@ -58,6 +60,10 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                         {
                             // mapeamos el medio de verificacion
                             var entidadMedio = _mapper.Map<MedioVerificacion>(medioRequest);
+
+                            // desencriptamos el id si lo tuviera
+                            entidadMedio.medioverificacion_id = DencryptOrNull(entidadMedio.serialKey);
+                            entidadMedio.resultado_id = DencryptOrNull(entidadMedio.resultadokey);
 
                             // obtenemos el elemento del documento
                             var documento = medioRequest.verificacion_documento;
@@ -99,18 +105,13 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
             }
         }
 
-        public async Task<PcmResponse> Update(Request<List<ResultadoDto>> request)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<PcmResponse> GetList(Request<ResultadoDto> request)
         {
             try
             {
                 var entidad = _mapper.Map<Resultado>(request.entidad);
 
-                entidad.resultado_id = string.IsNullOrEmpty(request.entidad.serialKey) ? 0 : Convert.ToInt32(CShrapEncryption.DecryptString(request.entidad.serialKey, _userSessionService.GetUser().authkey));
+                entidad.resultado_id = string.IsNullOrEmpty(request.entidad.serialKey) ? null : Convert.ToInt32(CShrapEncryption.DecryptString(request.entidad.serialKey, _userSessionService.GetUser().authkey));
                 entidad.preguntaetapa_id = string.IsNullOrEmpty(request.entidad.preguntaetapakey) ? null : Convert.ToInt32(CShrapEncryption.DecryptString(request.entidad.preguntaetapakey, _userSessionService.GetUser().authkey));
                 entidad.entidadetapa_id = string.IsNullOrEmpty(request.entidad.entidadetapakey) ? null : Convert.ToInt32(CShrapEncryption.DecryptString(request.entidad.entidadetapakey, _userSessionService.GetUser().authkey));
                 entidad.alternativa_id = string.IsNullOrEmpty(request.entidad.alternativakey) ? null : Convert.ToInt32(CShrapEncryption.DecryptString(request.entidad.alternativakey, _userSessionService.GetUser().authkey));
@@ -174,7 +175,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                 var mediosVerificacion = JsonSerializer.Deserialize<List<MedioVerificacion>>(listaMedioverificacion) ?? new List<MedioVerificacion>();
                 return mediosVerificacion.Select(item => new MedioVerificacion
                 {
-                    serialKey = EncryptOrNull(item.medioverificacion_id.ToString()),
+                    serialKey = string.IsNullOrEmpty(item.medioverificacion_id.ToString()) ? null : EncryptOrNull(item.medioverificacion_id.ToString()),
                     resultadokey = string.IsNullOrEmpty(item.resultado_id.ToString()) ? null : EncryptOrNull(item.resultado_id.ToString()),
                     verificacion_documento = item.verificacion_documento,
                 }).ToList();

@@ -24,6 +24,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
 
     public class ResultadoInsertRequest
     {
+        public string? serialKey { get; set; }
         public string? preguntaetapakey { get; set; }
         public string? entidadetapakey { get; set; }
         public string? alternativakey { get; set; }

@@ -501,6 +501,7 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
             .ForMember(destination => destination.verificacion_documento, source => source.MapFrom(src => src.verificacion_documento));
 
             CreateMap<MedioVerificacionDto, MedioVerificacionInsertRequest>().ReverseMap()
+            .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
             .ForMember(destination => destination.resultadokey, source => source.MapFrom(src => src.resultadokey))
             .ForMember(destination => destination.verificacion_documento, source => source.MapFrom(src => src.verificacion_documento));
 
@@ -577,6 +578,7 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
             .ForMember(destination => destination.lista_medioverificacion_json, source => source.MapFrom(src => src.lista_medioverificacion_json));
 
             CreateMap<ResultadoDto, ResultadoInsertRequest>().ReverseMap()
+            .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
             .ForMember(destination => destination.preguntaetapakey, source => source.MapFrom(src => src.preguntaetapakey))
             .ForMember(destination => destination.entidadetapakey, source => source.MapFrom(src => src.entidadetapakey))
             .ForMember(destination => destination.alternativakey, source => source.MapFrom(src => src.alternativakey))
