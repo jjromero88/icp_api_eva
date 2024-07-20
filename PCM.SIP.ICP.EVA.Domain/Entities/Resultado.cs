@@ -19,7 +19,7 @@ namespace PCM.SIP.ICP.EVA.Domain.Entities
         public string? alternativa_descripcion { get; set; }
         public bool? medioverificacion { get; set; }
         public List<TypeResultado>? resultados { get; set; }
-        public List<TypeMedioVerificacion>? mediosverificacion { get; set; }
+        public string? lista_medioverificacion_json { get; set; }
         public List<MedioVerificacion>? lista_medioverificacion { get; set; }
     }
 }

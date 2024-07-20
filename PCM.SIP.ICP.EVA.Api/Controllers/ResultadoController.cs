@@ -50,5 +50,5 @@ namespace PCM.SIP.ICP.EVA.Api.Controllers
             return await _resultadoApplication.Insert(new Request<List<ResultadoDto>>() { entidad = _mapper.Map<List<ResultadoDto>>(request) });
         }
 
-    }
+    }  
 }

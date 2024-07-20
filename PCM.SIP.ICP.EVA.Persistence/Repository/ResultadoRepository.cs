@@ -34,9 +34,7 @@ namespace PCM.SIP.ICP.EVA.Persistence.Repository
                     parameters.Add("message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
 
                     var resultadoTable = DataTableHelper.ConvertToDataTable(entidad.resultados ?? new List<TypeResultado>());
-                    var mediosverificacionTable = DataTableHelper.ConvertToDataTable(entidad.mediosverificacion ?? new List<TypeMedioVerificacion>());
                     parameters.Add("RESULTADOS", resultadoTable.AsTableValuedParameter("UDT_RESULTADO"));
-                    parameters.Add("MEDIOSVERIFICACION", mediosverificacionTable.AsTableValuedParameter("UDT_MEDIOVERIFICACION"));
 
                     var result = connection.Execute(query, param: parameters, commandType: CommandType.StoredProcedure);
 

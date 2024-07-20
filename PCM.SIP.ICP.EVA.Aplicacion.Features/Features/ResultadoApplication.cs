@@ -59,9 +59,6 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                             // mapeamos el medio de verificacion
                             var entidadMedio = _mapper.Map<MedioVerificacion>(medioRequest);
 
-                            // deserializamos los id
-                            entidadMedio.resultado_id = DencryptOrNull(medioRequest.resultadokey);
-
                             // obtenemos el elemento del documento
                             var documento = medioRequest.verificacion_documento;
 
@@ -72,8 +69,8 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                             listaMedioVerificacion.Add(entidadMedio);
                         }
 
-                        // agregamos la lista de medios de verificacion al resultado
-                        entidad.lista_medioverificacion = listaMedioVerificacion;
+                        // Convertimos la lista de medios de verificación a JSON
+                        entidad.lista_medioverificacion_json = JsonSerializer.Serialize(listaMedioVerificacion);
                     }
 
                     // agregamos el resultado a la lista de resultados
@@ -83,24 +80,8 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                 // mapeamos los types de resultados
                 var listaresultadosType = _mapper.Map<List<TypeResultado>>(listaResultados);
 
-                // declaramos la lista de type medios de verificacion
-                var listamediosType = new List<TypeMedioVerificacion>();
-
-                // mapeamos los types de medios de verificacion
-                foreach(var resultado in listaResultados)
-                {
-                    if (resultado.lista_medioverificacion != null && resultado.lista_medioverificacion.Count > 0)
-                    {
-                        foreach(var medio in resultado.lista_medioverificacion)
-                        {
-                            // agregamos el medio de verificamos a la lista
-                            listamediosType.Add(_mapper.Map<TypeMedioVerificacion>(medio));
-                        }
-                    }
-                }
-
                 // guardamos en base de datos
-                var result = _unitOfWork.Resultado.Insert(new Resultado { resultados = listaresultadosType , mediosverificacion  = listamediosType });
+                var result = _unitOfWork.Resultado.Insert(new Resultado { resultados = listaresultadosType, usuario_reg = _userSessionService.GetUser().username });
 
                 if (result.Error)
                 {
