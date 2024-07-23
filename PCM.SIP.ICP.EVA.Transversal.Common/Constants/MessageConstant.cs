@@ -37,5 +37,6 @@ namespace PCM.SIP.ICP.EVA.Transversal.Common.Constants
         public const string DocDesignacionCoordinador = "DocumentoDesignacionCoordinador";
         public const string DocAsistenciaTecnica = "DocumentoAsistenciaTecnica";
         public const string DocMedioVerificacion = "DocMedioVerificacion";
+        public const string DocFirmaOficialIntegridad = "DocFirmaOficialIntegridad";
     }
 }

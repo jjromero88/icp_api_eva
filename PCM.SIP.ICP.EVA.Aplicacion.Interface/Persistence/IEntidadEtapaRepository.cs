@@ -7,5 +7,6 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Interface.Persistence
     {
         Response GenerarFicha(EntidadEtapa entidad);
         Response AprobarFicha(EntidadEtapa entidad);
+        Response Firmarficha(EntidadEtapa entidad);
     }
 }

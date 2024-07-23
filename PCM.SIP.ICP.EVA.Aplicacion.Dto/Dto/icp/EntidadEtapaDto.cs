@@ -31,4 +31,9 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
         public string? serialKey { get; set; }
         public AprobarFichaHistoricoRequest? fichahistorico { get; set; }
     }
+    public class FirmarFichaRequest
+    {
+        public string? serialKey { get; set; }
+        public FirmarFichaHistoricoRequest? fichahistorico { get; set; }
+    }
 }

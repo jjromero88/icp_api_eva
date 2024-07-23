@@ -21,5 +21,6 @@ namespace PCM.SIP.ICP.EVA.Domain.Entities
         public string? perfilkey { get; set; }
         public string? comentarios { get; set; }
         public string? descripcion { get; set; }
+        public HistoricoDocumento? historicodocumento { get; set; }
     }
 }

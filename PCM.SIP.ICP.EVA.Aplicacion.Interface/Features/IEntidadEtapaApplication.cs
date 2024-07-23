@@ -8,6 +8,6 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Interface.Features
     {
         Task<PcmResponse> GenerarFicha(Request<EntidadEtapaDto> request);
         Task<PcmResponse> AprobarFicha(Request<EntidadEtapaDto> request);
-
+        Task<PcmResponse> FirmarFicha(Request<EntidadEtapaDto> request);
     }
 }

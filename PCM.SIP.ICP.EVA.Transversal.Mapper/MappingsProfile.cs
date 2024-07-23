@@ -537,6 +537,10 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
            .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
            .ForMember(destination => destination.fichahistorico, source => source.MapFrom(src => src.fichahistorico));
 
+            CreateMap<EntidadEtapaDto, FirmarFichaRequest>().ReverseMap()
+           .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
+           .ForMember(destination => destination.fichahistorico, source => source.MapFrom(src => src.fichahistorico));
+
             #endregion
 
             #region PreguntaEtapa
@@ -647,6 +651,10 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
 
             CreateMap<FichaHistoricoDto, AprobarFichaHistoricoRequest>().ReverseMap()
            .ForMember(destination => destination.comentarios, source => source.MapFrom(src => src.comentarios));
+
+            CreateMap<FichaHistoricoDto, FirmarFichaHistoricoRequest>().ReverseMap()
+           .ForMember(destination => destination.comentarios, source => source.MapFrom(src => src.comentarios))
+           .ForMember(destination => destination.ficha_documento, source => source.MapFrom(src => src.ficha_documento));
 
             #endregion
 

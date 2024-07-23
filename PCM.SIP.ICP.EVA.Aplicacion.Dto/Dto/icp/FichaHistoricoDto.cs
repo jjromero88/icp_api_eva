@@ -15,6 +15,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
         public string? perfilkey { get; set; }
         public string? comentarios { get; set; }
         public string? descripcion { get; set; }
+        public DocumentDto? ficha_documento { get; set; }
     }
 
     public class GenerarFichaHistoricoRequest
@@ -24,5 +25,10 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
     public class AprobarFichaHistoricoRequest
     {
         public string? comentarios { get; set; }
+    }
+    public class FirmarFichaHistoricoRequest
+    {
+        public string? comentarios { get; set; }
+        public DocumentInsertRequestDto? ficha_documento { get; set; }
     }
 }
