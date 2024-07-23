@@ -6,6 +6,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
         public string? serialKey { get; set; }
         public string? resultadokey { get; set; }
         public string? verificacion_doc { get; set; }
+        public DateTime? fecha_reg { get; set; }
         public DocumentDto? verificacion_documento { get; set; }
     }
 
@@ -20,6 +21,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
     {
         public string? serialKey { get; set; }
         public string? resultadokey { get; set; }
+        public DateTime? fecha_reg { get; set; }
         public DocumentResponseDto? verificacion_documento { get; set; }
     }
 }

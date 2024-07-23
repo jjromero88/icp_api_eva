@@ -13,5 +13,6 @@ namespace PCM.SIP.ICP.EVA.Domain.Entities
         public int? entidad_id { get; set; }
         public string? evaluacionetapakey { get; set; }
         public string? entidadkey { get; set; }
+        public FichaHistorico? fichahistorico { get; set; }
     }
 }

@@ -178,6 +178,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                     serialKey = string.IsNullOrEmpty(item.medioverificacion_id.ToString()) ? null : EncryptOrNull(item.medioverificacion_id.ToString()),
                     resultadokey = string.IsNullOrEmpty(item.resultado_id.ToString()) ? null : EncryptOrNull(item.resultado_id.ToString()),
                     verificacion_documento = item.verificacion_documento,
+                    fecha_reg = item.fecha_reg
                 }).ToList();
             }
             catch (Exception ex)

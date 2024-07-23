@@ -60,6 +60,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
         public string? alternativa_opcion { get; set; }
         public string? alternativa_descripcion { get; set; }
         public bool? medioverificacion { get; set; }
+        public DateTime? fecha_reg { get; set; }
         public List<MedioVerificacionResponse>? lista_medioverificacion { get; set; }
     }
 }
