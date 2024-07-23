@@ -108,7 +108,13 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                 {
                     serialKey = EncryptOrNull(ee.entidadetapa?.entidadetapa_id.ToString()),
                     evaluacionetapakey = EncryptOrNull(ee.entidadetapa?.evaluacionetapa_id.ToString()),
-                    entidadkey = EncryptOrNull(ee.entidadetapa?.entidad_id.ToString())
+                    entidadkey = EncryptOrNull(ee.entidadetapa?.entidad_id.ToString()),
+                    fichaestado = new FichaEstados
+                    {
+                        codigo = ee.entidadetapa?.fichaestado?.codigo,
+                        nombre = ee.entidadetapa?.fichaestado?.nombre,
+                        descripcion = ee.entidadetapa?.fichaestado?.descripcion,
+                    }
                 },
                 evaluacion = new Evaluacion
                 {

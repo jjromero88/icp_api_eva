@@ -10,6 +10,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
     {
         public string? evaluacionetapakey { get; set; }
         public string? entidadkey { get; set; }
+        public FichaEstadosDto? fichaestado { get; set; }
         public FichaHistoricoDto? fichahistorico { get; set; }
     }
     public class EntidadEtapaResponse
@@ -17,6 +18,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
         public string? serialKey { get; set; }
         public string? evaluacionetapakey { get; set; }
         public string? entidadkey { get; set; }
+        public FichaEstadosResponse? fichaestado { get; set; }
     }
 
     public class GenerarFichaRequest

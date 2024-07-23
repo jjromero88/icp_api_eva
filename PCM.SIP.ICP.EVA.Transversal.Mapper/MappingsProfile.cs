@@ -520,11 +520,13 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
             .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
             .ForMember(destination => destination.evaluacionetapakey, source => source.MapFrom(src => src.evaluacionetapakey))
             .ForMember(destination => destination.entidadkey, source => source.MapFrom(src => src.entidadkey))
+            .ForMember(destination => destination.fichaestado, source => source.MapFrom(src => src.fichaestado))
             .ForMember(destination => destination.fichahistorico, source => source.MapFrom(src => src.fichahistorico));
 
             CreateMap<EntidadEtapaDto, EntidadEtapaResponse>().ReverseMap()
             .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
             .ForMember(destination => destination.evaluacionetapakey, source => source.MapFrom(src => src.evaluacionetapakey))
+            .ForMember(destination => destination.fichaestado, source => source.MapFrom(src => src.fichaestado))
             .ForMember(destination => destination.entidadkey, source => source.MapFrom(src => src.entidadkey));
 
             CreateMap<EntidadEtapaDto, GenerarFichaRequest>().ReverseMap()
@@ -645,6 +647,21 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
 
             CreateMap<FichaHistoricoDto, AprobarFichaHistoricoRequest>().ReverseMap()
            .ForMember(destination => destination.comentarios, source => source.MapFrom(src => src.comentarios));
+
+            #endregion
+
+            #region FichaEstados
+
+            CreateMap<FichaEstados, FichaEstadosDto>().ReverseMap()
+            .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
+            .ForMember(destination => destination.codigo, source => source.MapFrom(src => src.codigo))
+            .ForMember(destination => destination.nombre, source => source.MapFrom(src => src.nombre))
+            .ForMember(destination => destination.descripcion, source => source.MapFrom(src => src.descripcion));
+
+            CreateMap<FichaEstadosDto, FichaEstadosResponse>().ReverseMap()
+            .ForMember(destination => destination.codigo, source => source.MapFrom(src => src.codigo))
+            .ForMember(destination => destination.nombre, source => source.MapFrom(src => src.nombre))
+            .ForMember(destination => destination.descripcion, source => source.MapFrom(src => src.descripcion));
 
             #endregion
 
