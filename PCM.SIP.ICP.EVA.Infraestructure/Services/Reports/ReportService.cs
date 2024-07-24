@@ -1,35 +1,33 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Reporting.NETCore;
-using PCM.SIP.ICP.EVA.Aplicacion.Interface.Features;
+using PCM.SIP.ICP.EVA.Aplicacion.Interface.Infraestructure;
 
-namespace PCM.SIP.ICP.EVA.Aplicacion.Features
+namespace PCM.SIP.ICP.EVA.Infraestructure.Services
 {
     public class ReportService : IReportService
     {
-        private readonly string _reportsPath;
+        private readonly IConfiguration _configuration;
 
-        public ReportService(IOptions<ReportSettings> options)
+        public ReportService(IConfiguration configuration)
         {
-            _reportsPath = options.Value.ReportsPath;
+            _configuration = configuration;
         }
 
-        public async Task<byte[]> GenerateReportAsync(string reportName)
+        public async Task<byte[]> GenerateReportAsync(string reportName, string reportPath)
         {
             try
             {
+
                 // Ruta al archivo RDLC
-                var path = Path.Combine("C:/Users/JUANJO/source/repos/PCM/ICP/icp_api_eva/PCM.SIP.ICP.EVA.Api/wwwroot/Reports", reportName);
+                var storagePath = GetReportPath(reportPath);
+                var path = Path.Combine(storagePath, reportName);
 
                 // Verificar si el archivo existe
                 if (!File.Exists(path))
-                {
                     throw new FileNotFoundException($"El archivo RDLC {reportName} no se encuentra.", path);
-                }
 
                 // Cargar el archivo RDLC como un stream
                 using var reportDefinition = File.OpenRead(path);
-
-
 
                 // Crear el reporte
                 var report = new LocalReport();
@@ -48,6 +46,12 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
             {
                 throw new Exception($"Ocurrió un error al generar el reporte: {ex.Message}", ex);
             }
+
+        }
+
+        private string GetReportPath(string category)
+        {
+            return _configuration[$"ReportSettings:{category}"];
         }
     }
 }

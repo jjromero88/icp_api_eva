@@ -9,12 +9,11 @@ namespace PCM.SIP.ICP.EVA.Api.Controllers
     [ApiController]
     public class ReportController : Controller
     {
-        private readonly IReportService _reportService;
+        private readonly IReportDocumentService _reportService;
 
-        public ReportController(IReportService reportService)
+        public ReportController(IReportDocumentService reportService)
         {
             _reportService = reportService;
-            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         }
 
         [AllowAnonymous]
