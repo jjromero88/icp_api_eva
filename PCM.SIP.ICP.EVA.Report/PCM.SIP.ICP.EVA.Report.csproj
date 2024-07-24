@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E35CC9DA-4316-402C-9AF6-C39AAE5F2B9C}</ProjectGuid>
+    <ProjectGuid>{EECC61EF-EEB4-4620-B6A0-0CF4ECF7B4A1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>PCM.SIP.ICP.EVA.Report</RootNamespace>
     <AssemblyName>PCM.SIP.ICP.EVA.Report</AssemblyName>
