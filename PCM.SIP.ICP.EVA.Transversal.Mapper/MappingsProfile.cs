@@ -673,6 +673,13 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
 
             #endregion
 
+            #region Report
+             
+            CreateMap<ReportDto, ReportRequest>().ReverseMap()
+            .ForMember(destination => destination.format, source => source.MapFrom(src => src.format));
+
+            #endregion
+
         }
     }
 }

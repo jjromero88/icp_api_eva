@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PCM.SIP.ICP.EVA.Aplicacion.Dto;
+using PCM.SIP.ICP.EVA.Transversal.Common;
+using PCM.SIP.ICP.EVA.Transversal.Common.Generics;
 
 namespace PCM.SIP.ICP.EVA.Aplicacion.Interface.Features
 {
     public interface IReportDocumentService
     {
-        Task<byte[]> GenerateReportAsync(string reportName);
+        Task<PcmResponse> GenerateReportAsync(Request<ReportDto> request);
     }
 }

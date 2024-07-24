@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Reporting.NETCore;
 using PCM.SIP.ICP.EVA.Aplicacion.Interface.Infraestructure;
+using PCM.SIP.ICP.EVA.Infraestructure.Services.Reports;
 using PCM.SIP.ICP.EVA.Transversal.Contracts.icp;
 
 namespace PCM.SIP.ICP.EVA.Infraestructure.Services
@@ -14,18 +15,19 @@ namespace PCM.SIP.ICP.EVA.Infraestructure.Services
             _configuration = configuration;
         }
 
-        public async Task<byte[]> GenerateReportAsync(string reportName, string reportPath, List<ProfesionResponse> profesiones)
+        public async Task<(string FileName, string Base64Content)> GenerateReportAsync(string reportFormat, string reportPath, List<ProfesionResponse> profesiones)
         {
             try
             {
+                string rdlcReportName = "ReptPrueba.rdlc";
 
                 // Ruta al archivo RDLC
                 var storagePath = GetReportPath(reportPath);
-                var path = Path.Combine(storagePath, reportName);
+                var path = Path.Combine(storagePath, rdlcReportName);
 
                 // Verificar si el archivo existe
                 if (!File.Exists(path))
-                    throw new FileNotFoundException($"El archivo RDLC {reportName} no se encuentra.", path);
+                    throw new FileNotFoundException($"El archivo RDLC {rdlcReportName} no pudo ser ubicado en el directorio.", path);
 
                 // Cargar el archivo RDLC como un stream
                 using var reportDefinition = File.OpenRead(path);
@@ -39,9 +41,15 @@ namespace PCM.SIP.ICP.EVA.Infraestructure.Services
                 //report.SetParameters(new[] { new ReportParameter("Parameter1", "Parameter value") }); // Configura tus parámetros si es necesario
 
                 // Renderizar el reporte a PDF
-                byte[] pdf = report.Render("PDF");
+                byte[] reportBytes = report.Render(reportFormat);
 
-                return pdf;
+                // Conert report to string base64 
+                string base64Content = Convert.ToBase64String(reportBytes);
+
+                // Generar un nombre de archivo único con GUID y extensión adecuada
+                string generatedFileName = ReportUtils.GenerateFileNameDate("profesiones",reportFormat);
+
+                return (generatedFileName, base64Content);
             }
             catch (Exception ex)
             {

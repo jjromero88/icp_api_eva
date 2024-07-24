@@ -5,6 +5,6 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Interface.Infraestructure
 {
     public interface IReportService
     {
-        Task<byte[]> GenerateReportAsync(string reportName, string reportPath, List<ProfesionResponse> profesiones);
+        Task<(string FileName, string Base64Content)> GenerateReportAsync(string reportPath, string reportFormat,List<ProfesionResponse> profesiones);
     }
 }
