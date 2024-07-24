@@ -1,0 +1,20 @@
+Solution
+├── 10.Transversal
+│   ├── Common
+│   ├── Contracts
+│   ├── Mapper
+│   ├── Utils
+│   └── ...
+├── 20.Dominio
+│   └── Domain
+├── 30.Infraestructura
+│   ├── Infrastructure
+│   └── Persistence
+├── 40.Aplicacion
+│   ├── Application
+│   ├── Validators
+│   └── Interfaces
+├── 50.Servicio
+│   └── Web.Api
+└── 60.Tools
+    └── ReportDesigner (Proyecto WinForms)
