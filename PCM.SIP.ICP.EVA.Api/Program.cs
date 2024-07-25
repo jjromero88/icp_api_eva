@@ -12,6 +12,13 @@ using PCM.SIP.ICP.EVA.Api.Filters;
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
+// Configure Kestrel server options
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.Limits.MaxRequestBodySize = 52428800; // 50 MB, ajusta según sea necesario
+});
+
+
 // Add services to the container.
 builder.Services.AddHttpClient();
 builder.Services.AddMapper();
