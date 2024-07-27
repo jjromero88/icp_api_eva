@@ -47,7 +47,7 @@ namespace PCM.SIP.ICP.EVA.Infraestructure.Services
                 string base64Content = Convert.ToBase64String(reportBytes);
 
                 // Generar un nombre de archivo único con GUID y extensión adecuada
-                string generatedFileName = ReportUtils.GenerateFileNameDate("profesiones", reportFormat);
+                string generatedFileName = ReportUtils.GenerateFileNameDate("TotalEntidades", reportFormat);
 
                 return (generatedFileName, base64Content);
             }

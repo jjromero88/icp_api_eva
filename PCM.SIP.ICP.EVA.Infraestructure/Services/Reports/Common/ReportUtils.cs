@@ -20,7 +20,7 @@ namespace PCM.SIP.ICP.EVA.Infraestructure.Services.Reports
         {
             string fileExtension = getFileExtension(reportFormat);
             string timestamp = DateTime.Now.ToString("ddMMyyyyHHmmssfff");
-            string generatedFileName = $"{prefijo.Trim().ToUpper()}-{timestamp}{fileExtension}";
+            string generatedFileName = $"{prefijo.Trim().ToUpper()}{timestamp}{fileExtension}";
 
             return generatedFileName;
         }
