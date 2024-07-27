@@ -6,6 +6,7 @@ using PCM.SIP.ICP.EVA.Api.Filters;
 using PCM.SIP.ICP.EVA.Aplicacion.Dto;
 using PCM.SIP.ICP.EVA.Aplicacion.Interface.Features;
 using PCM.SIP.ICP.EVA.Transversal.Common.Generics;
+using PCM.SIP.ICP.EVA.Transversal.Common.Constants;
 
 namespace PCM.SIP.ICP.EVA.Api.Controllers
 {
@@ -33,6 +34,33 @@ namespace PCM.SIP.ICP.EVA.Api.Controllers
                 return BadRequest();
 
             return await _reportService.ReporteTotalEntidadesAsync(request);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("GrupoEntidades")]
+        //[ServiceFilter(typeof(ValidateTokenRequestAttribute))]
+        //[ServiceFilter(typeof(UpdateUserDataAttribute))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PcmResponse))]
+        public async Task<ActionResult<PcmResponse>> GrupoEntidades([FromBody] ReportGrupoEntidadesRequest request)
+        {
+            if (request == null)
+                return BadRequest();
+
+            var response = await _reportService.ReporteGrupoEntidadesAsync(request);
+
+
+            if (response.Code == (int)HttpStatusCodeEnum.OK && response.Payload is byte[] reportBytes)
+            {
+                return new FileContentResult(reportBytes, "application/pdf")
+                {
+                    FileDownloadName = "ReporteGrupoEntidades.pdf"
+                };
+            }
+
+            if (response.Code == (int)HttpStatusCodeEnum.NoContent)
+                return NoContent();
+
+            return StatusCode(response.Code, response.Message);
         }
     }
 }

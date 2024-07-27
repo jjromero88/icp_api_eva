@@ -73,10 +73,27 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
             }
         }
 
-
-        private int? DencryptOrNull(string? value)
+        public async Task<PcmResponse> ReporteGrupoEntidadesAsync(ReportGrupoEntidadesRequest request)
         {
-            return string.IsNullOrEmpty(value) ? null : Convert.ToInt32(CShrapEncryption.DecryptString(value, _userSessionService.GetUser().authkey));
+            try
+            {
+ 
+                // si no tiene data
+                if (request.data == null || !request.data.Any())
+                    return ResponseUtil.NoContent();
+
+                // generamos el reporte
+                byte[] reportBytes = await _reportService.ReporteGrupoEntidadesAsync(request);
+
+                // retornamos el resultado
+                return reportBytes != null ? ResponseUtil.Ok(reportBytes, TransactionMessage.QuerySuccess) : ResponseUtil.NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return ResponseUtil.InternalError(message: ex.Message);
+            }
         }
+
     }
 }
