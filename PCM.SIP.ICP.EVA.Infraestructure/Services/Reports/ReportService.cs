@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Reporting.NETCore;
+using PCM.SIP.ICP.EVA.Aplicacion.Dto;
 using PCM.SIP.ICP.EVA.Aplicacion.Interface.Infraestructure;
 using PCM.SIP.ICP.EVA.Infraestructure.Services.Reports;
-using PCM.SIP.ICP.EVA.Transversal.Contracts.icp;
 
 namespace PCM.SIP.ICP.EVA.Infraestructure.Services
 {
@@ -15,14 +15,15 @@ namespace PCM.SIP.ICP.EVA.Infraestructure.Services
             _configuration = configuration;
         }
 
-        public async Task<(string FileName, string Base64Content)> GenerateReportAsync(string reportFormat, string reportPath, List<ProfesionResponse> profesiones)
+        public async Task<(string FileName, string Base64Content)> ReporteTotalEntidadesAsync(string reportFormat, List<TotalEntidadesrequest> data)
         {
             try
             {
-                string rdlcReportName = "ReptPrueba.rdlc";
+                string reportsPath = "ReportsPath";
+                string rdlcReportName = "RptTotalEntidades.rdlc";
 
                 // Ruta al archivo RDLC
-                var storagePath = GetReportPath(reportPath);
+                var storagePath = GetReportPath(reportsPath);
                 var path = Path.Combine(storagePath, rdlcReportName);
 
                 // Verificar si el archivo existe
@@ -37,8 +38,7 @@ namespace PCM.SIP.ICP.EVA.Infraestructure.Services
                 report.LoadReportDefinition(reportDefinition);
 
                 // Configurar los datos y parámetros del reporte
-                report.DataSources.Add(new ReportDataSource("ProfesionDataSet", profesiones)); // Asegúrate de que el nombre de la fuente de datos coincida con el definido en el RDLC
-                //report.SetParameters(new[] { new ReportParameter("Parameter1", "Parameter value") }); // Configura tus parámetros si es necesario
+                report.DataSources.Add(new ReportDataSource("DsTotalEntidades", data));
 
                 // Renderizar el reporte a PDF
                 byte[] reportBytes = report.Render(reportFormat);
@@ -47,7 +47,7 @@ namespace PCM.SIP.ICP.EVA.Infraestructure.Services
                 string base64Content = Convert.ToBase64String(reportBytes);
 
                 // Generar un nombre de archivo único con GUID y extensión adecuada
-                string generatedFileName = ReportUtils.GenerateFileNameDate("profesiones",reportFormat);
+                string generatedFileName = ReportUtils.GenerateFileNameDate("profesiones", reportFormat);
 
                 return (generatedFileName, base64Content);
             }
@@ -55,7 +55,6 @@ namespace PCM.SIP.ICP.EVA.Infraestructure.Services
             {
                 throw new Exception($"Ocurrió un error al generar el reporte: {ex.Message}", ex);
             }
-
         }
 
         private string GetReportPath(string category)

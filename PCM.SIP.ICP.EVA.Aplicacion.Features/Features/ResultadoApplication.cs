@@ -9,7 +9,6 @@ using PCM.SIP.ICP.EVA.Transversal.Common;
 using PCM.SIP.ICP.EVA.Transversal.Common.Constants;
 using PCM.SIP.ICP.EVA.Transversal.Common.Generics;
 using PCM.SIP.ICP.EVA.Transversal.Util.Encryptions;
-using Microsoft.IdentityModel.Tokens;
 
 namespace PCM.SIP.ICP.EVA.Aplicacion.Features
 {

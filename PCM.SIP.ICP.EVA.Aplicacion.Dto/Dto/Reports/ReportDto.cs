@@ -6,15 +6,20 @@ using System.Threading.Tasks;
 
 namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
 {
-    public class ReportDto
+    public class ReportTotalEntidadesrequest
     {
         public string? format { get; set; }
+        public List<TotalEntidadesrequest>? data { get; set; }
     }
 
-    public class ReportRequest
+    public class TotalEntidadesrequest
     {
-        public string? format { get; set; }
+        public string? etapa { get; set; }
+        public decimal? avance { get; set; }
+        public decimal? brecha { get; set; }
+        public string? graficobase64 { get; set; }
     }
+
     public class ReportBase64Response
     {
         public string? filename { get; set; }

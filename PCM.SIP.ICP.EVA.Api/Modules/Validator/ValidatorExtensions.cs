@@ -25,7 +25,7 @@ namespace PCM.SIP.ICP.EVA.Api.Modules.Validator
             services.AddTransient<IValidator<EntidadIdRequestDto>, EntidadIdRequestValidator>();
             services.AddTransient<EntidadValidationManager>();
 
-            services.AddTransient<IValidator<ReportRequest>, ReportRequestValidator>();
+            services.AddTransient<IValidator<ReportTotalEntidadesrequest>, ReportTotalEntidadesrequestValidator>();
             services.AddTransient<ReportValidationManager>();
 
             return services;

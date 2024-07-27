@@ -30,8 +30,4 @@
     <ProjectReference Include="..\PCM.SIP.ICP.EVA.Transversal.Util\PCM.SIP.ICP.EVA.Transversal.Util.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\Reports\ReptPrueba.rdlc" />
-  </ItemGroup>
-
 </Project>

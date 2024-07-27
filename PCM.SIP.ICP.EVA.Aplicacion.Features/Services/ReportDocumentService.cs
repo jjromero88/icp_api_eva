@@ -2,16 +2,18 @@
 using PCM.SIP.ICP.EVA.Transversal.Common;
 using PCM.SIP.ICP.EVA.Aplicacion.Interface.Features;
 using PCM.SIP.ICP.EVA.Aplicacion.Interface.Infraestructure;
-using PCM.SIP.ICP.EVA.Transversal.Contracts.icp;
 using PCM.SIP.ICP.EVA.Transversal.Common.Generics;
 using PCM.SIP.ICP.EVA.Transversal.Common.Constants;
 using PCM.SIP.ICP.EVA.Aplicacion.Dto;
 using PCM.SIP.ICP.EVA.Aplicacion.Validator;
+using PCM.SIP.ICP.EVA.Aplicacion.Interface;
+using PCM.SIP.ICP.EVA.Transversal.Util.Encryptions;
 
 namespace PCM.SIP.ICP.EVA.Aplicacion.Features
 {
     public class ReportDocumentService : IReportDocumentService
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IReportService _reportService;
         private readonly IMapper _mapper;
         private readonly IUserSessionService _userSessionService;
@@ -20,13 +22,15 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
         private readonly ReportValidationManager _reportValidationManager;
 
         public ReportDocumentService(
-            IReportService reportService, 
-            IMapper mapper, 
+            IUnitOfWork unitOfWork,
+            IReportService reportService,
+            IMapper mapper,
             IUserSessionService userSessionService,
             IProfesionService profesionService,
             IAppLogger<ReportDocumentService> logger,
             ReportValidationManager reportValidationManager)
         {
+            _unitOfWork = unitOfWork;
             _reportService = reportService;
             _mapper = mapper;
             _userSessionService = userSessionService;
@@ -35,39 +39,32 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
             _reportValidationManager = reportValidationManager;
         }
 
-        public async Task<PcmResponse> GenerateReportAsync(Request<ReportDto> request)
+        public async Task<PcmResponse> ReporteTotalEntidadesAsync(ReportTotalEntidadesrequest request)
         {
             try
             {
-                var validation = _reportValidationManager.Validate(_mapper.Map<ReportRequest>(request.entidad));
+                // ejecutamos las validaciones
+                var validation = _reportValidationManager.Validate(request);
 
+                // retornamos el mensaje
                 if (!validation.IsValid)
-                {
-                    _logger.LogError(Validation.InvalidMessage);
                     return ResponseUtil.BadRequest(validation.Errors != null ? validation.Errors : null, Validation.InvalidMessage);
-                }
 
-                // obtenemos el token de la sesion
-                string token = _userSessionService.GetToken();
+                // si no tiene data
+                if (request.data == null || !request.data.Any())
+                    return ResponseUtil.NoContent();
 
-                // traemos la data
-                List<ProfesionResponse> profesiones = await _profesionService.GetList(new ProfesionFilterRequest(), token);
+                // capturamos el formato
+                string rptFormat = request.format ?? string.Empty;
 
-                // obtenemos el formato de la peticion
-                string rptFormat = request.entidad.format ?? string.Empty;
-
-                // generamos el report
-                var (fileName, base64Content) = await _reportService.GenerateReportAsync(rptFormat, "ReportsPath", profesiones);
+                // generamos el reporte
+                var (fileName, base64Content) = await _reportService.ReporteTotalEntidadesAsync(rptFormat, request.data);
 
                 // formamos la estructura de respuesta del reporte
-                var result = new ReportBase64Response
-                {
-                    filename = fileName,
-                    base64content = base64Content,
-                    extension = rptFormat
-                };
+                var response = new ReportBase64Response { filename = fileName, base64content = base64Content, extension = rptFormat };
 
-                return result != null ? ResponseUtil.Ok(result, TransactionMessage.QuerySuccess) : ResponseUtil.NoContent();
+                // retornamos el resultado
+                return response != null ? ResponseUtil.Ok(response, TransactionMessage.QuerySuccess) : ResponseUtil.NoContent();
             }
             catch (Exception ex)
             {
@@ -76,6 +73,10 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
             }
         }
 
- 
+
+        private int? DencryptOrNull(string? value)
+        {
+            return string.IsNullOrEmpty(value) ? null : Convert.ToInt32(CShrapEncryption.DecryptString(value, _userSessionService.GetUser().authkey));
+        }
     }
 }

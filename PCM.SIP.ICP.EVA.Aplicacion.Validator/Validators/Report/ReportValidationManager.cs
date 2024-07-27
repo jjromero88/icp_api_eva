@@ -5,16 +5,16 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Validator
 {
     public class ReportValidationManager
     {
-        private readonly ReportRequestValidator _reportRequestValidator;
+        private readonly ReportTotalEntidadesrequestValidator _reportTotalEntidadesrequestValidator;
 
         public ReportValidationManager()
         {
-            _reportRequestValidator = new ReportRequestValidator();
+            _reportTotalEntidadesrequestValidator = new ReportTotalEntidadesrequestValidator();
         }
-
-        public ValidationResult Validate(ReportRequest entidad)
+         
+        public ValidationResult Validate(ReportTotalEntidadesrequest entidad)
         {
-            return _reportRequestValidator.Validate(entidad);
+            return _reportTotalEntidadesrequestValidator.Validate(entidad);
         }
     }
 }

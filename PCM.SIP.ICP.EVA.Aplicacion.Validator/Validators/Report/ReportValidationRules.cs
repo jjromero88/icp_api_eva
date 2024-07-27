@@ -3,9 +3,10 @@ using PCM.SIP.ICP.EVA.Aplicacion.Dto;
 
 namespace PCM.SIP.ICP.EVA.Aplicacion.Validator
 {
-    public class ReportRequestValidator : AbstractValidator<ReportRequest>
+
+    public class ReportTotalEntidadesrequestValidator : AbstractValidator<ReportTotalEntidadesrequest>
     {
-        public ReportRequestValidator()
+        public ReportTotalEntidadesrequestValidator()
         {
             RuleFor(u => u.format)
             .IsNullOrWhiteSpace()

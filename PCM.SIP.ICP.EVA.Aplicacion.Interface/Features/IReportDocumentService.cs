@@ -6,6 +6,6 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Interface.Features
 {
     public interface IReportDocumentService
     {
-        Task<PcmResponse> GenerateReportAsync(Request<ReportDto> request);
+        Task<PcmResponse> ReporteTotalEntidadesAsync(ReportTotalEntidadesrequest request);
     }
 }
