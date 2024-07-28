@@ -8,5 +8,6 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Interface.Features
     {
         Task<PcmResponse> ReporteTotalEntidadesAsync(ReportTotalEntidadesrequest request);
         Task<PcmResponse> ReporteGrupoEntidadesAsync(ReportGrupoEntidadesRequest request);
+        Task<PcmResponse> ReporteEtapaComponenteAsync(ReportEtapasComponenteRequest request);
     }
 }

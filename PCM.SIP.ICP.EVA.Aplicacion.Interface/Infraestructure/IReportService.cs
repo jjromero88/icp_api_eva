@@ -7,6 +7,6 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Interface.Infraestructure
     {
         Task<(string FileName, string Base64Content)> ReporteTotalEntidadesAsync(string reportFormat, List<TotalEntidadesrequest> data);
         Task<byte[]> ReporteGrupoEntidadesAsync(ReportGrupoEntidadesRequest request);
-
+        Task<byte[]> ReporteEtapaComponenteAsync(ReportEtapasComponenteRequest request);
     }
 }

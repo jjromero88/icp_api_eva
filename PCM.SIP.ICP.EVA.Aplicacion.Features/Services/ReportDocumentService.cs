@@ -95,5 +95,26 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
             }
         }
 
+        public async Task<PcmResponse> ReporteEtapaComponenteAsync(ReportEtapasComponenteRequest request)
+        {
+            try
+            {
+
+                // si no tiene data
+                if (request.data == null || !request.data.Any())
+                    return ResponseUtil.NoContent();
+
+                // generamos el reporte
+                byte[] reportBytes = await _reportService.ReporteEtapaComponenteAsync(request);
+
+                // retornamos el resultado
+                return reportBytes != null ? ResponseUtil.Ok(reportBytes, TransactionMessage.QuerySuccess) : ResponseUtil.NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return ResponseUtil.InternalError(message: ex.Message);
+            }
+        }
     }
 }

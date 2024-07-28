@@ -52,6 +52,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\EtapasComponente.cs" />
     <Compile Include="Models\GrupoEntidades.cs" />
     <Compile Include="Models\TotalEntidadesrequest.cs" />
     <Compile Include="Program.cs" />
@@ -65,8 +66,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Reports\RptEtapaComponente.rdlc" />
     <EmbeddedResource Include="Reports\RptGrupoEntidades.rdlc" />
     <EmbeddedResource Include="Reports\RptTotalEntidades.rdlc" />
+    <None Include="Properties\DataSources\EtapasComponente.datasource" />
     <None Include="Properties\DataSources\GrupoEntidades.datasource" />
     <None Include="Properties\DataSources\TotalEntidadesrequest.datasource" />
     <None Include="Properties\Settings.settings">

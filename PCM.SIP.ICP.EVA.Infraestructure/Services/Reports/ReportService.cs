@@ -15,6 +15,55 @@ namespace PCM.SIP.ICP.EVA.Infraestructure.Services
             _configuration = configuration;
         }
 
+        public async Task<byte[]> ReporteEtapaComponenteAsync(ReportEtapasComponenteRequest request)
+        {
+            try
+            {
+                string reportFormat = request.format ?? string.Empty;
+                string reportsPath = "ReportsPath";
+                string rdlcReportName = "RptEtapaComponente.rdlc";
+
+                var data = request.data ?? new List<EtapasComponente>();
+
+                // Ruta al archivo RDLC
+                var storagePath = GetReportPath(reportsPath);
+                var path = Path.Combine(storagePath, rdlcReportName);
+
+                // Verificar si el archivo existe
+                if (!File.Exists(path))
+                    throw new FileNotFoundException($"El archivo RDLC {rdlcReportName} no pudo ser ubicado en el directorio.", path);
+
+                // Cargar el archivo RDLC como un stream
+                using var reportDefinition = File.OpenRead(path);
+
+                // Crear el reporte
+                var report = new LocalReport();
+                report.LoadReportDefinition(reportDefinition);
+
+                // Crear la lista de parámetros
+                var reportParameters = new List<ReportParameter>
+                {
+                    new ReportParameter("InterpretacionResultados", request.interpretacion)
+                };
+
+                // Establecer los parámetros en el reporte
+                report.SetParameters(reportParameters);
+
+                // Configurar los datos y parámetros del reporte
+                report.DataSources.Add(new ReportDataSource("DsEtapaComponente", data));
+              
+                // Renderizar el reporte a PDF
+                byte[] reportBytes = report.Render(reportFormat);
+
+
+                return reportBytes;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Ocurrió un error al generar el reporte: {ex.Message}", ex);
+            }
+        }
+
         public async Task<byte[]> ReporteGrupoEntidadesAsync(ReportGrupoEntidadesRequest request)
         {
             try
