@@ -50,6 +50,25 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
         public decimal? resultado { get; set; }
     }
 
+    public class ReportResultadosEtapaRequest
+    {
+        public string? format { get; set; }
+        public string? interpretacion { get; set; }
+        public List<ResultadosEtapa>? data { get; set; }
+    }
+    public class ResultadosEtapa
+    {
+        public string? etapa { get; set; }
+        public decimal? avance { get; set; }
+        public decimal? brecha { get; set; }
+    }
+
+    public class ResultadosEtapaGroup
+    {
+        public string? Etapa { get; set; }
+        public string? Tipo { get; set; }
+        public decimal? Valor { get; set; }
+    }
 
 
 

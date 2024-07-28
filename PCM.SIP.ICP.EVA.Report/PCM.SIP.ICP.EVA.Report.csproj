@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="Models\EtapasComponente.cs" />
     <Compile Include="Models\GrupoEntidades.cs" />
+    <Compile Include="Models\ResultadosEtapaGroup.cs" />
     <Compile Include="Models\TotalEntidadesrequest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,9 +69,10 @@
     </Compile>
     <EmbeddedResource Include="Reports\RptEtapaComponente.rdlc" />
     <EmbeddedResource Include="Reports\RptGrupoEntidades.rdlc" />
-    <EmbeddedResource Include="Reports\RptTotalEntidades.rdlc" />
+    <EmbeddedResource Include="Reports\RptResultadosEtapa.rdlc" />
     <None Include="Properties\DataSources\EtapasComponente.datasource" />
     <None Include="Properties\DataSources\GrupoEntidades.datasource" />
+    <None Include="Properties\DataSources\ResultadosEtapaGroup.datasource" />
     <None Include="Properties\DataSources\TotalEntidadesrequest.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

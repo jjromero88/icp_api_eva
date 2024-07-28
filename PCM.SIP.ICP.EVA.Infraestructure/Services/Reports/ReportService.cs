@@ -2,6 +2,7 @@
 using Microsoft.Reporting.NETCore;
 using PCM.SIP.ICP.EVA.Aplicacion.Dto;
 using PCM.SIP.ICP.EVA.Aplicacion.Interface.Infraestructure;
+using PCM.SIP.ICP.EVA.Domain.Entities;
 using PCM.SIP.ICP.EVA.Infraestructure.Services.Reports;
 
 namespace PCM.SIP.ICP.EVA.Infraestructure.Services
@@ -118,12 +119,15 @@ namespace PCM.SIP.ICP.EVA.Infraestructure.Services
             }
         }
 
-        public async Task<(string FileName, string Base64Content)> ReporteTotalEntidadesAsync(string reportFormat, List<TotalEntidadesrequest> data)
+        public async Task<byte[]> ReporteResultadoEtapaAsync(ReportResultadosEtapaRequest request)
         {
             try
             {
+                string reportFormat = request.format ?? string.Empty;
                 string reportsPath = "ReportsPath";
-                string rdlcReportName = "RptTotalEntidades.rdlc";
+                string rdlcReportName = "RptResultadosEtapa.rdlc";
+
+                var data = request.data ?? new List<ResultadosEtapa>();
 
                 // Ruta al archivo RDLC
                 var storagePath = GetReportPath(reportsPath);
@@ -140,19 +144,50 @@ namespace PCM.SIP.ICP.EVA.Infraestructure.Services
                 var report = new LocalReport();
                 report.LoadReportDefinition(reportDefinition);
 
+                // Crear la lista de parámetros
+                var reportParameters = new List<ReportParameter>
+                {
+                    new ReportParameter("InterpretacionResultados", request.interpretacion)
+                };
+
+                // Establecer los parámetros en el reporte
+                report.SetParameters(reportParameters);
+
+                var listaConvertida = new List<ResultadosEtapaGroup>();
+
+                foreach (var resultado in data)
+                {
+                    if (resultado.avance.HasValue)
+                    {
+                        listaConvertida.Add(new ResultadosEtapaGroup
+                        {
+                            Etapa = resultado.etapa,
+                            Tipo = "Avance",
+                            Valor = resultado.avance.Value
+                        });
+                    }
+
+                    if (resultado.brecha.HasValue)
+                    {
+                        listaConvertida.Add(new ResultadosEtapaGroup
+                        {
+                            Etapa = resultado.etapa,
+                            Tipo = "Brecha",
+                            Valor = resultado.brecha.Value
+                        });
+                    }
+                }
+
+
+
                 // Configurar los datos y parámetros del reporte
-                report.DataSources.Add(new ReportDataSource("DsTotalEntidades", data));
+                report.DataSources.Add(new ReportDataSource("DsResultadosEtapa", listaConvertida));
 
                 // Renderizar el reporte a PDF
                 byte[] reportBytes = report.Render(reportFormat);
 
-                // Conert report to string base64 
-                string base64Content = Convert.ToBase64String(reportBytes);
 
-                // Generar un nombre de archivo único con GUID y extensión adecuada
-                string generatedFileName = ReportUtils.GenerateFileNameDate("TotalEntidades", reportFormat);
-
-                return (generatedFileName, base64Content);
+                return reportBytes;
             }
             catch (Exception ex)
             {

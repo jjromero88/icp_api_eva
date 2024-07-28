@@ -24,18 +24,6 @@ namespace PCM.SIP.ICP.EVA.Api.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost("TotalEntidades")]
-        [ServiceFilter(typeof(ValidateTokenRequestAttribute))]
-        [ServiceFilter(typeof(UpdateUserDataAttribute))]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PcmResponse))]
-        public async Task<ActionResult<PcmResponse>> TotalEntidades([FromBody] ReportTotalEntidadesrequest request)
-        {
-            if (request == null)
-                return BadRequest();
-
-            return await _reportService.ReporteTotalEntidadesAsync(request);
-        }
-
         [AllowAnonymous]
         [HttpPost("GrupoEntidades")]
         //[ServiceFilter(typeof(ValidateTokenRequestAttribute))]
@@ -81,6 +69,33 @@ namespace PCM.SIP.ICP.EVA.Api.Controllers
                 return new FileContentResult(reportBytes, "application/pdf")
                 {
                     FileDownloadName = "ReporteEtapasComponente.pdf"
+                };
+            }
+
+            if (response.Code == (int)HttpStatusCodeEnum.NoContent)
+                return NoContent();
+
+            return StatusCode(response.Code, response.Message);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("ResultadoEtapa")]
+        //[ServiceFilter(typeof(ValidateTokenRequestAttribute))]
+        //[ServiceFilter(typeof(UpdateUserDataAttribute))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PcmResponse))]
+        public async Task<ActionResult<PcmResponse>> ResultadoEtapa([FromBody] ReportResultadosEtapaRequest request)
+        {
+            if (request == null)
+                return BadRequest();
+
+            var response = await _reportService.ReporteResultadoEtapaAsync(request);
+
+
+            if (response.Code == (int)HttpStatusCodeEnum.OK && response.Payload is byte[] reportBytes)
+            {
+                return new FileContentResult(reportBytes, "application/pdf")
+                {
+                    FileDownloadName = "ReporteResultadoEtapa.pdf"
                 };
             }
 

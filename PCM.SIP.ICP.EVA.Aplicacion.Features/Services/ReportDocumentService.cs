@@ -39,40 +39,6 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
             _reportValidationManager = reportValidationManager;
         }
 
-        public async Task<PcmResponse> ReporteTotalEntidadesAsync(ReportTotalEntidadesrequest request)
-        {
-            try
-            {
-                // ejecutamos las validaciones
-                var validation = _reportValidationManager.Validate(request);
-
-                // retornamos el mensaje
-                if (!validation.IsValid)
-                    return ResponseUtil.BadRequest(validation.Errors != null ? validation.Errors : null, Validation.InvalidMessage);
-
-                // si no tiene data
-                if (request.data == null || !request.data.Any())
-                    return ResponseUtil.NoContent();
-
-                // capturamos el formato
-                string rptFormat = request.format ?? string.Empty;
-
-                // generamos el reporte
-                var (fileName, base64Content) = await _reportService.ReporteTotalEntidadesAsync(rptFormat, request.data);
-
-                // formamos la estructura de respuesta del reporte
-                var response = new ReportBase64Response { filename = fileName, base64content = base64Content, extension = rptFormat };
-
-                // retornamos el resultado
-                return response != null ? ResponseUtil.Ok(response, TransactionMessage.QuerySuccess) : ResponseUtil.NoContent();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message);
-                return ResponseUtil.InternalError(message: ex.Message);
-            }
-        }
-
         public async Task<PcmResponse> ReporteGrupoEntidadesAsync(ReportGrupoEntidadesRequest request)
         {
             try
@@ -106,6 +72,28 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
 
                 // generamos el reporte
                 byte[] reportBytes = await _reportService.ReporteEtapaComponenteAsync(request);
+
+                // retornamos el resultado
+                return reportBytes != null ? ResponseUtil.Ok(reportBytes, TransactionMessage.QuerySuccess) : ResponseUtil.NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return ResponseUtil.InternalError(message: ex.Message);
+            }
+        }
+
+        public async Task<PcmResponse> ReporteResultadoEtapaAsync(ReportResultadosEtapaRequest request)
+        {
+            try
+            {
+
+                // si no tiene data
+                if (request.data == null || !request.data.Any())
+                    return ResponseUtil.NoContent();
+
+                // generamos el reporte
+                byte[] reportBytes = await _reportService.ReporteResultadoEtapaAsync(request);
 
                 // retornamos el resultado
                 return reportBytes != null ? ResponseUtil.Ok(reportBytes, TransactionMessage.QuerySuccess) : ResponseUtil.NoContent();
