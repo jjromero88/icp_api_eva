@@ -39,6 +39,34 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
             _reportValidationManager = reportValidationManager;
         }
 
+        // Tipo de reporte: AGRUPADO POR ETAPAS
+        public async Task<PcmResponse> ReporteResultadoEtapaAsync(ReportResultadosEtapaRequest request)
+        {
+            try
+            {
+                var validation = _reportValidationManager.Validate(request);
+
+                // verificamos si ocurrio algun error de validacion
+                if (!validation.IsValid)
+                    return ResponseUtil.BadRequest(validation.Errors != null ? validation.Errors : null, Validation.InvalidMessage);
+
+                // si no tiene data
+                if (request.data == null || !request.data.Any())
+                    return ResponseUtil.NoContent();
+
+                // generamos el reporte
+                byte[] reportBytes = await _reportService.ReporteResultadoEtapaAsync(request);
+
+                // retornamos el resultado
+                return reportBytes != null ? ResponseUtil.Ok(reportBytes, TransactionMessage.QuerySuccess) : ResponseUtil.NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return ResponseUtil.InternalError(message: ex.Message);
+            }
+        }
+
         public async Task<PcmResponse> ReporteGrupoEntidadesAsync(ReportGrupoEntidadesRequest request)
         {
             try
@@ -83,26 +111,6 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
             }
         }
 
-        public async Task<PcmResponse> ReporteResultadoEtapaAsync(ReportResultadosEtapaRequest request)
-        {
-            try
-            {
-
-                // si no tiene data
-                if (request.data == null || !request.data.Any())
-                    return ResponseUtil.NoContent();
-
-                // generamos el reporte
-                byte[] reportBytes = await _reportService.ReporteResultadoEtapaAsync(request);
-
-                // retornamos el resultado
-                return reportBytes != null ? ResponseUtil.Ok(reportBytes, TransactionMessage.QuerySuccess) : ResponseUtil.NoContent();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message);
-                return ResponseUtil.InternalError(message: ex.Message);
-            }
-        }
+      
     }
 }

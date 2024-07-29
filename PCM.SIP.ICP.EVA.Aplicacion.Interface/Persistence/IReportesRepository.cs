@@ -5,6 +5,6 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Interface.Persistence
 {
     public interface IReportesRepository
     {
-        Response<dynamic> ReporteTotalEntidades(ReporteParametros parameters, out string jsonTotalEntidades);
+        Response<dynamic> ReporteAgrupadoPorEtapas(TotalEntidadesRequest entidad, out string jsonTotalEntidadesResponse);
     }
 }

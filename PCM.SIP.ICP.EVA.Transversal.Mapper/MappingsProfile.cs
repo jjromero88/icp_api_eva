@@ -674,9 +674,17 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
             #endregion
 
             #region Report
-             
-        
-    
+
+            CreateMap<ReportDataDto, ReporteAgrupadoPorEtapasRequest>().ReverseMap()
+            .ForMember(destination => destination.evaluacionkey, source => source.MapFrom(src => src.evaluacionkey))
+            .ForMember(destination => destination.etapakey, source => source.MapFrom(src => src.etapakey))
+            .ForMember(destination => destination.entidadkey, source => source.MapFrom(src => src.entidadkey));
+
+            CreateMap<ReporteAgrupadoPorEtapasResponse, TotalEntidadesResponse>().ReverseMap()
+            .ForMember(destination => destination.etapa, source => source.MapFrom(src => src.etapa))
+            .ForMember(destination => destination.avance, source => source.MapFrom(src => src.avance))
+            .ForMember(destination => destination.brecha, source => source.MapFrom(src => src.brecha));
+
             #endregion
 
         }
