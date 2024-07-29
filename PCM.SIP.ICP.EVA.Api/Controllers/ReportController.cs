@@ -25,7 +25,34 @@ namespace PCM.SIP.ICP.EVA.Api.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("GrupoEntidades")]
+        [HttpPost("AgrupadoPorEtapas")]
+        //[ServiceFilter(typeof(ValidateTokenRequestAttribute))]
+        //[ServiceFilter(typeof(UpdateUserDataAttribute))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PcmResponse))]
+        public async Task<ActionResult<PcmResponse>> ResultadoEtapa([FromBody] ReportResultadosEtapaRequest request)
+        {
+            if (request == null)
+                return BadRequest();
+
+            var response = await _reportService.ReporteResultadoEtapaAsync(request);
+
+
+            if (response.Code == (int)HttpStatusCodeEnum.OK && response.Payload is byte[] reportBytes)
+            {
+                return new FileContentResult(reportBytes, "application/pdf")
+                {
+                    FileDownloadName = "ReporteResultadoEtapa.pdf"
+                };
+            }
+
+            if (response.Code == (int)HttpStatusCodeEnum.NoContent)
+                return NoContent();
+
+            return StatusCode(response.Code, response.Message);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("AgrupadoPorGrupoEntidad")]
         //[ServiceFilter(typeof(ValidateTokenRequestAttribute))]
         //[ServiceFilter(typeof(UpdateUserDataAttribute))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PcmResponse))]
@@ -52,7 +79,7 @@ namespace PCM.SIP.ICP.EVA.Api.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("Etapascomponente")]
+        [HttpPost("AgrupadoPorEtapasComponentes")]
         //[ServiceFilter(typeof(ValidateTokenRequestAttribute))]
         //[ServiceFilter(typeof(UpdateUserDataAttribute))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PcmResponse))]
@@ -78,31 +105,5 @@ namespace PCM.SIP.ICP.EVA.Api.Controllers
             return StatusCode(response.Code, response.Message);
         }
 
-        [AllowAnonymous]
-        [HttpPost("ResultadoEtapa")]
-        //[ServiceFilter(typeof(ValidateTokenRequestAttribute))]
-        //[ServiceFilter(typeof(UpdateUserDataAttribute))]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PcmResponse))]
-        public async Task<ActionResult<PcmResponse>> ResultadoEtapa([FromBody] ReportResultadosEtapaRequest request)
-        {
-            if (request == null)
-                return BadRequest();
-
-            var response = await _reportService.ReporteResultadoEtapaAsync(request);
-
-
-            if (response.Code == (int)HttpStatusCodeEnum.OK && response.Payload is byte[] reportBytes)
-            {
-                return new FileContentResult(reportBytes, "application/pdf")
-                {
-                    FileDownloadName = "ReporteResultadoEtapa.pdf"
-                };
-            }
-
-            if (response.Code == (int)HttpStatusCodeEnum.NoContent)
-                return NoContent();
-
-            return StatusCode(response.Code, response.Message);
-        }
     }
 }

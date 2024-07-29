@@ -6,19 +6,43 @@ using System.Threading.Tasks;
 
 namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
 {
-    public class ReportTotalEntidadesrequest
+    public class ReportDto
     {
-        public string? format { get; set; }
-        public List<TotalEntidadesrequest>? data { get; set; }
+        public string? evaluacionkey { get; set; }
+        public string? etapakey { get; set; }
+        public string? entidadkey { get; set; }
+        public string? grupokey { get; set; }
+        public string? componentekey { get; set; }
+        public string? filename { get; set; }
+        public string? extension { get; set; }
+        public string? base64content { get; set; }
     }
-    public class TotalEntidadesrequest
+
+    /* Reporte: Agrupado por etapas */
+
+    public class ReportResultadosEtapaRequest
+    {
+        public string? evaluacionkey { get; set; }
+        public string? etapakey { get; set; }
+        public string? entidadkey { get; set; }
+        public string? format { get; set; }
+        public string? interpretacion { get; set; }
+        public List<ResultadosEtapa>? data { get; set; }
+    }
+    public class ResultadosEtapa
     {
         public string? etapa { get; set; }
         public decimal? avance { get; set; }
         public decimal? brecha { get; set; }
-        public string? graficobase64 { get; set; }
+    }
+    public class ResultadosEtapaGroup
+    {
+        public string? Etapa { get; set; }
+        public string? Tipo { get; set; }
+        public decimal? Valor { get; set; }
     }
 
+    /* Reporte: Agrupado por Grupo de Entidad */
 
     public class ReportGrupoEntidadesRequest
     {
@@ -34,6 +58,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
         public decimal? avance { get; set; }
     }
 
+    /* Reporte: Agrupado por Etapa y Componente */
 
     public class ReportEtapasComponenteRequest
     {
@@ -50,28 +75,8 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
         public decimal? resultado { get; set; }
     }
 
-    public class ReportResultadosEtapaRequest
-    {
-        public string? format { get; set; }
-        public string? interpretacion { get; set; }
-        public List<ResultadosEtapa>? data { get; set; }
-    }
-    public class ResultadosEtapa
-    {
-        public string? etapa { get; set; }
-        public decimal? avance { get; set; }
-        public decimal? brecha { get; set; }
-    }
 
-    public class ResultadosEtapaGroup
-    {
-        public string? Etapa { get; set; }
-        public string? Tipo { get; set; }
-        public decimal? Valor { get; set; }
-    }
-
-
-
+    /* Reporte response */
 
     public class ReportBase64Response
     {
