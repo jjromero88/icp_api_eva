@@ -69,5 +69,44 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                 return ResponseUtil.InternalError(message: ex.Message);
             }
         }
+
+        public async Task<PcmResponse> ReporteAgrupadoPorGrupoEntidad(Request<ReportDataDto> request)
+        {
+            try
+            {
+                var entidad = new GrupoEntidadesRequest();
+
+                // deserializamos los parametros de entrada
+                entidad.evaluacion_id = string.IsNullOrEmpty(request.entidad.evaluacionkey) ? null : Convert.ToInt32(CShrapEncryption.DecryptString(request.entidad.evaluacionkey, _userSessionService.GetUser().authkey));
+                entidad.etapa_id = string.IsNullOrEmpty(request.entidad.etapakey) ? null : Convert.ToInt32(CShrapEncryption.DecryptString(request.entidad.etapakey, _userSessionService.GetUser().authkey));
+                entidad.entidadgrupo_id = string.IsNullOrEmpty(request.entidad.entidadgrupokey) ? null : Convert.ToInt32(CShrapEncryption.DecryptString(request.entidad.entidadgrupokey, _userSessionService.GetUser().authkey));
+
+                // consultamos a base de datos
+                var result = _unitOfWork.Reportes.ReporteAgrupadoPorGrupoEntidad(entidad, out string jsonGrupoEntidadesResponse);
+
+                // verificamos si ocurrio un error
+                if (result.Error)
+                    return ResponseUtil.BadRequest(result.Message);
+
+                // verificamos si existe data de salida
+                if (string.IsNullOrEmpty(jsonGrupoEntidadesResponse))
+                    return ResponseUtil.NoContent();
+
+                // desereializamos el response
+                var response = JsonSerializer.Deserialize<List<GrupoEntidadesResponse>>(jsonGrupoEntidadesResponse);
+
+                // mapeamos el resultado
+                var mapResponse = _mapper.Map<List<ReporteGrupoEntidadesResponse>>(response);
+
+                // retornamos el resultado
+                _logger.LogInformation(TransactionMessage.QuerySuccess);
+                return ResponseUtil.Ok(mapResponse, result.Message ?? TransactionMessage.QuerySuccess);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return ResponseUtil.InternalError(message: ex.Message);
+            }
+        }
     }
 }

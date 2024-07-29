@@ -11,6 +11,8 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
         public string? evaluacionkey { get; set; }
         public string? etapakey { get; set; }
         public string? entidadkey { get; set; }
+        public string? entidadgrupokey { get; set; }
+
     }
     public class ReporteAgrupadoPorEtapasRequest
     {
@@ -21,6 +23,20 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
     public class ReporteAgrupadoPorEtapasResponse
     {
         public string? etapa { get; set; } = string.Empty;
+        public decimal? avance { get; set; } = decimal.Zero;
+        public decimal? brecha { get; set; } = decimal.Zero;
+    }
+    public class ReporteGrupoEntidadesRequest
+    {
+        public string? evaluacionkey { get; set; }
+        public string? etapakey { get; set; }
+        public string? entidadgrupokey { get; set; }
+    }
+    public class ReporteGrupoEntidadesResponse
+    {
+        public string? grupo { get; set; }
+        public string? etapa_abreviatura { get; set; }
+        public string? etapa_nombre { get; set; }
         public decimal? avance { get; set; } = decimal.Zero;
         public decimal? brecha { get; set; } = decimal.Zero;
     }

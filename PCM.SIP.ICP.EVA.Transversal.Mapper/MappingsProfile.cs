@@ -685,6 +685,18 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
             .ForMember(destination => destination.avance, source => source.MapFrom(src => src.avance))
             .ForMember(destination => destination.brecha, source => source.MapFrom(src => src.brecha));
 
+            CreateMap<ReportDataDto, ReporteGrupoEntidadesRequest>().ReverseMap()
+            .ForMember(destination => destination.evaluacionkey, source => source.MapFrom(src => src.evaluacionkey))
+            .ForMember(destination => destination.etapakey, source => source.MapFrom(src => src.etapakey))
+            .ForMember(destination => destination.entidadgrupokey, source => source.MapFrom(src => src.entidadgrupokey));
+
+            CreateMap<ReporteGrupoEntidadesResponse, GrupoEntidadesResponse>().ReverseMap()
+            .ForMember(destination => destination.grupo, source => source.MapFrom(src => src.grupo))
+            .ForMember(destination => destination.etapa_abreviatura, source => source.MapFrom(src => src.etapa_abreviatura))
+            .ForMember(destination => destination.etapa_nombre, source => source.MapFrom(src => src.etapa_nombre))
+            .ForMember(destination => destination.avance, source => source.MapFrom(src => src.avance))
+            .ForMember(destination => destination.brecha, source => source.MapFrom(src => src.brecha));
+
             #endregion
 
         }

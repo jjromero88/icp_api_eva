@@ -19,4 +19,19 @@ namespace PCM.SIP.ICP.EVA.Domain.Entities
         public decimal? avance { get; set; } = decimal.Zero;
         public decimal? brecha { get; set; } = decimal.Zero;
     }
+
+    public class GrupoEntidadesRequest
+    {
+        public int? evaluacion_id { get; set; }
+        public int? etapa_id { get; set; }
+        public int? entidadgrupo_id { get; set; }
+    }
+    public class GrupoEntidadesResponse
+    {
+        public string? grupo { get; set; }
+        public string? etapa_abreviatura { get; set; }
+        public string? etapa_nombre { get; set; }
+        public decimal? avance { get; set; } = decimal.Zero;
+        public decimal? brecha { get; set; } = decimal.Zero;
+    }
 }

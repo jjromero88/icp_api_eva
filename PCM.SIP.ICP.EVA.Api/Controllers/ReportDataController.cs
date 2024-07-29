@@ -35,6 +35,16 @@ namespace PCM.SIP.ICP.EVA.Api.Controllers
 
             return await _reportDataApplication.ReporteAgrupadoPorEtapas(new Request<ReportDataDto>() { entidad = _mapper.Map<ReportDataDto>(request) });
         }
+        [HttpGet("AgrupadoPorGrupoDeEntidad")]
+        [ServiceFilter(typeof(ValidateTokenRequestAttribute))]
+        [ServiceFilter(typeof(UpdateUserDataAttribute))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PcmResponse))]
+        public async Task<ActionResult<PcmResponse>> AgrupadoPorGrupoDeEntidad([FromQuery] ReporteGrupoEntidadesRequest request)
+        {
+            if (request == null)
+                return BadRequest();
 
+            return await _reportDataApplication.ReporteAgrupadoPorGrupoEntidad(new Request<ReportDataDto>() { entidad = _mapper.Map<ReportDataDto>(request) });
+        }
     }
 }
