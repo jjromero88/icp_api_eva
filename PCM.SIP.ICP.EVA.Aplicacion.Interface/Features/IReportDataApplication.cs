@@ -8,5 +8,6 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Interface.Features
     {
         Task<PcmResponse> ReporteAgrupadoPorEtapas(Request<ReportDataDto> request);
         Task<PcmResponse> ReporteAgrupadoPorGrupoEntidad(Request<ReportDataDto> request);
+        Task<PcmResponse> ReporteAgrupadoPorEtapaComponente(Request<ReportDataDto> request);
     }
 }

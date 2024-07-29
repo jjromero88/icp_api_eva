@@ -108,5 +108,45 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                 return ResponseUtil.InternalError(message: ex.Message);
             }
         }
+
+        public async Task<PcmResponse> ReporteAgrupadoPorEtapaComponente(Request<ReportDataDto> request)
+        {
+            try
+            {
+                var entidad = new GrupoEtapasComponentesRequest();
+
+                // deserializamos los parametros de entrada
+                entidad.evaluacion_id = string.IsNullOrEmpty(request.entidad.evaluacionkey) ? null : Convert.ToInt32(CShrapEncryption.DecryptString(request.entidad.evaluacionkey, _userSessionService.GetUser().authkey));
+                entidad.etapa_id = string.IsNullOrEmpty(request.entidad.etapakey) ? null : Convert.ToInt32(CShrapEncryption.DecryptString(request.entidad.etapakey, _userSessionService.GetUser().authkey));
+                entidad.componente_id = string.IsNullOrEmpty(request.entidad.componentekey) ? null : Convert.ToInt32(CShrapEncryption.DecryptString(request.entidad.componentekey, _userSessionService.GetUser().authkey));
+                entidad.entidad_id = string.IsNullOrEmpty(request.entidad.entidadkey) ? null : Convert.ToInt32(CShrapEncryption.DecryptString(request.entidad.entidadkey, _userSessionService.GetUser().authkey));
+
+                // consultamos a base de datos
+                var result = _unitOfWork.Reportes.ReporteAgrupadoPorEtapaComponente(entidad, out string jsonGrupoEtapaComponente);
+
+                // verificamos si ocurrio un error
+                if (result.Error)
+                    return ResponseUtil.BadRequest(result.Message);
+
+                // verificamos si existe data de salida
+                if (string.IsNullOrEmpty(jsonGrupoEtapaComponente))
+                    return ResponseUtil.NoContent();
+
+                // desereializamos el response
+                var response = JsonSerializer.Deserialize<List<GrupoEtapasComponentesResponse>>(jsonGrupoEtapaComponente);
+
+                // mapeamos el resultado
+                var mapResponse = _mapper.Map<List<ReporteGrupoEtapasComponentesResponse>>(response);
+
+                // retornamos el resultado
+                _logger.LogInformation(TransactionMessage.QuerySuccess);
+                return ResponseUtil.Ok(mapResponse, result.Message ?? TransactionMessage.QuerySuccess);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return ResponseUtil.InternalError(message: ex.Message);
+            }
+        }
     }
 }
