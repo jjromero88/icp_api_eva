@@ -498,6 +498,12 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
             .ForMember(destination => destination.abreviatura, source => source.MapFrom(src => src.abreviatura))
             .ForMember(destination => destination.descripcion, source => source.MapFrom(src => src.descripcion));
 
+            CreateMap<ComponenteIcpResponseDto, ComponenteIcpResponse>().ReverseMap()
+            .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
+            .ForMember(destination => destination.codigo, source => source.MapFrom(src => src.codigo))
+            .ForMember(destination => destination.abreviatura, source => source.MapFrom(src => src.abreviatura))
+            .ForMember(destination => destination.descripcion, source => source.MapFrom(src => src.descripcion));
+
 
             #endregion
 

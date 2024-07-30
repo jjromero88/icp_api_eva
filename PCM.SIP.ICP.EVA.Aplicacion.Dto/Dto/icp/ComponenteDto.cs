@@ -24,4 +24,11 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
         public string? descripcion { get; set; }
         public string? abreviatura { get; set; }
     }
+    public class ComponenteIcpResponseDto
+    {
+        public string? serialKey { get; set; }
+        public string? codigo { get; set; }
+        public string? descripcion { get; set; }
+        public string? abreviatura { get; set; }
+    }
 }
