@@ -22,4 +22,12 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
         public string? abreviatura { get; set; }
         public string? descripcion { get; set; }
     }
+    public class EtapaIcpResponseDto
+    {
+        public string? serialKey { get; set; }
+        public string? codigo { get; set; }
+        public string? nombre { get; set; }
+        public string? abreviatura { get; set; }
+        public string? descripcion { get; set; }
+    }
 }
