@@ -362,11 +362,20 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
             .ForMember(destination => destination.comentarios, source => source.MapFrom(src => src.comentarios))
             .ForMember(destination => destination.vigente, source => source.MapFrom(src => src.vigente));
 
-            #endregion
+
+            CreateMap<EvaluacionIcpResponseDto, EvaluacionIcpResponse>().ReverseMap()
+            .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
+            .ForMember(destination => destination.codigo, source => source.MapFrom(src => src.codigo))
+            .ForMember(destination => destination.fecha_inicio, source => source.MapFrom(src => src.fecha_inicio))
+            .ForMember(destination => destination.fecha_fin, source => source.MapFrom(src => src.fecha_fin))
+            .ForMember(destination => destination.descripcion, source => source.MapFrom(src => src.descripcion))
+            .ForMember(destination => destination.comentarios, source => source.MapFrom(src => src.comentarios));
+
+        #endregion
 
             #region EvaluacionEtapa
 
-            CreateMap<EvaluacionEtapa, EvaluacionEtapaDto>().ReverseMap()
+        CreateMap<EvaluacionEtapa, EvaluacionEtapaDto>().ReverseMap()
             .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
             .ForMember(destination => destination.evaluacionkey, source => source.MapFrom(src => src.evaluacionkey))
             .ForMember(destination => destination.etapakey, source => source.MapFrom(src => src.etapakey))

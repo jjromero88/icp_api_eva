@@ -24,6 +24,15 @@ namespace PCM.SIP.ICP.EVA.Api.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("GetListEvaluaciones")]
+        [ServiceFilter(typeof(ValidateTokenRequestAttribute))]
+        [ServiceFilter(typeof(UpdateUserDataAttribute))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PcmResponse))]
+        public async Task<ActionResult<PcmResponse>> GetListEvaluaciones()
+        {
+            return await _evaluacionApplication.GetListEvaluaciones();
+        }
+
         [HttpGet("GetList")]
         [ServiceFilter(typeof(ValidateTokenRequestAttribute))]
         [ServiceFilter(typeof(UpdateUserDataAttribute))]

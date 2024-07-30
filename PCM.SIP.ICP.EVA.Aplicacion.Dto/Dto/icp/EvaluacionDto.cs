@@ -37,4 +37,13 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
         public bool? vigente { get; set; }
         public List<EvaluacionEtapaResponse>? lista_etapas { get; set; }
     }
+    public class EvaluacionIcpResponseDto
+    {
+        public string? serialKey { get; set; }
+        public string? codigo { get; set; }
+        public DateTime? fecha_inicio { get; set; }
+        public DateTime? fecha_fin { get; set; }
+        public string? descripcion { get; set; }
+        public string? comentarios { get; set; }
+    }
 }

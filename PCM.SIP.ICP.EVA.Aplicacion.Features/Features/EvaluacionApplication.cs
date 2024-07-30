@@ -9,6 +9,7 @@ using PCM.SIP.ICP.EVA.Transversal.Common;
 using PCM.SIP.ICP.EVA.Transversal.Common.Constants;
 using PCM.SIP.ICP.EVA.Transversal.Common.Generics;
 using PCM.SIP.ICP.EVA.Transversal.Util.Encryptions;
+using PCM.SIP.ICP.EVA.Transversal.Contracts.icp;
 
 namespace PCM.SIP.ICP.EVA.Aplicacion.Features
 {
@@ -18,17 +19,20 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
         private readonly IMapper _mapper;
         private readonly IAppLogger<EvaluacionApplication> _logger;
         private readonly IUserSessionService _userSessionService;
+        private readonly IEvaluacionService _evaluacionService;
 
         public EvaluacionApplication(
             IUnitOfWork unitOfWork,
             IMapper mapper,
             IAppLogger<EvaluacionApplication> logger,
-            IUserSessionService userSessionService)
+            IUserSessionService userSessionService,
+            IEvaluacionService evaluacionService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _logger = logger;
             _userSessionService = userSessionService;
+            _evaluacionService = evaluacionService;
         }
 
         public async Task<PcmResponse> GetList(Request<EvaluacionDto> request)
@@ -78,6 +82,25 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                     _mapper.Map<List<EvaluacionResponse>>(_mapper.Map<List<EvaluacionDto>>(Lista)),
                     result.Message ?? TransactionMessage.QuerySuccess
                     ) : ResponseUtil.NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return ResponseUtil.InternalError(message: ex.Message);
+            }
+        }
+
+        public async Task<PcmResponse> GetListEvaluaciones()
+        {
+            try
+            {
+                string token = _userSessionService.GetToken();
+
+                var response = await _evaluacionService.GetListEvaluacion(new EvaluacionIcpFilterRequest(), token);
+
+                return response != null ? ResponseUtil.Ok(
+                   _mapper.Map<List<EvaluacionIcpResponseDto>>(response), TransactionMessage.QuerySuccess
+                  ) : ResponseUtil.NoContent();
             }
             catch (Exception ex)
             {

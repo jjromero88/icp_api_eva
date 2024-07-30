@@ -7,5 +7,6 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Interface.Features
     public interface IEvaluacionApplication
     {
         Task<PcmResponse> GetList(Request<EvaluacionDto> request);
+        Task<PcmResponse> GetListEvaluaciones();
     }
 }
