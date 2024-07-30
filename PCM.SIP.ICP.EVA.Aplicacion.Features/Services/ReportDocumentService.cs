@@ -8,6 +8,7 @@ using PCM.SIP.ICP.EVA.Aplicacion.Dto;
 using PCM.SIP.ICP.EVA.Aplicacion.Validator;
 using PCM.SIP.ICP.EVA.Aplicacion.Interface;
 using PCM.SIP.ICP.EVA.Transversal.Util.Encryptions;
+using PCM.SIP.ICP.EVA.Transversal.Common.Report;
 
 namespace PCM.SIP.ICP.EVA.Aplicacion.Features
 {
@@ -57,8 +58,18 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                 // generamos el reporte
                 byte[] reportBytes = await _reportService.ReporteResultadoEtapaAsync(request);
 
+                // Convierte el array de bytes a una cadena en Base64
+                string? base64String = Convert.ToBase64String(reportBytes);
+
+                var response = new ReportBase64Response
+                {
+                    filename = ReportUtils.GenerateFileNameDate("Grupoentidades", request.format),
+                    extension = request.format,
+                    base64content = base64String
+                };
+
                 // retornamos el resultado
-                return reportBytes != null ? ResponseUtil.Ok(reportBytes, TransactionMessage.QuerySuccess) : ResponseUtil.NoContent();
+                return (reportBytes != null && reportBytes.Length > 0) ? ResponseUtil.Ok(response, TransactionMessage.QuerySuccess) : ResponseUtil.NoContent();
             }
             catch (Exception ex)
             {
@@ -67,11 +78,12 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
             }
         }
 
+        /* Reporte: Agrupado por Grupo de Entidad */
         public async Task<PcmResponse> ReporteGrupoEntidadesAsync(ReportGrupoEntidadesRequest request)
         {
             try
             {
- 
+
                 // si no tiene data
                 if (request.data == null || !request.data.Any())
                     return ResponseUtil.NoContent();
@@ -79,8 +91,18 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                 // generamos el reporte
                 byte[] reportBytes = await _reportService.ReporteGrupoEntidadesAsync(request);
 
+                // Convierte el array de bytes a una cadena en Base64
+                string? base64String = Convert.ToBase64String(reportBytes);
+
+                var response = new ReportBase64Response
+                {
+                    filename = ReportUtils.GenerateFileNameDate("Grupoentidades", request.format),
+                    extension = request.format,
+                    base64content = base64String
+                };
+
                 // retornamos el resultado
-                return reportBytes != null ? ResponseUtil.Ok(reportBytes, TransactionMessage.QuerySuccess) : ResponseUtil.NoContent();
+                return (reportBytes != null && reportBytes.Length > 0) ? ResponseUtil.Ok(response, TransactionMessage.QuerySuccess) : ResponseUtil.NoContent();
             }
             catch (Exception ex)
             {
@@ -89,6 +111,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
             }
         }
 
+        /* Reporte: Agrupado por Etapa y Componente */
         public async Task<PcmResponse> ReporteEtapaComponenteAsync(ReportEtapasComponenteRequest request)
         {
             try
@@ -101,8 +124,18 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                 // generamos el reporte
                 byte[] reportBytes = await _reportService.ReporteEtapaComponenteAsync(request);
 
+                // Convierte el array de bytes a una cadena en Base64
+                string? base64String = Convert.ToBase64String(reportBytes);
+
+                var response = new ReportBase64Response
+                {
+                    filename = ReportUtils.GenerateFileNameDate("EtapaComponente", request.format),
+                    extension = request.format,
+                    base64content = base64String
+                };
+
                 // retornamos el resultado
-                return reportBytes != null ? ResponseUtil.Ok(reportBytes, TransactionMessage.QuerySuccess) : ResponseUtil.NoContent();
+                return (reportBytes != null && reportBytes.Length > 0) ? ResponseUtil.Ok(response, TransactionMessage.QuerySuccess) : ResponseUtil.NoContent();
             }
             catch (Exception ex)
             {
@@ -111,6 +144,6 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
             }
         }
 
-      
+
     }
 }

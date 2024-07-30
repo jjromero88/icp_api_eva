@@ -2,8 +2,6 @@
 using Microsoft.Reporting.NETCore;
 using PCM.SIP.ICP.EVA.Aplicacion.Dto;
 using PCM.SIP.ICP.EVA.Aplicacion.Interface.Infraestructure;
-using PCM.SIP.ICP.EVA.Domain.Entities;
-using PCM.SIP.ICP.EVA.Infraestructure.Services.Reports;
 
 namespace PCM.SIP.ICP.EVA.Infraestructure.Services
 {

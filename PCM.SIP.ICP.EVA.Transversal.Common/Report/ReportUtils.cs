@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PCM.SIP.ICP.EVA.Infraestructure.Services.Reports
+namespace PCM.SIP.ICP.EVA.Transversal.Common.Report
 {
     public static class ReportUtils
     {
