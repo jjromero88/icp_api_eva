@@ -111,6 +111,16 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
             .ForMember(destination => destination.documento_modalidadintegridad, source => source.MapFrom(src => src.documento_modalidadintegridad))
             .ForMember(destination => destination.documento_integridad, source => source.MapFrom(src => src.documento_integridad));
 
+            CreateMap<EntidadResponse, EntidadResponseDto>().ReverseMap()
+           .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
+           .ForMember(destination => destination.entidadgrupokey, source => source.MapFrom(src => src.entidadgrupokey))
+           .ForMember(destination => destination.entidadsectorkey, source => source.MapFrom(src => src.entidadsectorkey))
+           .ForMember(destination => destination.numero_ruc, source => source.MapFrom(src => src.numero_ruc))
+           .ForMember(destination => destination.codigo, source => source.MapFrom(src => src.codigo))
+           .ForMember(destination => destination.acronimo, source => source.MapFrom(src => src.acronimo))
+           .ForMember(destination => destination.nombre, source => source.MapFrom(src => src.nombre));
+
+
             #endregion
 
             #region Documento

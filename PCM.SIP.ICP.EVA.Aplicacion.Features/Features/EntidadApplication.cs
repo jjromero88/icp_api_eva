@@ -121,5 +121,24 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                 return ResponseUtil.InternalError(message: ex.Message);
             }
         }
+
+        public async Task<PcmResponse> GetListEntidad()
+        {
+            try
+            {
+                string token = _userSessionService.GetToken();
+
+                var response = await _entidadService.GetListEntidad(new EntidadFilterRequest(), token);
+
+                return response != null ? ResponseUtil.Ok(
+                   _mapper.Map<List<EntidadResponseDto>>(response), TransactionMessage.QuerySuccess
+                  ) : ResponseUtil.NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return ResponseUtil.InternalError(message: ex.Message);
+            }
+        }
     }
 }

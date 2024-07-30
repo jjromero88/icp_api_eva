@@ -6,6 +6,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Interface.Features
 {
     public interface IEntidadApplication
     {
+        Task<PcmResponse> GetListEntidad();
         Task<PcmResponse> UpdateGeneralidades(Request<GeneralidadesUpdateRequestDto> request);
         Task<PcmResponse> GetByIdGeneralidades(Request<EntidadIdRequestDto> request);
         Task<PcmResponse> GetListGeneralidades(Request<GeneralidadesFilterRequestDto> request);

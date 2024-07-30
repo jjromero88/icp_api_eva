@@ -10,6 +10,23 @@ namespace PCM.SIP.ICP.EVA.Transversal.Contracts.icp
     {
         public string? serialKey { get; set; }
     }
+    public class EntidadFilterRequest
+    {
+        public string? SerialKey { get; set; }
+        public string? entidadgrupokey { get; set; }
+        public string? entidadsectorkey { get; set; }
+        public string? filtro { get; set; }
+    }
+    public class EntidadResponse
+    {
+        public string? serialKey { get; set; }
+        public string? entidadgrupokey { get; set; }
+        public string? entidadsectorkey { get; set; }
+        public string? numero_ruc { get; set; }
+        public string? codigo { get; set; }
+        public string? acronimo { get; set; }
+        public string? nombre { get; set; }
+    }
     public class GeneralidadesUpdateRequest
     {
         public string? serialKey { get; set; }

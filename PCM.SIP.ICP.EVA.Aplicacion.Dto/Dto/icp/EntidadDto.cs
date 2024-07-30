@@ -10,6 +10,16 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
     {
         public string? serialKey { get; set; }
     }
+    public class EntidadResponseDto
+    {
+        public string? serialKey { get; set; }
+        public string? entidadgrupokey { get; set; }
+        public string? entidadsectorkey { get; set; }
+        public string? numero_ruc { get; set; }
+        public string? codigo { get; set; }
+        public string? acronimo { get; set; }
+        public string? nombre { get; set; }
+    }
     public class GeneralidadesUpdateRequestDto
     {
         public string? serialKey { get; set; }

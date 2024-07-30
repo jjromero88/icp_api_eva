@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
 using System.Net;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PCM.SIP.ICP.EVA.Api.Filters;
 using PCM.SIP.ICP.EVA.Aplicacion.Interface.Features;
 using PCM.SIP.ICP.EVA.Transversal.Common.Generics;
-using PCM.SIP.ICP.EVA.Transversal.Common;
-using PCM.SIP.ICP.EVA.Aplicacion.Dto;
 
 namespace PCM.SIP.ICP.EVA.Api.Controllers
 {
@@ -24,41 +22,13 @@ namespace PCM.SIP.ICP.EVA.Api.Controllers
             _mapper = mapper;
         }
 
-        [HttpPut("Update")]
-        [ServiceFilter(typeof(ValidateTokenRequestAttribute))]
-        [ServiceFilter(typeof(UpdateUserDataAttribute))]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PcmResponse))]
-        public async Task<ActionResult<PcmResponse>> Update([FromBody] GeneralidadesUpdateRequestDto request)
-        {
-            if (request == null)
-                return BadRequest();
-
-            return await _entidadApplication.UpdateGeneralidades(new Request<GeneralidadesUpdateRequestDto>() { entidad = request });
-        }
-
-        [HttpGet("GetById")]
-        [ServiceFilter(typeof(ValidateTokenRequestAttribute))]
-        [ServiceFilter(typeof(UpdateUserDataAttribute))]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PcmResponse))]
-        public async Task<ActionResult<PcmResponse>> GetById([FromQuery] EntidadIdRequestDto request)
-        {
-            if (request == null)
-                return BadRequest();
-
-            return await _entidadApplication.GetByIdGeneralidades(new Request<EntidadIdRequestDto>() { entidad = request });
-        }
-
         [HttpGet("GetList")]
         [ServiceFilter(typeof(ValidateTokenRequestAttribute))]
         [ServiceFilter(typeof(UpdateUserDataAttribute))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PcmResponse))]
-        public async Task<ActionResult<PcmResponse>> GetList([FromQuery] GeneralidadesFilterRequestDto request)
+        public async Task<ActionResult<PcmResponse>> GetList()
         {
-            if (request == null)
-                return BadRequest();
-
-            return await _entidadApplication.GetListGeneralidades(new Request<GeneralidadesFilterRequestDto>() { entidad = request });
+            return await _entidadApplication.GetListEntidad();
         }
-
     }
 }
