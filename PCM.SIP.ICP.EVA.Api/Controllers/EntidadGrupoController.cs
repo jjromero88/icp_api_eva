@@ -11,14 +11,14 @@ namespace PCM.SIP.ICP.EVA.Api.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class EtapaController : Controller
+    public class EntidadGrupoController : Controller
     {
-        private readonly IEtapaApplication _etapaApplication;
+        private readonly IEntidadGrupoApplication _entidadGrupoApplication;
         private readonly IMapper _mapper;
 
-        public EtapaController(IEtapaApplication etapaApplication, IMapper mapper)
+        public EntidadGrupoController(IEntidadGrupoApplication entidadGrupoApplication, IMapper mapper)
         {
-            _etapaApplication = etapaApplication;
+            _entidadGrupoApplication = entidadGrupoApplication;
             _mapper = mapper;
         }
 
@@ -28,7 +28,8 @@ namespace PCM.SIP.ICP.EVA.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PcmResponse))]
         public async Task<ActionResult<PcmResponse>> GetList()
         {
-            return await _etapaApplication.GetList();
+            return await _entidadGrupoApplication.GetList();
         }
+
     }
 }
