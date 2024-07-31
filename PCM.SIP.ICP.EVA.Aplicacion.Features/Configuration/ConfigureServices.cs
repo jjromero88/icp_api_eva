@@ -26,6 +26,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
             services.AddScoped<IEtapaApplication, EtapaApplication>();
             services.AddScoped<IEntidadGrupoApplication, EntidadGrupoApplication>();
             services.AddScoped<IComponenteApplication, ComponenteApplication>();
+            services.AddScoped<IEntidadSectorApplication, EntidadSectorApplication>();
 
             return services;
         }

@@ -12,4 +12,17 @@ namespace PCM.SIP.ICP.EVA.Transversal.Contracts.icp
         public string? abreviatura { get; set; }
         public string? descripcion { get; set; }
     }
+    public class EntidadSectorFilterRequest
+    {
+        public string? serialKey { get; set; }
+        public string? filtro { get; set; }
+    }
+    public class EntidadSectorResponse
+    {
+        public string? serialKey { get; set; }
+        public string? tiposectorkey { get; set; }
+        public string? codigo { get; set; }
+        public string? abreviatura { get; set; }
+        public string? descripcion { get; set; }
+    }
 }

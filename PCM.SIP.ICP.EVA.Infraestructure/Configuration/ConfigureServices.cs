@@ -26,6 +26,7 @@ namespace PCM.SIP.ICP.EVA.Infraestructure
             services.AddSingleton<IEtapaService, EtapaService>();
             services.AddSingleton<IEntidadGrupoService, EntidadGrupoService>();
             services.AddSingleton<IComponenteService, ComponenteService>();
+            services.AddSingleton<IEntidadSectorService, EntidadSectorService>();
 
             return services;
         }
