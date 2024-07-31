@@ -57,6 +57,7 @@ namespace PCM.SIP.ICP.EVA.Domain.Entities
     }
     public class ResultadoPorSectorResponse
     {
+        public string? sector_nombre { get; set; }
         public List<ResultadoPorSectorTotal>? resultadoporsector_total { get; set; }
         public List<ResultadoPorSectorComponente>? resultadoporsector_componente { get; set; }
     }

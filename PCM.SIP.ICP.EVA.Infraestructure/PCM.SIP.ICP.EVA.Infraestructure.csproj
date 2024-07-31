@@ -18,8 +18,4 @@
     <ProjectReference Include="..\PCM.SIP.ICP.EVA.Transversal.Common\PCM.SIP.ICP.EVA.Transversal.Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\Reports\Common\" />
-  </ItemGroup>
-
 </Project>

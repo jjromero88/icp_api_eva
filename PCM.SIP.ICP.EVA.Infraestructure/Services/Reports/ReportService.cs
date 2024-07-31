@@ -3,7 +3,7 @@ using Microsoft.Reporting.NETCore;
 using PCM.SIP.ICP.EVA.Aplicacion.Dto;
 using PCM.SIP.ICP.EVA.Aplicacion.Interface.Infraestructure;
 using PCM.SIP.ICP.EVA.Domain.Entities;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using PCM.SIP.ICP.EVA.Infraestructure.Services.Reports;
 
 namespace PCM.SIP.ICP.EVA.Infraestructure.Services
 {
@@ -225,11 +225,21 @@ namespace PCM.SIP.ICP.EVA.Infraestructure.Services
                 // Calcular el número de etapas
                 int uniqueEtapaCount = dataComponente == null ? 0 : dataComponente.Select(d => d.etapa_nombre).Distinct().Count();
 
+                // obtenemos el titulo del grafico de resultados totales
+                string tituloResultadosComponente = ReportUtilData.tituloReporteResultadoPorSector(dataComponente);
+
+                // obtenemos la interpretacion
+                var(interpretacion, interpretacionTotales, textoInformativo) = ReportUtilData.interpretacionReporteResultadoPorSectorAsync(dataComponente, dataTotal);
+
                 // Crear la lista de parámetros
                 var reportParameters = new List<ReportParameter>
                 {
-                    new ReportParameter("InterpretacionResultados", "interpretacion"),
-                    new ReportParameter("NumeroEtapas", uniqueEtapaCount.ToString())
+                    new ReportParameter("NombreSector", request.sector_nombre ?? string.Empty),
+                    new ReportParameter("InterpretacionResultados", interpretacion),
+                    new ReportParameter("InterpretacionResultadosTotal", interpretacionTotales),
+                    new ReportParameter("InterpretacionResultadosInformativo", textoInformativo),
+                    new ReportParameter("NumeroEtapas", uniqueEtapaCount.ToString()),
+                    new ReportParameter("TituloResultadosComponente", tituloResultadosComponente)
                 };
 
                 // Establecer los parámetros en el reporte

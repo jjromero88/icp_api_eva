@@ -191,8 +191,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                 };
 
                 // retornamos el resultado
-                //return (reportBytes != null && reportBytes.Length > 0) ? ResponseUtil.Ok(response, TransactionMessage.QuerySuccess) : ResponseUtil.NoContent();
-                return  ResponseUtil.Ok(reportBytes, TransactionMessage.QuerySuccess)  ;
+                return (reportBytes != null && reportBytes.Length > 0) ? ResponseUtil.Ok(response, TransactionMessage.QuerySuccess) : ResponseUtil.NoContent();
             }
             catch (Exception ex)
             {

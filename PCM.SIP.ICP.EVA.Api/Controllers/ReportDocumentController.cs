@@ -63,20 +63,12 @@ namespace PCM.SIP.ICP.EVA.Api.Controllers
         [ServiceFilter(typeof(ValidateTokenRequestAttribute))]
         [ServiceFilter(typeof(UpdateUserDataAttribute))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PcmResponse))]
-        public async Task<IActionResult> ResultadosPorSector([FromBody] ReportResultadoPorSectorRequest request)
+        public async Task<ActionResult<PcmResponse>> ResultadosPorSector([FromBody] ReportResultadoPorSectorRequest request)
         {
             if (request == null)
                 return BadRequest();
 
-            var response = await _reportService.ReporteResultadoPorSectorAsync(request);
-
-            // Establece el nombre del archivo
-            string fileName = "reporte.pdf";
-
-            // Devuelve el archivo PDF como una descarga
-            return File((byte[])response.Payload, "application/pdf", fileName);
-
-            //return await _reportService.ReporteResultadoPorSectorAsync(request);
+            return await _reportService.ReporteResultadoPorSectorAsync(request);
         }
     }
 }
