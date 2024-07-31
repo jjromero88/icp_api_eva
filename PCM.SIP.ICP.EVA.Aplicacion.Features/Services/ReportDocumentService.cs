@@ -9,6 +9,8 @@ using PCM.SIP.ICP.EVA.Aplicacion.Validator;
 using PCM.SIP.ICP.EVA.Aplicacion.Interface;
 using PCM.SIP.ICP.EVA.Transversal.Util.Encryptions;
 using PCM.SIP.ICP.EVA.Transversal.Common.Report;
+using PCM.SIP.ICP.EVA.Domain.Entities;
+using System.Text.Json;
 
 namespace PCM.SIP.ICP.EVA.Aplicacion.Features
 {
@@ -40,7 +42,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
             _reportValidationManager = reportValidationManager;
         }
 
-        // Tipo de reporte: AGRUPADO POR ETAPAS
+        // Reporte: AGRUPADO POR ETAPAS
         public async Task<PcmResponse> ReporteResultadoEtapaAsync(ReportResultadosEtapaRequest request)
         {
             try
@@ -144,6 +146,59 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
             }
         }
 
+        /* Reporte: Resultados por Sector */
+        public async Task<PcmResponse> ReporteResultadoPorSectorAsync(ReportResultadoPorSectorRequest request)
+        {
+            try
+            {
+                // si no tiene data
+                if (request == null)
+                    return ResponseUtil.NoContent();
 
+                // deserializamos los parametros de entrada
+                var entidad = new ResultadoPorSectorRequest();
+                entidad.evaluacion_id = string.IsNullOrEmpty(request.evaluacionkey) ? null : Convert.ToInt32(CShrapEncryption.DecryptString(request.evaluacionkey, _userSessionService.GetUser().authkey));
+                entidad.entidadsector_id = string.IsNullOrEmpty(request.entidadsectorkey) ? null : Convert.ToInt32(CShrapEncryption.DecryptString(request.entidadsectorkey, _userSessionService.GetUser().authkey));
+ 
+                // consumimos la data del reporte
+                var result = _unitOfWork.Reportes.ReporteResultadoPorSector(entidad, out string jsonResultadosTotales);
+
+                // verificamos si ocurrio un error
+                if (result.Error)
+                    return ResponseUtil.BadRequest(result.Message);
+
+                // verificamos si existe data de salida
+                if (string.IsNullOrEmpty(jsonResultadosTotales))
+                    return ResponseUtil.NoContent();
+
+                // desereializamos el response
+                var responseData = JsonSerializer.Deserialize<ResultadoPorSectorResponse>(jsonResultadosTotales);
+
+                if(responseData == null)
+                    return ResponseUtil.NoContent();
+
+                // generamos el reporte
+                byte[] reportBytes = await _reportService.ReporteResultadoPorSectorAsync(responseData);
+
+                // Convierte el array de bytes a una cadena en Base64
+                string? base64String = Convert.ToBase64String(reportBytes);
+
+                var response = new ReportBase64Response
+                {
+                    filename = ReportUtils.GenerateFileNameDate("ResultadosPorSector", "pdf"),
+                    extension = "pdf",
+                    base64content = base64String
+                };
+
+                // retornamos el resultado
+                //return (reportBytes != null && reportBytes.Length > 0) ? ResponseUtil.Ok(response, TransactionMessage.QuerySuccess) : ResponseUtil.NoContent();
+                return  ResponseUtil.Ok(reportBytes, TransactionMessage.QuerySuccess)  ;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return ResponseUtil.InternalError(message: ex.Message);
+            }
+        }
     }
 }

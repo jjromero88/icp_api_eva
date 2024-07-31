@@ -60,7 +60,13 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
         public decimal? resultado { get; set; }
     }
 
-
+    /* Reporte: Resultado por Sector */
+    public class ReportResultadoPorSectorRequest
+    {
+        public string? evaluacionkey { get; set; }
+        public string? entidadsectorkey { get; set; }
+    }
+ 
     /* Reporte response */
 
     public class ReportBase64Response

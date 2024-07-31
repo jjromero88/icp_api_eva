@@ -49,4 +49,26 @@ namespace PCM.SIP.ICP.EVA.Domain.Entities
         public string? componente_nombre { get; set; }
         public decimal? resultado { get; set; } = decimal.Zero;
     }
+
+    public class ResultadoPorSectorRequest
+    {
+        public int? evaluacion_id { get; set; }
+        public int? entidadsector_id { get; set; }
+    }
+    public class ResultadoPorSectorResponse
+    {
+        public List<ResultadoPorSectorTotal>? resultadoporsector_total { get; set; }
+        public List<ResultadoPorSectorComponente>? resultadoporsector_componente { get; set; }
+    }
+    public class ResultadoPorSectorTotal
+    {
+        public string? componente_descripcion { get; set; }
+        public decimal? resultado { get; set; } = decimal.Zero;
+    }
+    public class ResultadoPorSectorComponente
+    {
+        public string? etapa_nombre { get; set; }
+        public string? componente_descripcion { get; set; }
+        public decimal? resultado { get; set; } = decimal.Zero;
+    }
 }

@@ -1,5 +1,4 @@
 ﻿using PCM.SIP.ICP.EVA.Aplicacion.Dto;
-using PCM.SIP.ICP.EVA.Transversal.Common;
 using PCM.SIP.ICP.EVA.Transversal.Common.Generics;
 
 namespace PCM.SIP.ICP.EVA.Aplicacion.Interface.Features
@@ -9,5 +8,6 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Interface.Features
         Task<PcmResponse> ReporteGrupoEntidadesAsync(ReportGrupoEntidadesRequest request);
         Task<PcmResponse> ReporteEtapaComponenteAsync(ReportEtapasComponenteRequest request);
         Task<PcmResponse> ReporteResultadoEtapaAsync(ReportResultadosEtapaRequest request);
+        Task<PcmResponse> ReporteResultadoPorSectorAsync(ReportResultadoPorSectorRequest request);
     }
 }

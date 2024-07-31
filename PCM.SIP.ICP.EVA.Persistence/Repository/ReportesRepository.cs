@@ -128,5 +128,40 @@ namespace PCM.SIP.ICP.EVA.Persistence.Repository
             return retorno;
         }
 
+        public Response<dynamic> ReporteResultadoPorSector(ResultadoPorSectorRequest entidad, out string jsonResultadosTotales)
+        {
+            Response<dynamic> retorno = new Response<dynamic>();
+            jsonResultadosTotales = string.Empty;
+
+            try
+            {
+                using (var connection = _context.CreateConnection())
+                {
+                    var query = "dbo.USP_SEL_REPORTE_ICP_SECTOR";
+
+                    var param = new DynamicParameters();
+
+                    param.Add("evaluacion_id", entidad.evaluacion_id);
+                    param.Add("entidadsector_id", entidad.entidadsector_id);
+                    param.Add("error", dbType: DbType.Boolean, direction: ParameterDirection.Output);
+                    param.Add("message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
+                    param.Add("jsonResultadoPorSector", dbType: DbType.String, direction: ParameterDirection.Output, size: int.MaxValue);
+
+                    var result = connection.QuerySingleOrDefault<dynamic>(query, param: param, commandType: CommandType.StoredProcedure);
+
+                    retorno.Data = string.Empty;
+                    retorno.Error = param.Get<bool?>("error") ?? false;
+                    retorno.Message = param.Get<string>("message") ?? string.Empty;
+                    jsonResultadosTotales = param.Get<string>("jsonResultadoPorSector") ?? string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                retorno.Error = true;
+                retorno.Message = ex.Message;
+            }
+
+            return retorno;
+        }
     }
 }

@@ -2,6 +2,8 @@
 using Microsoft.Reporting.NETCore;
 using PCM.SIP.ICP.EVA.Aplicacion.Dto;
 using PCM.SIP.ICP.EVA.Aplicacion.Interface.Infraestructure;
+using PCM.SIP.ICP.EVA.Domain.Entities;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PCM.SIP.ICP.EVA.Infraestructure.Services
 {
@@ -180,7 +182,63 @@ namespace PCM.SIP.ICP.EVA.Infraestructure.Services
 
                 // Configurar los datos y parámetros del reporte
                 report.DataSources.Add(new ReportDataSource("DsEtapaComponente", data));
-              
+
+                // Renderizar el reporte a PDF
+                byte[] reportBytes = report.Render(reportFormat);
+
+
+                return reportBytes;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Ocurrió un error al generar el reporte: {ex.Message}", ex);
+            }
+        }
+
+        // Tipo de reporte: RESULTADOS POR COMPONENTE
+        public async Task<byte[]> ReporteResultadoPorSectorAsync(ResultadoPorSectorResponse request)
+        {
+            try
+            {
+                string reportFormat = "PDF";
+                string reportsPath = "ReportsPath";
+                string rdlcReportName = "RptResultadosPorSector.rdlc";
+
+                var dataTotal = request.resultadoporsector_total;
+                var dataComponente = request.resultadoporsector_componente;
+
+                // Ruta al archivo RDLC
+                var storagePath = GetReportPath(reportsPath);
+                var path = Path.Combine(storagePath, rdlcReportName);
+
+                // Verificar si el archivo existe
+                if (!File.Exists(path))
+                    throw new FileNotFoundException($"El archivo RDLC {rdlcReportName} no pudo ser ubicado en el directorio.", path);
+
+                // Cargar el archivo RDLC como un stream
+                using var reportDefinition = File.OpenRead(path);
+
+                // Crear el reporte
+                var report = new LocalReport();
+                report.LoadReportDefinition(reportDefinition);
+
+                // Calcular el número de etapas
+                int uniqueEtapaCount = dataComponente == null ? 0 : dataComponente.Select(d => d.etapa_nombre).Distinct().Count();
+
+                // Crear la lista de parámetros
+                var reportParameters = new List<ReportParameter>
+                {
+                    new ReportParameter("InterpretacionResultados", "interpretacion"),
+                    new ReportParameter("NumeroEtapas", uniqueEtapaCount.ToString())
+                };
+
+                // Establecer los parámetros en el reporte
+                report.SetParameters(reportParameters);
+
+                // Configurar los datos y parámetros del reporte
+                report.DataSources.Add(new ReportDataSource("DsResultadoPorSectorTotal", dataTotal));
+                report.DataSources.Add(new ReportDataSource("DsResultadoPorSectorComponente", dataComponente));
+
                 // Renderizar el reporte a PDF
                 byte[] reportBytes = report.Render(reportFormat);
 
