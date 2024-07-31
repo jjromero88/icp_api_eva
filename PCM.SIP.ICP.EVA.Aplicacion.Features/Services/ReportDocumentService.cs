@@ -177,6 +177,9 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                 if(responseData == null)
                     return ResponseUtil.NoContent();
 
+                if (responseData.resultadoporsector_componente == null || responseData.resultadoporsector_total == null)
+                    return ResponseUtil.NoContent();
+
                 // generamos el reporte
                 byte[] reportBytes = await _reportService.ReporteResultadoPorSectorAsync(responseData);
 
