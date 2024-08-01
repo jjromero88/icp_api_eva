@@ -27,6 +27,7 @@ namespace PCM.SIP.ICP.EVA.Infraestructure
             services.AddSingleton<IEntidadGrupoService, EntidadGrupoService>();
             services.AddSingleton<IComponenteService, ComponenteService>();
             services.AddSingleton<IEntidadSectorService, EntidadSectorService>();
+            services.AddSingleton<IRedisCacheService, RedisCacheService>();
 
             return services;
         }

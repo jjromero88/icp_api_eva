@@ -7,6 +7,7 @@ using PCM.SIP.ICP.EVA.Api.Modules.Validator;
 using PCM.SIP.ICP.EVA.Persistence;
 using PCM.SIP.ICP.EVA.Infraestructure;
 using PCM.SIP.ICP.EVA.Aplicacion.Features;
+using PCM.SIP.ICP.EVA.Api.Modules.Redis;
 using PCM.SIP.ICP.EVA.Api.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,6 +32,7 @@ builder.Services.AddInjection(configuration);
 builder.Services.AddAuthentication(configuration);
 builder.Services.AddValidator();
 builder.Services.AddSwagger();
+builder.Services.AddRedisCache(builder.Configuration);
 
 // Se registra los ActionFilterAttribute en el Contenedor de Dependencias
 builder.Services.AddScoped<ValidateTokenRequestAttribute>();
