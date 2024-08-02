@@ -10,6 +10,18 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
         public DocumentDto? verificacion_documento { get; set; }
     }
 
+    public class MedioVerificacionDocumentUploadRequest
+    {
+        public DateTime? fecha_reg { get; set; } = DateTime.Now;
+        public string? filename { get; set; }
+        public string? base64content { get; set; }
+    }
+
+    public class MedioVerificacionDocumentUploadResponse
+    {
+        public string? filekey { get; set; }
+    }
+
     public class MedioVerificacionInsertRequest
     {
         public string? serialKey { get; set; }

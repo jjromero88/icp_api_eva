@@ -11,9 +11,8 @@ namespace PCM.SIP.ICP.EVA.Transversal.Common
             var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
             _config = builder.Build();
         }
+        public static int medioVerificacionDocumentAbsoluteExpiration => int.TryParse(_config["CacheConfiguration:DocumentoMedioVerificacion:absoluteExpiration"], out var value) ? value : 120;
+        public static int medioVerificacionDocumentSlidingExpiration => int.TryParse(_config["CacheConfiguration:DocumentoMedioVerificacion:slidingExpiration"], out var value) ? value : 60;
 
-        public static string CodigoSectorista => _config["IcpProfiles:CodSectorista"] ?? string.Empty;
-        public static string CodigoSupervisor => _config["IcpProfiles:CodSupervisor"] ?? string.Empty;
-        public static string CodigoEvaluador => _config["IcpProfiles:CodEvaluador"] ?? string.Empty;
     }
 }

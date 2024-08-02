@@ -30,6 +30,9 @@ namespace PCM.SIP.ICP.EVA.Api.Modules.Validator
             services.AddTransient<IValidator<ReportResultadosEtapaRequest>, ReportResultadosEtapaRequestValidator>();
             services.AddTransient<ReportValidationManager>();
 
+            services.AddTransient<IValidator<MedioVerificacionDocumentUploadRequest>, MedioVerificacionDocumentUploadRequestValidator>();
+            services.AddTransient<MedioVerificacionValidationManager>();
+
             return services;
         }
     }
