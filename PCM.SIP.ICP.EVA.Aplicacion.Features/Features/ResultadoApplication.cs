@@ -18,28 +18,31 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
         private readonly IMapper _mapper;
         private readonly IAppLogger<ResultadoApplication> _logger;
         private readonly IUserSessionService _userSessionService;
+        private readonly IRedisCacheService _redisCacheService;
 
         public ResultadoApplication(
-            IUnitOfWork unitOfWork, 
-            IMapper mapper, 
-            IAppLogger<ResultadoApplication> logger, 
-            IUserSessionService userSessionService)
+            IUnitOfWork unitOfWork,
+            IMapper mapper,
+            IAppLogger<ResultadoApplication> logger,
+            IUserSessionService userSessionService,
+            IRedisCacheService redisCacheService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _logger = logger;
             _userSessionService = userSessionService;
+            _redisCacheService = redisCacheService;
         }
 
         public async Task<PcmResponse> Insert(Request<List<ResultadoDto>> request)
         {
-            try 
+            try
             {
                 // declaramos la lista de resultados
                 List<Resultado> listaResultados = new List<Resultado>();
 
                 // recorremos la lista de resultados
-                foreach(var itemRequest in request.entidad)
+                foreach (var itemRequest in request.entidad)
                 {
                     // mapeamos al tipo resultado
                     var entidad = _mapper.Map<Resultado>(itemRequest);
@@ -55,7 +58,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                     {
                         List<MedioVerificacion> listaMedioVerificacion = new List<MedioVerificacion>();
 
-                        foreach(var medioRequest in itemRequest.lista_medioverificacion)
+                        foreach (var medioRequest in itemRequest.lista_medioverificacion)
                         {
                             // mapeamos el medio de verificacion
                             var entidadMedio = _mapper.Map<MedioVerificacion>(medioRequest);
@@ -64,14 +67,26 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                             entidadMedio.medioverificacion_id = DencryptOrNull(entidadMedio.serialKey);
                             entidadMedio.resultado_id = DencryptOrNull(entidadMedio.resultadokey);
 
-                            // obtenemos el elemento del documento
-                            var documento = medioRequest.verificacion_documento;
+                            // verificamos si hay un key para un documento en cache
+                            if (!string.IsNullOrEmpty(medioRequest.documentocachekey))
+                            {
+                                // obtenemos el documento de la cache
+                                var documento = await _redisCacheService.GetAsync<MedioVerificacionDocumentUploadRequest>(medioRequest.documentocachekey);
 
-                            // guardamos el documento del medio de verificacion y obtenemos las propiedades json
-                            entidadMedio.verificacion_doc = documento?.base64content == null ? null : await _unitOfWork.Document.SaveDocumentAsync(documento.filename, documento.base64content, PathKey.DocMedioVerificacion);
+                                if (documento != null)
+                                {
+                                    // seteamos la fecha de registro
+                                    entidadMedio.fecha_reg = documento?.fecha_reg ?? DateTime.Now;
 
-                            // agregamos el medio de verificacion
-                            listaMedioVerificacion.Add(entidadMedio);
+                                    // guardamos el documento del medio de verificacion y obtenemos las propiedades json
+                                    entidadMedio.verificacion_doc = documento?.base64content == null ? null :
+                                                                    await _unitOfWork.Document.SaveDocumentAsync(documento.filename ?? Guid.NewGuid().ToString(),
+                                                                                                                 documento.base64content,
+                                                                                                                 PathKey.DocMedioVerificacion);
+                                    // agregamos el medio de verificacion
+                                    listaMedioVerificacion.Add(entidadMedio);
+                                }
+                            }
                         }
 
                         // Convertimos la lista de medios de verificación a JSON
@@ -162,7 +177,7 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                 _logger.LogError(ex.Message);
                 return ResponseUtil.InternalError(message: ex.Message);
             }
-        } 
+        }
 
         private List<MedioVerificacion> DeserializeMediosVerificacion(string listaMedioverificacion)
         {

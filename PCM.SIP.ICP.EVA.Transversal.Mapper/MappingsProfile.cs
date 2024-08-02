@@ -549,7 +549,7 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
             CreateMap<MedioVerificacionDto, MedioVerificacionInsertRequest>().ReverseMap()
             .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
             .ForMember(destination => destination.resultadokey, source => source.MapFrom(src => src.resultadokey))
-            .ForMember(destination => destination.verificacion_documento, source => source.MapFrom(src => src.verificacion_documento));
+            .ForMember(destination => destination.documentocachekey, source => source.MapFrom(src => src.documentocachekey));
 
             CreateMap<MedioVerificacionDto, MedioVerificacionResponse>().ReverseMap()
             .ForMember(destination => destination.serialKey, source => source.MapFrom(src => src.serialKey))
