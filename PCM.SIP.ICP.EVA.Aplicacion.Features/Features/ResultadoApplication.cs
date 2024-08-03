@@ -61,11 +61,11 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                         foreach (var medioRequest in itemRequest.lista_medioverificacion)
                         {
                             // mapeamos el medio de verificacion
-                            var entidadMedio = _mapper.Map<MedioVerificacion>(medioRequest);
+                            var medioVerificacion = _mapper.Map<MedioVerificacion>(medioRequest);
 
                             // desencriptamos el id si lo tuviera
-                            entidadMedio.medioverificacion_id = DencryptOrNull(entidadMedio.serialKey);
-                            entidadMedio.resultado_id = DencryptOrNull(entidadMedio.resultadokey);
+                            medioVerificacion.medioverificacion_id = DencryptOrNull(medioVerificacion.serialKey);
+                            medioVerificacion.resultado_id = DencryptOrNull(medioVerificacion.resultadokey);
 
                             // verificamos si hay un key para un documento en cache
                             if (!string.IsNullOrEmpty(medioRequest.documentocachekey))
@@ -76,17 +76,18 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Features
                                 if (documento != null)
                                 {
                                     // seteamos la fecha de registro
-                                    entidadMedio.fecha_reg = documento?.fecha_reg ?? DateTime.Now;
+                                    medioVerificacion.fecha_reg = documento?.fecha_reg ?? DateTime.Now;
 
                                     // guardamos el documento del medio de verificacion y obtenemos las propiedades json
-                                    entidadMedio.verificacion_doc = documento?.base64content == null ? null :
+                                    medioVerificacion.verificacion_doc = documento?.base64content == null ? null :
                                                                     await _unitOfWork.Document.SaveDocumentAsync(documento.filename ?? Guid.NewGuid().ToString(),
                                                                                                                  documento.base64content,
-                                                                                                                 PathKey.DocMedioVerificacion);
-                                    // agregamos el medio de verificacion
-                                    listaMedioVerificacion.Add(entidadMedio);
-                                }
+                                                                                                                 PathKey.DocMedioVerificacion);                                   
+                                }                                
                             }
+
+                            // agregamos el medio de verificacion
+                            listaMedioVerificacion.Add(medioVerificacion);
                         }
 
                         // Convertimos la lista de medios de verificación a JSON
