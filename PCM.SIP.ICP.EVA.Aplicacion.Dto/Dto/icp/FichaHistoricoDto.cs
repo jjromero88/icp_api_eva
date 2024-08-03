@@ -18,10 +18,6 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
         public DocumentDto? ficha_documento { get; set; }
     }
 
-    public class GenerarFichaHistoricoRequest
-    {
-        public string? comentarios { get; set; }
-    }
     public class AprobarFichaHistoricoRequest
     {
         public string? comentarios { get; set; }

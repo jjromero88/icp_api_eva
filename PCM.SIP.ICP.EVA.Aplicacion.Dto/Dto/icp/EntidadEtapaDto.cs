@@ -20,12 +20,6 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Dto
         public string? entidadkey { get; set; }
         public FichaEstadosResponse? fichaestado { get; set; }
     }
-
-    public class GenerarFichaRequest
-    {
-        public string? serialKey { get; set; }
-        public GenerarFichaHistoricoRequest? fichahistorico { get; set; }
-    }
     public class AprobarFichaRequest
     {
         public string? serialKey { get; set; }
