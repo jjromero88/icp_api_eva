@@ -25,11 +25,6 @@ namespace PCM.SIP.ICP.EVA.Api.Modules.Validator
             services.AddTransient<IValidator<EntidadIdRequestDto>, EntidadIdRequestValidator>();
             services.AddTransient<EntidadValidationManager>();
 
-            services.AddTransient<IValidator<ReportEtapasComponenteRequest>, ReportEtapasComponenteRequestValidator>();
-            services.AddTransient<IValidator<ReportGrupoEntidadesRequest>, ReportGrupoEntidadesRequestValidator>();
-            services.AddTransient<IValidator<ReportResultadosEtapaRequest>, ReportResultadosEtapaRequestValidator>();
-            services.AddTransient<ReportValidationManager>();
-
             services.AddTransient<IValidator<MedioVerificacionDocumentUploadRequest>, MedioVerificacionDocumentUploadRequestValidator>();
             services.AddTransient<MedioVerificacionValidationManager>();
 

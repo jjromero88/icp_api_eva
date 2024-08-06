@@ -11,7 +11,6 @@ namespace PCM.SIP.ICP.EVA.Persistence.Repository.Base
         public IResultadoRepository Resultado { get; }
         public IDocumentRepository Document { get; }
         public IEntidadEtapaRepository EntidadEtapa { get; }
-        public IReportesRepository Reportes { get; }
 
         public UnitOfWork(
             IEvaluacionRepository evaluacion,
@@ -19,8 +18,7 @@ namespace PCM.SIP.ICP.EVA.Persistence.Repository.Base
             IPreguntaEtapaRepository preguntaEtapa,
             IResultadoRepository resultado,
             IDocumentRepository document,
-            IEntidadEtapaRepository entidadEtapa,
-            IReportesRepository reportes
+            IEntidadEtapaRepository entidadEtapa
             )
         {
             Evaluacion = evaluacion;
@@ -29,7 +27,6 @@ namespace PCM.SIP.ICP.EVA.Persistence.Repository.Base
             Resultado = resultado;
             Document = document;
             EntidadEtapa = entidadEtapa;
-            Reportes = reportes;
         }
 
         public void Dispose()

@@ -10,7 +10,6 @@ namespace PCM.SIP.ICP.EVA.Aplicacion.Interface
         IPreguntaEtapaRepository PreguntaEtapa { get; }
         IResultadoRepository Resultado { get; }
         IEntidadEtapaRepository EntidadEtapa { get; }
-        IReportesRepository Reportes { get; }
     }
 
 }

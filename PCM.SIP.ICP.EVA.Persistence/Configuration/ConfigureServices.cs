@@ -19,7 +19,6 @@ namespace PCM.SIP.ICP.EVA.Persistence
             services.AddScoped<IPreguntaEtapaRepository, PreguntaEtapaRepository>();
             services.AddScoped<IResultadoRepository, ResultadoRepository>();
             services.AddScoped<IEntidadEtapaRepository, EntidadEtapaRepository>();
-            services.AddScoped<IReportesRepository, ReportesRepository>();
 
             return services;
         }

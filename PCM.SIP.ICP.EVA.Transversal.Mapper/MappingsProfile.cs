@@ -711,45 +711,6 @@ namespace PCM.SIP.ICP.EVA.Transversal.Mapper
 
             #endregion
 
-            #region Report
-
-            CreateMap<ReportDataDto, ReporteAgrupadoPorEtapasRequest>().ReverseMap()
-            .ForMember(destination => destination.evaluacionkey, source => source.MapFrom(src => src.evaluacionkey))
-            .ForMember(destination => destination.etapakey, source => source.MapFrom(src => src.etapakey))
-            .ForMember(destination => destination.entidadkey, source => source.MapFrom(src => src.entidadkey));
-
-            CreateMap<ReporteAgrupadoPorEtapasResponse, TotalEntidadesResponse>().ReverseMap()
-            .ForMember(destination => destination.etapa, source => source.MapFrom(src => src.etapa))
-            .ForMember(destination => destination.avance, source => source.MapFrom(src => src.avance))
-            .ForMember(destination => destination.brecha, source => source.MapFrom(src => src.brecha));
-
-            CreateMap<ReportDataDto, ReporteGrupoEntidadesRequest>().ReverseMap()
-            .ForMember(destination => destination.evaluacionkey, source => source.MapFrom(src => src.evaluacionkey))
-            .ForMember(destination => destination.etapakey, source => source.MapFrom(src => src.etapakey))
-            .ForMember(destination => destination.entidadgrupokey, source => source.MapFrom(src => src.entidadgrupokey));
-
-            CreateMap<ReporteGrupoEntidadesResponse, GrupoEntidadesResponse>().ReverseMap()
-            .ForMember(destination => destination.grupo, source => source.MapFrom(src => src.grupo))
-            .ForMember(destination => destination.etapa_abreviatura, source => source.MapFrom(src => src.etapa_abreviatura))
-            .ForMember(destination => destination.etapa_nombre, source => source.MapFrom(src => src.etapa_nombre))
-            .ForMember(destination => destination.avance, source => source.MapFrom(src => src.avance))
-            .ForMember(destination => destination.brecha, source => source.MapFrom(src => src.brecha));
-
-            CreateMap<ReportDataDto, ReporteGrupoEtapasComponentesRequest>().ReverseMap()
-           .ForMember(destination => destination.evaluacionkey, source => source.MapFrom(src => src.evaluacionkey))
-           .ForMember(destination => destination.etapakey, source => source.MapFrom(src => src.etapakey))
-            .ForMember(destination => destination.componentekey, source => source.MapFrom(src => src.componentekey))
-           .ForMember(destination => destination.entidadkey, source => source.MapFrom(src => src.entidadkey));
-
-            CreateMap<ReporteGrupoEtapasComponentesResponse, GrupoEtapasComponentesResponse>().ReverseMap()
-           .ForMember(destination => destination.etapa_abreviatura, source => source.MapFrom(src => src.etapa_abreviatura))
-           .ForMember(destination => destination.etapa_nombre, source => source.MapFrom(src => src.etapa_nombre))
-           .ForMember(destination => destination.etapa_descripcion, source => source.MapFrom(src => src.etapa_descripcion))
-           .ForMember(destination => destination.componente_nombre, source => source.MapFrom(src => src.componente_nombre))
-           .ForMember(destination => destination.resultado, source => source.MapFrom(src => src.resultado));
-
-            #endregion
-
         }
     }
 }
