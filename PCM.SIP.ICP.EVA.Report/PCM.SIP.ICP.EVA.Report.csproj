@@ -70,6 +70,7 @@
     </Compile>
     <EmbeddedResource Include="Reports\RptEtapaComponente.rdlc" />
     <EmbeddedResource Include="Reports\RptGrupoEntidades.rdlc" />
+    <EmbeddedResource Include="Reports\RptResultadosComponentePorEntidad.rdlc" />
     <EmbeddedResource Include="Reports\RptResultadosEtapa.rdlc" />
     <EmbeddedResource Include="Reports\RptResultadosPorSector.rdlc" />
     <None Include="Properties\DataSources\EtapasComponente.datasource" />
