@@ -57,6 +57,7 @@
     <Compile Include="Models\ResultadoPorSectorComponente.cs" />
     <Compile Include="Models\ResultadoPorSectorTotal.cs" />
     <Compile Include="Models\ResultadoPromedioComponentes.cs" />
+    <Compile Include="Models\ResultadoSectores.cs" />
     <Compile Include="Models\ResultadosEtapaGroup.cs" />
     <Compile Include="Models\ResultadosPorComponente.cs" />
     <Compile Include="Program.cs" />
@@ -70,6 +71,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Reports\RptComponentesPorGrupo.rdlc" />
     <EmbeddedResource Include="Reports\RptEtapaComponente.rdlc" />
     <EmbeddedResource Include="Reports\RptGrupoEntidades.rdlc" />
     <EmbeddedResource Include="Reports\RptResultadosComponentePorEntidad.rdlc" />
@@ -81,6 +83,7 @@
     <None Include="Properties\DataSources\ResultadoPorSectorComponente.datasource" />
     <None Include="Properties\DataSources\ResultadoPorSectorTotal.datasource" />
     <None Include="Properties\DataSources\ResultadoPromedioComponentes.datasource" />
+    <None Include="Properties\DataSources\ResultadoSectores.datasource" />
     <None Include="Properties\DataSources\ResultadosEtapaGroup.datasource" />
     <None Include="Properties\DataSources\ResultadosPorComponente.datasource" />
     <None Include="Properties\DataSources\ResultadoTotalComponente.datasource" />
